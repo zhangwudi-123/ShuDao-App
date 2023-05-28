@@ -1,0 +1,77 @@
+.card-box {
+  margin-bottom: 16px;
+  :global {
+    .card {
+      margin: 0;
+    }
+    .card-content-padding {
+      padding: 12px 16px;
+    }
+  }
+}
+.card-ul {
+  width: 100%;
+  height: auto;
+  list-style: none;
+  padding: 16px 16px;
+  margin: 0;
+  box-sizing: border-box;
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .li-title {
+      font-size: 20px;
+      font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+      font-weight: 400;
+      color: #333333;
+      line-height: 30px;
+    }
+    .li-status {
+      width: 42px;
+      height: 18px;
+      border-radius: 4px;
+      background: #e1edff;
+      margin-top: 2px;
+      font-size: 12px;
+      line-height: 18px;
+      text-align: center;
+    }
+    .li-next-title {
+      font-size: 14px;
+      font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+      font-weight: 400;
+      color: #595959;
+      line-height: 21px;
+    }
+    .li-next-title:first-child {
+      color: rgba(89, 89, 89, 0.7);
+    }
+    .li-next-title:last-child {
+      color: #595959;
+    }
+  }
+  .li-button {
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+
+    .baseButton {
+      width: 100px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 400;
+      font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+    }
+    .delete-button {
+      background: #ffdad4;
+      color: #d83333;
+    }
+    .confirm-button {
+      background: #d8e5f5;
+      color: #255cb2;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.navigateCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardFullName {
+  height: 21px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  text-align: start;
+  font-size: 14px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #595959;
+  line-height: 21px;
+}
+.navigate {
+  :global {
+    .block {
+      padding-top: 16px;
+      padding-bottom: 0px;
+
+      margin-bottom: 16px !important;
+    }
+    .col-25 {
+      margin-bottom: 16px;
+    }
+  }
+}

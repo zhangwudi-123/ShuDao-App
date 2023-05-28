@@ -1,0 +1,291 @@
+.nav-left {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+.detail-bottom {
+  width: 100%;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  padding: 6px 16px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  .bottom-btn-add {
+    margin-right: 8px;
+    height: 44px;
+    flex: 1;
+    line-height: 44px;
+    border-radius: 22px 22px 22px 22px;
+    background: #d8e5f5;
+    font-size: 20px;
+    font-weight: var(--ne-bottom-btn-font-weight);
+    color: #255cb2;
+    text-align: center;
+  }
+  .bottom-btn-confirm,
+  .bottom-btn-disabled {
+    margin-left: 8px;
+    flex: 1;
+    height: 44px;
+    line-height: 44px;
+    background: linear-gradient(174deg, #3a86d1 0%, #2164c9 100%);
+    border-radius: 22px 22px 22px 22px;
+    color: #fff;
+    font-weight: var(--ne-bottom-btn-font-weight);
+    font-size: 20px;
+    text-align: center;
+  }
+  .bottom-btn-disabled {
+    background: #e4e4eb;
+    color: rgba(89, 89, 89, 0.4);
+  }
+}
+.detail-title {
+  margin: 0 0 0 16px;
+  box-sizing: border-box;
+  font-family: PingFang SC-Medium, PingFang SC;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 8px;
+  width: 311px;
+  line-height: 18px;
+}
+.toastError {
+  width: calc(100% - 32px) !important;
+  background: transparent !important;
+  left: 16px !important;
+  border-radius: 8px 8px 8px 8px;
+  top: 44px !important;
+  :global {
+    .toast-content {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      border-radius: 8px 8px 8px 8px;
+      width: 100%;
+      background: #d83333;
+      box-shadow: 0px 4px 8px 1px rgba(142, 158, 183, 0.05);
+      height: 77px;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      .toast-text {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.toastSuccess {
+  width: calc(100% - 32px) !important;
+  background: transparent !important;
+  left: 16px !important;
+  border-radius: 8px 8px 8px 8px;
+  text-align: center;
+  top: 44px !important;
+  :global {
+    .toast-content {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      border-radius: 8px 8px 8px 8px;
+      width: 100%;
+      background: #42bb9e;
+      box-shadow: 0px 4px 8px 1px rgba(142, 158, 183, 0.05);
+      height: 77px;
+      opacity: 0.8;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      .toast-text {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.toastWarn {
+  width: calc(100% - 32px) !important;
+  background: transparent !important;
+  left: 16px !important;
+  border-radius: 8px 8px 8px 8px;
+  text-align: center;
+  top: 44px !important;
+  :global {
+    .toast-content {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      border-radius: 8px 8px 8px 8px;
+      width: 100%;
+      background: #ffac38;
+      box-shadow: 0px 4px 8px 1px rgba(142, 158, 183, 0.05);
+      height: 77px;
+      opacity: 0.8;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      .toast-text {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.card-box {
+  margin: 0;
+  margin-bottom: 16px;
+  padding: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 72px;
+  background: #ffffff;
+  .search-box {
+    display: flex;
+    .input-style {
+      width: 240px;
+      height: 40px;
+      line-height: 40px;
+      background: #f0f3fb;
+      border-radius: 6px 0 0 6px;
+      :global {
+        input {
+          height: 40px;
+          font-size: 16px;
+          color: #333333;
+          padding: 8px 12px;
+        }
+      }
+    }
+    .search-btn {
+      width: calc(100% - 240px);
+      height: 40px;
+      line-height: 40px;
+      background: linear-gradient(174deg, #3a86d1 0%, #2164c9 100%);
+      border-radius: 0px 6px 6px 0px;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}
+.empty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.demo-sheet {
+  height: 400px;
+  border-radius: 8px 8px 0 0;
+  .sheet-top {
+    height: 48px;
+    width: 100%;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: center;
+    .sheet-top-close {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      color: #5f5f5f;
+      font-size: 16px;
+    }
+    .sheet-top-title {
+      height: 40px;
+      line-height: 40px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #333333;
+      margin-top: 8px;
+    }
+  }
+  .bottom-btn {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    border-radius: 44px;
+    background: linear-gradient(174deg, #3a86d1 0%, #2164c9 100%);
+    font-size: 16px;
+  }
+  .sheet-content {
+    width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    line-height: 40px;
+    margin-top: 16px;
+    span {
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(89, 89, 89, 0.7);
+    }
+    .input-style {
+      width: 230px;
+      height: 40px;
+      line-height: 40px;
+      background: #f0f3fb;
+      border-radius: 8px;
+      :global {
+        input {
+          height: 40px;
+          font-size: 26px;
+          font-weight: 600;
+          color: #333333;
+          padding: 8px 12px;
+        }
+      }
+    }
+  }
+  .btn-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 16px;
+    .cancel-btn,
+    .confirm-btn {
+      width: 45%;
+      height: 44px;
+      line-height: 44px;
+      border-radius: 44px;
+      font-size: 16px;
+    }
+    .confirm-btn {
+      background: linear-gradient(174deg, #3a86d1 0%, #2164c9 100%);
+      color: #fff;
+    }
+  }
+  .sheet-list {
+    margin-top: 0;
+    :global {
+      ul:before {
+        background-color: #fff;
+      }
+    }
+  }
+}
+.pageContainer {
+  :global {
+    .page-content {
+      padding-top: 44px !important;
+    }
+  }
+}

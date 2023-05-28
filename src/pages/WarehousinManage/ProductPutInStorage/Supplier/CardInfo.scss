@@ -1,0 +1,56 @@
+.card-box {
+    margin-bottom: 16px;
+    :global {
+        .card{
+            margin: 0
+        }
+        .card-content-padding{
+            padding: 12px 16px
+        }
+       
+    }
+    .before-box{
+        display: flex;
+        padding-left: 12px;
+        .before-box-checkbox{
+            display: flex;
+            align-items: center;
+            .before-select, .selected{
+              width: 24px;
+              height: 24px;
+              line-height: 24px;
+              background: #FFFFFF;
+              opacity: 1;
+              border: 1px solid #D2D2D2;
+              border-radius: 12px
+            }
+            .selected{
+              background: #255CB2;
+              text-align: center;
+              color: #fff;
+            }
+
+        }
+
+    }
+}
+.card-ul{
+    width: 100%;
+    height: auto;
+    list-style: none;
+    padding: 12px 16px;
+    margin: 0;
+    box-sizing: border-box;
+    li{
+        display: flex;
+        justify-content: space-between;
+        .li-title{
+            font-size: 18px;
+            font-weight: 500;
+            color: #333333;
+        }
+        .li-next-title{
+            color: #595959
+        }
+    }
+}

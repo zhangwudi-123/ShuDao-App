@@ -1,0 +1,20 @@
+{
+  "git": {
+    "requireCleanWorkingDir": false,
+    "requireUpstream": false,
+    "commitMessage": "chore: Release ${version} [ci skip]"
+  },
+  "gitlab": {
+    "release": true,
+    "origin": "https://git.hipermatic.com"
+  },
+  "hooks": {
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md"
+    }
+  }
+}

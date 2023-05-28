@@ -1,0 +1,75 @@
+{
+  "name": "@hvisions/app-wms",
+  "publishConfig": {
+    "registry": "https://registry.hipermatic.com/"
+  },
+  "author": "hvisions-fe <development@h-visions.com>",
+  "version": "1.0.5-alpha.7",
+  "main": "lib/main.js",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "@hvisions/needle-service": "2.0.46",
+    "@ionic-native/camera": "^5.16.0",
+    "@ionic-native/core": "^5.15.1",
+    "@ionic-native/image-picker": "^5.16.0",
+    "@ionic-native/qr-scanner": "^5.17.0",
+    "@release-it/conventional-changelog": "^1.1.0",
+    "axios": "0.18.1",
+    "b64-to-blob": "^1.2.19",
+    "classnames": "^2.2.6",
+    "cross-env": "6.0.3",
+    "lodash": "4.17.15",
+    "moment": "2.24.0",
+    "node-sass": "4.12.0",
+    "react": "^16.10.2",
+    "react-circular-progressbar": "^2.0.3",
+    "react-dom": "^16.10.2",
+    "react-intl-universal": "2.2.1",
+    "react-redux": "8.0.1",
+    "redux": "4.0.4",
+    "redux-actions": "2.6.5",
+    "redux-thunk": "2.3.0",
+    "release-it": "^13.3.2",
+    "reselect": "4.0.0",
+    "shortid": "^2.2.15",
+    "dotenv-cli": "^4.0.0"
+  },
+  "scripts": {
+    "start": "needle-service start",
+    "build": "cross-env NODE_OPTIONS=--max_old_space_size=4096 needle-service build",
+    "build-lib": "needle-service build-lib",
+    "lint": "eslint \"src/**/*.js\"",
+    "test": "needle-service test",
+    "release": "dotenv release-it --"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@hvisions/eslint-config-react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=8.10"
+  },
+  "dependencies": {
+    "@hvisions/app-core": "2.0.63-alpha.4",
+    "@hvisions/f-ui": "1.0.8-alpha.3",
+    "@hvisions/toolkit": "0.3.34",
+    "antd-mobile": "^5.30.0",
+    "react-window": "^1.8.5",
+    "react-window-infinite-loader": "^1.0.5"
+  }
+}

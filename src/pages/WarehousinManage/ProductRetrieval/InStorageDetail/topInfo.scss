@@ -1,0 +1,105 @@
+.card-box {
+  :global {
+    .card {
+      margin: 0;
+      margin-top: 16px;
+    }
+    .card-content-padding {
+      padding: 16px 16px;
+    }
+    .item-inner {
+      margin-right: 16px;
+      margin-top: 12px;
+      margin-bottom: 9px;
+      height: 36px;
+      background: #f0f3fb;
+      border-radius: 8px 8px 8px 8px;
+    }
+    .item-inner .item-input-wrap {
+      margin-left: 12px;
+    }
+  }
+  margin-bottom: 16px;
+}
+.li-title {
+  font-size: 20px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: 500;
+  color: #333333;
+  line-height: 30px;
+}
+
+.top-save {
+  width: 48%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #255cb2;
+  background: #d8e5f5;
+  border-radius: 16px 16px 16px 16px;
+}
+.list-item {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 16px;
+  .title {
+    font-size: 14px;
+    font-family: PingFang SC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(89, 89, 89, 0.7);
+    line-height: 21px;
+  }
+  .content {
+    font-size: 14px;
+    font-family: PingFang SC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #595959;
+    line-height: 21px;
+  }
+}
+.state {
+  width: 100px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  background: #d8e5f5;
+  border-radius: 16px 16px 16px 16px;
+  color: #255cb2;
+  font-size: 16px;
+  font-weight: 500;
+}
+.li-btn {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-sizing: border-box;
+  .bottom-btn-confirm,
+  .bottom-btn-disabled {
+    flex: 1;
+    margin-left: 8px;
+    height: 40px;
+    line-height: 40px;
+    background: linear-gradient(174deg, #3a86d1 0%, #2164c9 100%);
+    border-radius: 22px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+  }
+  .top-save {
+    flex: 1;
+    margin-right: 8px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #255cb2;
+    background: #d8e5f5;
+    border-radius: 22px;
+  }
+  .bottom-btn-disabled {
+    background: #e4e4eb;
+    color: rgba(89, 89, 89, 0.4);
+  }
+}

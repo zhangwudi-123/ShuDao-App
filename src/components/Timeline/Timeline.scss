@@ -1,0 +1,69 @@
+.timeline {
+  box-sizing: border-box;
+  color: #333;
+  font-feature-settings: 'tnum';
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+
+  .item {
+    font-size: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 20px;
+    position: relative;
+
+    .tail {
+      border-left: 2px solid  #e8e8e8;
+      height: 100%;
+      left: 6px;
+      position: absolute;
+      top: 0.75em;
+    }
+
+    .icon {
+      background-color: #fff;
+      border-radius: 100px;
+      border: 2px solid #1890ff;
+      color: #1890ff;
+      height: 10px;
+      position: absolute;
+      width: 10px;
+
+      &.customIcon {
+        border-radius: 0;
+        border: 0;
+        height: auto;
+        left: 5px;
+        line-height: 1;
+        margin-top: 0;
+        // padding: 3px 1px;
+        position: absolute;
+        text-align: center;
+        top: 5.5px;
+        transform: translate(-50%, -50%);
+        width: auto;
+      }
+    }
+
+    .content {
+      margin: 0 0 0 18px;
+      position: relative;
+      top: -6px;
+      font-size: 12px;
+      color :#707070;
+    }
+
+    &:last-child {
+      .content {
+        min-height: 48px;
+      }
+      .tail {
+        display: none;
+      }
+    }
+  }
+}
