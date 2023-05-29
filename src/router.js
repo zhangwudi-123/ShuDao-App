@@ -47,8 +47,10 @@ import YWPackRecordDetail from './pages/PackRecord/Detail';
 import RawMaterialWarehousing from '~/pages/RawMaterialWarehousing';
 import RawMaterialWarehousingManual from '~/pages/RawMaterialWarehousing/Manual';
 //备料位托盘管理
-import MaterialPreparation from './pages/MaterialPreparation';
+import MaterialPreparation from './pages/MaterialPreparation/index';
 
+//接驳口托盘管理
+import DockingPort from './pages/DockingPort/index';
 export default [
   {
     path: '/raw-material-warehousing',
@@ -61,6 +63,10 @@ export default [
   {
     path: '/material-preparation',
     component: MaterialPreparation
+  },
+  {
+    path: '/docking-port',
+    component: DockingPort
   },
 
   {

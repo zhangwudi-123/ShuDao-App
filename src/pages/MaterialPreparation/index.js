@@ -14,7 +14,7 @@ import { Skeleton, Empty } from '~/components';
 
 import PrepareAreaServices from '~/api/PrepareArea';
 import { PrepareAreaState } from '~/enum/enum';
-
+  
 const getFormattedMsg = i18n.getFormattedMsg;
 
 const MaterialPreparation = ({ f7router }) => {
