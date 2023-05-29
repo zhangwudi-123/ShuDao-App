@@ -58,16 +58,12 @@ class TransferBoxServices extends Service {
 
   //获取中转箱分页数据
   async getPage(data) {
-    // try {
       return await this.post(`${appName}/transferBox/getPage`, {
         ...data,
         direction: false,
         sort: true,
         sortCol: 'id'
       });
-    // } catch (error) {
-    //   throw new Error(error);
-    // }
   }
 
   // 托盘绑定

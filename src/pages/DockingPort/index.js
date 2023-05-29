@@ -1,21 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle,ListInput,List, Icon,PageContent, Button,Input, Form} from '@hvisions/f-ui';
+import { Page, Navbar, NavLeft, NavTitle, BlockTitle,ListInput,List, Icon,PageContent, Button,} from '@hvisions/f-ui';
 import {   Sheet,  f7,} from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
-import { i18n,  } from '@hvisions/toolkit';
 import { onToast, createDialog } from '~/util/home';
 import useDebounce from '~/Hook/useDebounce';
-import RawMaterialWarehousingApi from '~/api/RawMaterialWarehousing';
-import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
 import { isEmpty } from 'lodash';
 import CardInfo from './CardInfo';
 import { Skeleton, Empty } from '~/components';
-
-import PrepareAreaServices from '~/api/PrepareArea';
-import { PrepareAreaState } from '~/enum/enum';
-  
-const getFormattedMsg = i18n.getFormattedMsg;
+import joinAreaServices from '~/api/joinArea';
+import { dockingPointState } from '~/enum/enum';
 
 const DockingPort = ({ f7router }) => {
   const countRef = useRef(10);
@@ -32,8 +26,8 @@ const DockingPort = ({ f7router }) => {
   const [trayNumber, setTrayNumber] = useState('');
 
   const [updateSheetOpen, setUpdateSheetOpen] = useState(false);
-  const [areaState, setAreaState] = useState(1);
-  const [areaCode, setAreaCode] = useState();
+  const [joinState, setJoinState] = useState(1);
+  const [joinCode, setJoinCode] = useState();
 
   useEffect(() => {
     const load = async () => {
@@ -45,19 +39,14 @@ const DockingPort = ({ f7router }) => {
   
   useEffect(() => {
  
-  }, [trayNumber,areaState]);
+  }, [trayNumber,joinState]);
 
   const loadData = async keyWord => {
     setLoading(true);
-    const searchData = {
-      // receiptNumber: keyWord,
-      pageSize: countRef.current,
-    };
-    await PrepareAreaServices
-      .findByArea(searchData)
+    await joinAreaServices
+      .findJoin()
       .then(res => {
-        setList(res.content);
-        setTotal(res.totalElements);
+        setList(res);
       })
       .catch(err => {
         onToast(err.message, styles.toastError);
@@ -104,13 +93,11 @@ const DockingPort = ({ f7router }) => {
         <CardInfo
           key={value.id}
           item={value}
+          setJoinCode={setJoinCode}
+          loadData={loadData}
+          setJoinState={setJoinState}
           setBindingSheetOpen={setBindingSheetOpen}
-          trayNumber={trayNumber}
-          setTrayNumber={setTrayNumber}
-          setUpdateSheetOpen={setUpdateSheetOpen}
-          setAreaState={setAreaState}
-          setAreaCode={setAreaCode}
-          onHandleRefresh={onHandleRefresh}
+          setUpdateSheetOpen={setUpdateSheetOpen}       
         />
       ))
     ) : (
@@ -126,10 +113,10 @@ const DockingPort = ({ f7router }) => {
   }
 
   const BindingSave = async()=>{
-    await PrepareAreaServices.addTransfer(areaCode, trayNumber)
+    await joinAreaServices.addTransfer(joinCode, trayNumber)
       .then(res => {
         onToast('托盘绑定成功', styles.toastSuccess);
-        loadData(selectValue);
+        loadData();
         bindingSheetClosed()
       }).catch(err => {
         onToast(err.message, styles.toastError);
@@ -141,7 +128,7 @@ const DockingPort = ({ f7router }) => {
   }
 
   const updateStateSave =async()=>{
-    await PrepareAreaServices.updateState(areaCode, areaState)
+    await joinAreaServices.updateState(joinCode, joinState)
       .then(res => {
         onToast('状态更新成功', styles.toastSuccess);
         updateSheetClosed()
@@ -159,33 +146,13 @@ const DockingPort = ({ f7router }) => {
             <img alt="" style={{ height: 24 }} src={backIcon} />
           </a>
         </NavLeft>
-        <NavTitle>备料位托盘管理</NavTitle>
-        <NavRight className={styles['nav-right']}>
-          <Link
-            searchbarEnable=".searchbar-demo"
-            iconIos="f7:search"
-            iconAurora="f7:search"
-            iconMd="material:search"
-          ></Link>
-        </NavRight>
-        <Searchbar
-          className="searchbar-demo"
-          placeholder="请输入备料区编码"
-          expandable
-          searchContainer=".search-list"
-          searchIn=".item-title"
-          onChange={onChangeSelect}
-          onClickClear={onChangeSelect}
-          onClickDisable={handleClickDisable}
-          disableButtonText="取消"
-          style={{ fontSize: 13 }}
-        ></Searchbar>
+        <NavTitle>接驳口托盘管理</NavTitle>
       </Navbar>
       <PageContent
         infinite
         infiniteDistance={50}
         infinitePreloader={showPreloader}
-        onInfinite={loadMore}
+        // onInfinite={loadMore}
         ptrPreloader={ptrPreloader}
         ptr
         onPtrRefresh={onHandleRefresh}
@@ -235,24 +202,24 @@ const DockingPort = ({ f7router }) => {
         onSheetClosed={updateSheetClosed}
         backdrop
       >
-        <BlockTitle>更新备料口状态</BlockTitle>
+        <BlockTitle>更新接驳口状态</BlockTitle>
         <List strongIos dividersIos insetIos style={{ padding: '0 16px' }}>
           <ListInput
-            label="备料区状态"
-            placeholder="请输入备料区状态"
+            label="接驳口状态"
+            placeholder="请输入接驳口状态"
             required
             // validate
             // clearButton
             type="select"
-            defaultValue={areaState}
+            defaultValue={joinState}
             onChange={(e)=>{
-              console.log('备料区状态',e.target.value);
-              setAreaState(e.target.value)
+              console.log('接驳口状态',e.target.value);
+              setJoinState(e.target.value)
             }}
-            value={areaState}
+            value={joinState}
           >
             <Icon icon="demo-list-icon" slot="media" />
-            {PrepareAreaState.map((value, index) => (
+            {dockingPointState.map((value, index) => (
                 <option  value={value.id} key={value.id}>
                   {value.name}
                 </option>

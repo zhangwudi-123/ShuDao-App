@@ -12,9 +12,12 @@ import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
 
+
+import TransferBoxServices from '~/api/TransferBox';
+
 const getFormattedMsg = i18n.getFormattedMsg;
 
-const RawMaterialWarehousing = ({ f7router }) => {
+const PalletManagement = ({ f7router }) => {
   const [tabKey, setTabKey] = useState(0);
   
   const countRef = useRef(10);
@@ -49,12 +52,12 @@ const RawMaterialWarehousing = ({ f7router }) => {
   const loadData = async keyWord => {
     setLoading(true);
     const searchData = {
-      receiptNumber: keyWord,
+      code: keyWord,
       pageSize: countRef.current,
-      state: tabKey,
+      type: tabKey,
     };
-    await RawMaterialWarehousingApi
-      .getByQuery(searchData)
+    await TransferBoxServices
+      .getPage(searchData)
       .then(res => {
         setList(res.content);
         setTotal(res.totalElements);
@@ -96,6 +99,24 @@ const RawMaterialWarehousing = ({ f7router }) => {
     await setPtrPreloader(false);
     await done();
   };
+
+  const renderCardList = () =>
+  !loading ? (
+    !isEmpty(list) ? (
+      list.map(value => (
+        <CardInfo
+          key={value.id}
+          item={value}
+          handleWeighing={handleWeighing}
+          handleWarehousing={handleWarehousing}
+        />
+      ))
+    ) : (
+      <Empty />
+    )
+  ) : (
+    <Skeleton />
+  );
 
   const handleAutomatic = ()=>{
     createDialog(
@@ -139,23 +160,7 @@ const RawMaterialWarehousing = ({ f7router }) => {
     setCreateSheetOpen(true)
   }
 
-  const renderCardList = () =>
-  !loading ? (
-    !isEmpty(list) ? (
-      list.map(value => (
-        <CardInfo
-          key={value.id}
-          item={value}
-          handleWeighing={handleWeighing}
-          handleWarehousing={handleWarehousing}
-        />
-      ))
-    ) : (
-      <Empty />
-    )
-  ) : (
-    <Skeleton />
-  );
+
 
   const handleSave = async () => {
     console.log('createSheetValue', createSheetValue);
@@ -214,7 +219,7 @@ const RawMaterialWarehousing = ({ f7router }) => {
             <img alt="" style={{ height: 24 }} src={backIcon} />
           </a>
         </NavLeft>
-        <NavTitle>原材料收料单</NavTitle>
+        <NavTitle>托盘管理</NavTitle>
         <NavRight className={styles['nav-right']}>
           <Link
             searchbarEnable=".searchbar-demo"
@@ -225,7 +230,7 @@ const RawMaterialWarehousing = ({ f7router }) => {
         </NavRight>
         <Searchbar
           className="searchbar-demo"
-          placeholder="请输入收料单号"
+          placeholder="请输入托盘号"
           expandable
           searchContainer=".search-list"
           searchIn=".item-title"
@@ -238,13 +243,10 @@ const RawMaterialWarehousing = ({ f7router }) => {
       </Navbar>
       <Toolbar tabbar top noHairline className="ne-top-tab">
         <Link tabLink="#tab-1" onClick={() => setTabKey(0)} tabLinkActive ={tabKey == 0 }>
-          新建
+        原料托盘
         </Link>
         <Link tabLink="#tab-2" onClick={() => setTabKey(1)} tabLinkActive ={tabKey == 1 }>
-          称重中
-        </Link>
-        <Link tabLink="#tab-3" onClick={() => setTabKey(2)} tabLinkActive ={tabKey == 2 }>
-          已完成
+        半成品托盘
         </Link>
       </Toolbar>
       <PageContent
@@ -276,17 +278,10 @@ const RawMaterialWarehousing = ({ f7router }) => {
             >
               {renderCardList()}
             </Tab>
-            <Tab
-              id="tab-3"
-              className={`${styles.content} page-content`}
-              style={{ paddingTop: '0' }}
-            >
-              {renderCardList()}
-            </Tab>
           </Tabs>
         </div>
       </PageContent>
-      <div className={styles['detail-bottom']}>
+      {/* <div className={styles['detail-bottom']}>
         {tabKey == 0 && <Button className={styles['bottom-btn-confirm']}  onClick={() => handleAutomatic()} >
           {getFormattedMsg('RawMaterialWarehousing.button.automatic')}
         </Button>}
@@ -296,13 +291,7 @@ const RawMaterialWarehousing = ({ f7router }) => {
         {tabKey == 0 && <Button className={styles['bottom-btn-confirm']}  onClick={() => handleBinding()}>
           {getFormattedMsg('RawMaterialWarehousing.button.binding')}
         </Button>}
-        {/* {tabKey == 0 && <Button className={styles['bottom-btn-confirm']}  onClick={() => handleWeighing()} >
-          {getFormattedMsg('RawMaterialWarehousing.button.weighing')}
-        </Button>} */}
-        {/* {tabKey == 1 && <Button className={styles['bottom-btn-one']}  onClick={() => handleWarehousing()} >
-          {getFormattedMsg('RawMaterialWarehousing.button.warehousing')}
-        </Button>} */}
-      </div>
+      </div>*/}
       <Sheet
         className={styles['add-sheet']}
         opened={createSheetOpen}
@@ -356,4 +345,4 @@ const RawMaterialWarehousing = ({ f7router }) => {
   );
 };
 
-export default RawMaterialWarehousing;
+export default PalletManagement;

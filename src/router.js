@@ -51,6 +51,10 @@ import MaterialPreparation from './pages/MaterialPreparation/index';
 
 //接驳口托盘管理
 import DockingPort from './pages/DockingPort/index';
+
+//托盘管理
+import PalletManagement from './pages/PalletManagement/index';
+
 export default [
   {
     path: '/raw-material-warehousing',
@@ -67,6 +71,10 @@ export default [
   {
     path: '/docking-port',
     component: DockingPort
+  },
+  {
+    path: '/pallet-management',
+    component: PalletManagement
   },
 
   {
