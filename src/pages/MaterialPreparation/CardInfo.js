@@ -15,7 +15,8 @@ const CardInfo = ({
   setUpdateSheetOpen,
   setAreaState,
   setAreaCode,
-  onHandleRefresh,
+  selectValue,
+  loadData,
   }) => {
 
   const [style, setStyle] = useState();
@@ -60,7 +61,7 @@ const CardInfo = ({
     await PrepareAreaServices.updatePrepareArea(data)
       .then(res => {
         onToast('修改成功', styles.toastSuccess);
-        onHandleRefresh;
+        loadData(selectValue);
       })
       .catch(err => {
         onToast(err.message, styles.toastError);

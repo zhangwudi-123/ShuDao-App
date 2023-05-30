@@ -109,7 +109,7 @@ const CardInfo = ({ item, handleWeighing,handleWarehousing }) => {
         </ul>
       </Card>
       <Sheet
-        style={{ height: 'auto' }}
+        style={{ height: '500px' }}
         swipeToClose
         push
         backdrop

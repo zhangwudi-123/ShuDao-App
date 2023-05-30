@@ -110,7 +110,8 @@ const MaterialPreparation = ({ f7router }) => {
           setUpdateSheetOpen={setUpdateSheetOpen}
           setAreaState={setAreaState}
           setAreaCode={setAreaCode}
-          onHandleRefresh={onHandleRefresh}
+          selectValue={selectValue}
+          loadData={loadData}
         />
       ))
     ) : (

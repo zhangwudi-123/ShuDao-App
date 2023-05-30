@@ -43,9 +43,7 @@ import YWBatchScan from '~/pages/BatchScan';
 import YWPackRecord from '~/pages/PackRecord';
 import YWPackRecordDetail from './pages/PackRecord/Detail';
 
-//原料入库
-import RawMaterialWarehousing from '~/pages/RawMaterialWarehousing';
-import RawMaterialWarehousingManual from '~/pages/RawMaterialWarehousing/Manual';
+
 //备料位托盘管理
 import MaterialPreparation from './pages/MaterialPreparation/index';
 
@@ -55,15 +53,22 @@ import DockingPort from './pages/DockingPort/index';
 //托盘管理
 import PalletManagement from './pages/PalletManagement/index';
 
+//空托盘入库
+import EmptyPalletsWarehousing from './pages/EmptyPalletWarehousing/index';
+
+//空托盘出库
+import EmptyPalletDelivery from './pages/EmptyPalletDelivery/index';
+
+//原料入库
+import RawMaterialWarehousing from '~/pages/RawMaterialWarehousing/index';
+import RawMaterialWarehousingManual from '~/pages/RawMaterialWarehousing/Manual';
+
+//原料出库
+import RawMaterialDelivery from '~/pages/RawMaterialDelivery/index';
+
+
 export default [
-  {
-    path: '/raw-material-warehousing',
-    component: RawMaterialWarehousing
-  },
-  {
-    path: '/raw-material-warehousing-manual',
-    component: RawMaterialWarehousingManual
-  },
+
   {
     path: '/material-preparation',
     component: MaterialPreparation
@@ -75,6 +80,26 @@ export default [
   {
     path: '/pallet-management',
     component: PalletManagement
+  },
+  {
+    path: '/empty-pallets-warehousing',
+    component: EmptyPalletsWarehousing
+  },
+  {
+    path: '/empty-pallets-delivery',
+    component: EmptyPalletDelivery
+  },
+  {
+    path: '/raw-material-warehousing',
+    component: RawMaterialWarehousing
+  },
+  {
+    path: '/raw-material-warehousing-manual',
+    component: RawMaterialWarehousingManual
+  },
+  {
+    path: '/raw-material-delivery',
+    component: RawMaterialDelivery
   },
 
   {

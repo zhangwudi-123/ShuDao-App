@@ -1,25 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle,ListInput,List, Icon,PageContent, Button,Input, Form} from '@hvisions/f-ui';
-import {   Sheet,  f7,} from 'framework7-react';
+import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle, ListInput, List, Icon, PageContent, Button, Input, Form } from '@hvisions/f-ui';
+import { Sheet, f7, } from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
-import { i18n,  } from '@hvisions/toolkit';
+import { i18n, } from '@hvisions/toolkit';
 import { onToast, createDialog } from '~/util/home';
 import useDebounce from '~/Hook/useDebounce';
 import RawMaterialWarehousingApi from '~/api/RawMaterialWarehousing';
-import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
+
 import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
 
 
 import TransferBoxServices from '~/api/TransferBox';
-
-const getFormattedMsg = i18n.getFormattedMsg;
+import { emptyInMid } from '~/enum/enum';
+import EmptyPalletsWarehousingApi from '~/api/EmptyPalletsWarehousing';
+import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
+import waresLocationApi from '~/api/waresLocation';
 
 const PalletManagement = ({ f7router }) => {
   const [tabKey, setTabKey] = useState(0);
-  
+
   const countRef = useRef(10);
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
@@ -30,13 +32,16 @@ const PalletManagement = ({ f7router }) => {
   const [allowInfinite, setAllowInfinite] = useState(true);
   const [ptrPreloader, setPtrPreloader] = useState(false);
 
-  const [createSheetOpen, setCreateSheetOpen] = useState(false);
-  const [createSheetValue, setCreateSheetValue] = useState({
-    tyayNumber:'',rawMaterial:'',
-  });
-  const [tyayNumber, setTyayNumber] = useState('');
-  const [rawMaterial, setRawMaterial] = useState('');
+  const [putSheetOpen, setPutSheetOpen] = useState(false);
+  const [putSheetType, setPutSheetType] = useState('');
+  const [sheetData, setSheetData] = useState({});
+  const [origin, setOrigin] = useState();
+  const [middle, setMiddle] = useState('J001');
+  const [destination, setDestination] = useState();
 
+  const [bindingSheetOpen, setBindingSheetOpen] = useState(false);
+  const [locationList, setLocationList] = useState([])
+  const [location, setLocation] = useState('');
 
   useEffect(() => {
     const load = async () => {
@@ -46,8 +51,8 @@ const PalletManagement = ({ f7router }) => {
   }, [tabKey, debounceSelectValue]);
 
   useEffect(() => {
- 
-  }, [createSheetValue]);
+    handleSearchLocation()
+  }, [])
 
   const loadData = async keyWord => {
     setLoading(true);
@@ -101,112 +106,101 @@ const PalletManagement = ({ f7router }) => {
   };
 
   const renderCardList = () =>
-  !loading ? (
-    !isEmpty(list) ? (
-      list.map(value => (
-        <CardInfo
-          key={value.id}
-          item={value}
-          handleWeighing={handleWeighing}
-          handleWarehousing={handleWarehousing}
-        />
-      ))
+    !loading ? (
+      !isEmpty(list) ? (
+        list.map(value => (
+          <CardInfo
+            key={value.id}
+            item={value}
+            setPutSheetType={setPutSheetType}
+            setPutSheetOpen={setPutSheetOpen}
+            setSheetData={setSheetData}
+            setBindingSheetOpen={setBindingSheetOpen}
+            selectValue={selectValue}
+            loadData={loadData}
+          />
+        ))
+      ) : (
+        <Empty />
+      )
     ) : (
-      <Empty />
-    )
-  ) : (
-    <Skeleton />
-  );
-
-  const handleAutomatic = ()=>{
-    createDialog(
-      '托盘自动下架',
-      '确认开始托盘自动下架流程？',
-      function() {
-        try {
-          Automatic()
-          // onToast('托盘自动下架成功', styles.toastSuccess);
-        } catch (error) {
-          console.log('error',error);
-          onToast('托盘自动下架失败', styles.toastError);
-        }
-      }
+      <Skeleton />
     );
+
+  const putSheetClosed = () => {
+    setPutSheetOpen(false);
+    setSheetData({})
   }
-
-  const Automatic = async () => {
-    const data ={
-      destination:'原材料组托点',
-      middle:'J001',
-      taskType:6, //原料托盘出库
-      transferType:0 //原料托盘
-    }
-    await EmptyPalletDeliveryApi.autoTransferOut(data)
-    .then(res=>{
-      onToast('托盘自动下架成功', styles.toastSuccess);
-      loadData(selectValue);
-    })
-    .catch(err=>{
-      onToast(err.message, styles.toastError);
-    })
-    //托盘出库   托盘自动出库
-  }
-
-  const handleManual = ()=>{
-    f7router.navigate('/raw-material-warehousing-manual', { });
-  }
-
-  const handleBinding = ()=>{
-    setCreateSheetOpen(true)
-  }
-
-
 
   const handleSave = async () => {
-    console.log('createSheetValue', createSheetValue);
-    const params = createSheetValue;
-    await RawMaterialWarehousingApi
-      .bindRawMaterial(params)
-      .then(res => {
-        onToast('托盘物料绑定成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
-      addSheetClosed()
+    console.log('origin', origin);
+    console.log('middle', middle);
+    console.log('destination', destination);
+
+    const params = {
+      transferType: sheetData.type
+    };
+    //上架
+    if (putSheetType == 'ON') {
+      params.origin = origin
+      params.middle = middle
+      // { id: 5, name: '原料托盘回库', value: '原料托盘回库', },
+      // { id: 7, name: '半成品托盘回库', value: '半成品托盘回库', },
+      params.taskType = tabKey.type == 0 ? 5 : 7
+      console.log('params', params);
+      await EmptyPalletsWarehousingApi
+        .autoTransferIn(params)
+        .then(res => {
+          onToast('托盘上架成功', styles.toastSuccess);
+        })
+        .catch(err => {
+          onToast(err.message, styles.toastError);
+        });
+    }
+    //下架
+    if (putSheetType == 'OFF') {
+      const params = {};
+      // { id: 6, name: '原料托盘出库', value: '原料托盘出库', },
+      // { id: 8, name: '半成品托盘出库', value: '半成品托盘出库', },
+      params.taskType = tabKey.type == 1 ? 6 : 8
+      console.log('params', params);
+      await EmptyPalletDeliveryApi
+        .autoTransferOut(params)
+        .then(res => {
+          onToast('托盘下架成功', styles.toastSuccess);
+        })
+        .catch(err => {
+          onToast(err.message, styles.toastError);
+        });
+    }
+    putSheetClosed()
+    onHandleRefresh()
   }
 
-  const addSheetClosed =()=>{
-    setCreateSheetOpen(false);
-    setCreateSheetValue({})
-    setTyayNumber('')
-    setRawMaterial('')
-  }
-
-  const handleWeighing = async(record)=>{
-    setTabKey(1)
-    const weighingId = record.id
-    await RawMaterialWarehousingApi
-    .getWeigh(weighingId)
-    .then(res => {
-      onToast('称重成功', styles.toastSuccess);
-      loadData(selectValue);
+  const handleSearchLocation = async (param) => {
+    const params = {
+      code: param,
+      pageSize: 10,
+      page: 0
+    }
+    await waresLocationApi.getLocationByQuery(params).then(res => {
+      setLocationList(res.content)
+      setLocation(res.content[0].id)
     })
-    .catch(err => {
-      onToast(err.message, styles.toastError);
-    });
   }
 
-  const handleWarehousing = async (record) => {
-    const InstorId = record.id
-    await RawMaterialWarehousingApi
-      .inStore(InstorId)
+  const bindingSheetClosed =()=>{
+    setLocation('');
+    setBindingSheetOpen(false);
+  }
+
+  const BindingSave = async()=>{
+    await TransferBoxServices.lockLocation(location, sheetData.id)
       .then(res => {
-        onToast('入库成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
+        onToast('绑定成功', styles.toastSuccess);
+        onHandleRefresh()
+        bindingSheetClosed()
+      }).catch(err => {
         onToast(err.message, styles.toastError);
       });
   }
@@ -242,11 +236,11 @@ const PalletManagement = ({ f7router }) => {
         ></Searchbar>
       </Navbar>
       <Toolbar tabbar top noHairline className="ne-top-tab">
-        <Link tabLink="#tab-1" onClick={() => setTabKey(0)} tabLinkActive ={tabKey == 0 }>
-        原料托盘
+        <Link tabLink="#tab-1" onClick={() => setTabKey(0)} tabLinkActive={tabKey == 0}>
+          原料托盘
         </Link>
-        <Link tabLink="#tab-2" onClick={() => setTabKey(1)} tabLinkActive ={tabKey == 1 }>
-        半成品托盘
+        <Link tabLink="#tab-2" onClick={() => setTabKey(1)} tabLinkActive={tabKey == 1}>
+          半成品托盘
         </Link>
       </Toolbar>
       <PageContent
@@ -281,62 +275,91 @@ const PalletManagement = ({ f7router }) => {
           </Tabs>
         </div>
       </PageContent>
-      {/* <div className={styles['detail-bottom']}>
-        {tabKey == 0 && <Button className={styles['bottom-btn-confirm']}  onClick={() => handleAutomatic()} >
-          {getFormattedMsg('RawMaterialWarehousing.button.automatic')}
-        </Button>}
-        {tabKey == 0 && <Button className={styles['bottom-btn-confirm']}  onClick={() => handleManual()} >
-          {getFormattedMsg('RawMaterialWarehousing.button.manual')}
-        </Button>}
-        {tabKey == 0 && <Button className={styles['bottom-btn-confirm']}  onClick={() => handleBinding()}>
-          {getFormattedMsg('RawMaterialWarehousing.button.binding')}
-        </Button>}
-      </div>*/}
       <Sheet
         className={styles['add-sheet']}
-        opened={createSheetOpen}
-        onSheetClosed={addSheetClosed}
+        opened={putSheetOpen}
+        onSheetClosed={putSheetClosed}
         backdrop
       >
-        <BlockTitle>托盘物料绑定</BlockTitle>
+        <BlockTitle>{putSheetType == 'ON' ? '托盘上架' : '托盘下架'}</BlockTitle>
+        <List strongIos dividersIos insetIos style={{ padding: '0 16px' }}>
+          {putSheetType == 'ON' && <ListInput
+            key={'origin'}
+            label="起点"
+            type="text"
+            placeholder="请输入起点"
+            required
+            onChange={(e) => {
+              setOrigin(e.target.value)
+            }}
+            value={origin}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListInput>}
+          <ListInput
+            key={'middle'}
+            label="中间点"
+            type="select"
+            placeholder="请选择中间点"
+            required
+            defaultValue={middle}
+            onChange={(e) => {
+              setMiddle(e.target.value)
+            }}
+            value={middle}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+            {emptyInMid.map((value, index) => (
+              <option value={value.value} key={value.id}>
+                {value.value}
+              </option>
+            ))}
+          </ListInput>
+          {putSheetType == 'OFF' && <ListInput
+            key={'destination'}
+            label="终点"
+            type="text"
+            placeholder="请输入终点"
+            required
+            onChange={(e) => {
+              setDestination(e.target.value)
+            }}
+            value={destination}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListInput>}
+          <Button className={styles['save-btn']} fill round onClick={handleSave}>
+            保存
+          </Button>
+        </List>
+      </Sheet>
+      <Sheet
+        className={styles['add-sheet']}
+        opened={bindingSheetOpen}
+        onSheetClosed={bindingSheetClosed}
+        backdrop
+      >
+        <BlockTitle>绑定库位</BlockTitle>
         <List strongIos dividersIos insetIos style={{ padding: '0 16px' }}>
           <ListInput
-          key={'addSheet'}
-            label="托盘号"
-            type="text"
-            placeholder="请输入托盘号"
+            label="库位号"
+            type="select"
+            placeholder="请输入库位号"
             required
             validate
-            clearButton
             onChange={(e)=>{
-              const v = createSheetValue
-              v.tyayNumber = e.target.value
-              setCreateSheetValue(v)
-              setTyayNumber(e.target.value)
+              setLocation(e.target.value)
             }}
-            value={tyayNumber}
+            value={location}
           >
             <Icon icon="demo-list-icon" slot="media" />
+            {locationList.map((value, index) => (
+              <option value={value.id} key={value.id}>
+                {value.code} -- {value.name}
+              </option>
+            ))}
           </ListInput>
-          <ListInput
-            label="原料"
-            type="text"
-            placeholder="请输入原料"
-            required
-            validate
-            clearButton
-            onChange={(e)=>{
-              const v = createSheetValue
-              v.rawMaterial = e.target.value
-              setCreateSheetValue(v)
-              setRawMaterial(e.target.value)
-            }}
-            value={rawMaterial}
-          >
-            <Icon icon="demo-list-icon" slot="media" />
-          </ListInput>
-
-            <Button className={styles['save-btn']} fill round onClick={handleSave}>
+            <Button className={styles['save-btn']} fill round onClick={BindingSave}>
               保存
             </Button>
         </List>
