@@ -14,7 +14,7 @@ import { Skeleton, Empty } from '~/components';
 
 const getFormattedMsg = i18n.getFormattedMsg;
 
-const RawMaterialDelivery = ({ f7router }) => {
+const SemiFinishedDelivery = ({ f7router }) => {
   const [tabKey, setTabKey] = useState(0);
 
   const countRef = useRef(10);
@@ -375,4 +375,4 @@ const RawMaterialDelivery = ({ f7router }) => {
   );
 };
 
-export default RawMaterialDelivery;
+export default SemiFinishedDelivery;

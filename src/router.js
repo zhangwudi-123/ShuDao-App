@@ -59,13 +59,18 @@ import EmptyPalletsWarehousing from './pages/EmptyPalletWarehousing/index';
 //空托盘出库
 import EmptyPalletDelivery from './pages/EmptyPalletDelivery/index';
 
-//原料入库
+//原材料入库收料单
 import RawMaterialWarehousing from '~/pages/RawMaterialWarehousing/index';
 import RawMaterialWarehousingManual from '~/pages/RawMaterialWarehousing/Manual';
 
-//原料出库
+//原材料出库订单管理
 import RawMaterialDelivery from '~/pages/RawMaterialDelivery/index';
 
+//半成品入库收料单
+import SemiFinishedWarehousing from './pages/SemiFinishedWarehousing/index';
+
+//半成品出库托盘拣选
+import SemiFinishedDelivery from './pages/SemiFinishedDelivery/index';  
 
 export default [
 
@@ -100,6 +105,14 @@ export default [
   {
     path: '/raw-material-delivery',
     component: RawMaterialDelivery
+  },
+  {
+    path: '/semi-finished-warehousing',
+    component: SemiFinishedWarehousing
+  },
+  {
+    path: '/semi-finished-delivery',
+    component: SemiFinishedDelivery
   },
 
   {

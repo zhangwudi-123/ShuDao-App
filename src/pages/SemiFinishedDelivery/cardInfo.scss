@@ -1,0 +1,98 @@
+.card-box {
+  margin-bottom: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  :global {
+    .card {
+      margin: 0;
+    }
+    .card-content-padding {
+      padding: 12px 16px;
+    }
+  }
+}
+.card-button{
+  height: auto;
+  background-color: white;
+}
+.card-ul {
+  width: 100%;
+  height: auto;
+  list-style: none;
+  padding: 16px 16px;
+  margin: 0;
+  box-sizing: border-box;
+  li {
+    display: flex;
+    justify-content: space-between;
+    .li-title {
+      font-size: 20px;
+      font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+      font-weight: 400;
+      color: #333333;
+      line-height: 30px;
+    }
+    .li-status {
+      width: 42px;
+      height: 18px;
+      border-radius: 4px;
+      margin-top: 2px;
+      font-size: 12px;
+      line-height: 18px;
+      text-align: center;
+      color: #ffffff;
+    }
+    .li-next-title {
+      font-size: 14px;
+      font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+      font-weight: 400;
+      line-height: 21px;
+    }
+    .li-next-title:first-child {
+      color: rgba(89, 89, 89, 0.7);
+    }
+    .li-next-title:last-child {
+      color: #595959;
+    }
+
+    .delete-button {
+      width: 99px;
+      height: 32px;
+      background: #ffdad4;
+      border-radius: 16px 16px 16px 16px;
+      margin-top: 8px;
+      margin-left: 8px;
+      font-size: 14px;
+      font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+      font-weight: 400;
+      color: #d83333;
+      line-height: 32px;
+    }
+
+    .weighing-button{
+      width: 100px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      background: #ffdad4;
+      color: #d83333;
+    }
+
+    .warehousing-button{
+      width: 100px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      background: #d8e5f5;
+      color: #255cb2;
+    }
+  }
+  .li-button {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
