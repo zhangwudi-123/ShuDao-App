@@ -71,7 +71,10 @@ import SemiFinishedWarehousing from './pages/SemiFinishedWarehousing/index';
 import SemiFinishedWarehousingPick from './pages/SemiFinishedWarehousing/PickTray';
 
 //半成品出库托盘拣选
-import SemiFinishedDelivery from './pages/SemiFinishedDelivery/index';  
+import SemiFinishedDelivery from './pages/SemiFinishedDelivery/index'; 
+
+//折弯机配置
+import BendingConfiguration from './pages/BendingConfiguration/index';
 
 export default [
 
@@ -119,6 +122,12 @@ export default [
     path: '/semi-finished-delivery',
     component: SemiFinishedDelivery
   },
+  {
+    path: '/bending-configuration',
+    component: BendingConfiguration
+  },
+
+  
 
   {
     path: '/scan',
