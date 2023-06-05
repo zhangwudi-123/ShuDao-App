@@ -16,7 +16,8 @@
   background-color: white;
 }
 .card-ul {
-  width: 100%;
+  // width: 100%;
+  width: -webkit-fill-available;
   height: auto;
   list-style: none;
   padding: 16px 16px;
@@ -94,5 +95,126 @@
   .li-button {
     display: flex;
     justify-content: flex-end;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  div {
+    // width: 70px;
+    height: auto;
+    // padding-right: 16px;
+    // text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .div-ul {
+    display: table-cell;
+    vertical-align: middle;
+    padding: inherit;
+    padding-right: 16px;
+  }
+}
+
+
+.toastError {
+  // width: calc(100% - 32px) !important;
+  background: transparent !important;
+  border-radius: 8px 8px 8px 8px;
+  position: 'center';
+  top: 44px !important;
+  text-align: center;
+
+  :global {
+    .toast-content {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      border-radius: 8px 8px 8px 8px;
+      width: 100%;
+      background: #d83333;
+      box-shadow: 0px 4px 8px 1px rgba(142, 158, 183, 0.05);
+      height: 77px;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+
+      .toast-text {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.toastSuccess {
+  // width: calc(100% - 32px) !important;
+  background: transparent !important;
+  border-radius: 8px 8px 8px 8px;
+  position: 'center';
+  top: 44px !important;
+  text-align: center;
+
+  :global {
+    .toast-content {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      border-radius: 8px 8px 8px 8px;
+      width: 100%;
+      background: #42bb9e;
+      box-shadow: 0px 4px 8px 1px rgba(142, 158, 183, 0.05);
+      height: 77px;
+      opacity: 0.8;
+      text-align: center;
+      display: flex;
+      align-items: center;
+
+      .toast-text {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.toastWarn {
+  // width: calc(100% - 32px) !important;
+  background: transparent !important;
+  left: 16px !important;
+  border-radius: 8px 8px 8px 8px;
+  text-align: center;
+
+  :global {
+    .toast-content {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      border-radius: 8px 8px 8px 8px;
+      width: 100%;
+      background: #ffac38;
+      box-shadow: 0px 4px 8px 1px rgba(142, 158, 183, 0.05);
+      height: 77px;
+      opacity: 0.8;
+      text-align: center;
+      display: flex;
+      align-items: center;
+
+      .toast-text {
+        width: 100%;
+        text-align: center;
+      }
+    }
   }
 }

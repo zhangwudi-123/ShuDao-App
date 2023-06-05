@@ -70,7 +70,7 @@ const CardSheet = ({ item }) => {
     <PageContent>
       <ul className={styles['card-ul']}>
         <li>
-          <span className={styles['li-title']}>{item.name || ''}</span>
+          <span className={styles['li-title']}>{item.receiptNumber || ''}</span>
         </li>
         <List>
           {cardColumns.map((column, index) => {

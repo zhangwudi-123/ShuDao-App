@@ -4,7 +4,7 @@ import styles from './cardInfo.scss';
 import { onToast, createDialog } from '~/util/home';
 import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
 
-const CardInfo = ({ item, loadData, f7router }) => {
+const CardInfo = ({ item, loadData, f7router,setCallSheetOpen,setTrayNumber }) => {
   const newStyle = {
     background: '#ffdad4',
     color: '#d83333'
@@ -54,21 +54,20 @@ const CardInfo = ({ item, loadData, f7router }) => {
           <span className={styles['li-next-title']}>{item.code || ''}</span>
         </li>
         <li>
-          <span className={styles['li-next-title']}>任务状态</span>
-          <span className={styles['li-next-title']}>{item.taskStatus || ''}</span>
+          <span className={styles['li-next-title']}>库位号</span>
+          <span className={styles['li-next-title']}>{item.location || ''}</span>
         </li>
         <li>
-          <span className={styles['li-next-title']}>托盘状态</span>
-          <span
-            className={styles['li-status']}
-            style={item.state == '空闲' ? newStyle : onGoingStyle}
-          >
-            {item.state || ''}
-          </span>
+          <span className={styles['li-next-title']}>属性2</span>
+          <span className={styles['li-next-title']}>{item.attributeTwo || ''}</span>
+        </li>
+        <li>
+          <span className={styles['li-next-title']}>原捡料点</span>
+          <span className={styles['li-next-title']}>{item.sortPosition || ''}</span>
         </li>
       </ul>
       <div className={styles['card-div']}>
-        <Button fill round className={styles['bottom-btn-confirm']} onClick={handleSaveManual}>
+        <Button fill round className={styles['bottom-btn-confirm']} onClick={()=>{setCallSheetOpen(true),setTrayNumber(item.code)}}>
           下架
         </Button>
       </div>

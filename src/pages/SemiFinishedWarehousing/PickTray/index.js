@@ -8,7 +8,7 @@ import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
 import TransferBoxServices from '~/api/TransferBox';
 
-const Manual = ({ f7router}) => {
+const PickTray = ({ f7router,setCallSheetOpen ,setTrayNumber}) => {
   const countRef = useRef(10);
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
@@ -25,7 +25,7 @@ const Manual = ({ f7router}) => {
     setLoading(true);
     const searchData = {
       pageSize: countRef.current,
-      type: 0 ,
+      type: 1 ,
     };
     await TransferBoxServices.getPage(searchData)
     .then(res => {
@@ -67,6 +67,8 @@ const Manual = ({ f7router}) => {
           item={value}
           loadData={loadData}
           f7router={f7router}
+          setCallSheetOpen={setCallSheetOpen}
+          setTrayNumber={setTrayNumber}
         />
       ))
     ) : (
@@ -84,7 +86,7 @@ const Manual = ({ f7router}) => {
             <img alt="" style={{ height: 24 }} src={backIcon} />
           </a>
         </NavLeft>
-        <NavTitle>手动托盘下架</NavTitle>
+        <NavTitle>挑选托盘</NavTitle>
       </Navbar>
       <PageContent
         infinite
@@ -111,4 +113,4 @@ const Manual = ({ f7router}) => {
   );
 };
 
-export default Manual;
+export default PickTray;

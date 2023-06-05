@@ -5,79 +5,60 @@ import { PageContent, List, ListItem } from 'framework7-react';
 const CardSheet = ({ item }) => {
   const cardColumns = [
     {
-      title: '切割机',
-      dataIndex: 'cuttingMachine',
-      key: 'cuttingMachine',
+      title: '托盘号',
+      dataIndex: 'trayNumber',
+      key: 'trayNumber',
       align: 'center',
     },
     {
-      title: '材料名称',
-      dataIndex: 'materialName',
-      key: 'materialName',
+      title: '库位号',
+      dataIndex: 'locationNumber',
+      key: 'locationNumber',
       align: 'center',
     },
     {
-      title: '材料编码',
-      dataIndex: 'materialCode',
-      key: 'materialCode',
+      title: '订单数量',
+      dataIndex: 'orderCount',
+      key: 'orderCount',
       align: 'center',
     },
     {
-      title: '材料大小 X',
-      dataIndex: 'materialSizeX',
-      key: 'materialSizeX',
+      title: '属性1',
+      dataIndex: 'attributeOneName',
+      key: 'attributeOneName',
       align: 'center',
     },
     {
-      title: '材料大小 Y',
-      dataIndex: 'materialSizeY',
-      key: 'materialSizeY',
+      title: '属性2',
+      dataIndex: 'attributeTwoName',
+      key: 'attributeTwoName',
+      align: 'center',
+    },
+    {
+      title: '入库时间',
+      dataIndex: 'intime',
+      key: 'intime',
       align: 'center',
     },
     {
       title: '材料规格',
-      dataIndex: 'materialSpecs',
-      key: 'materialSpecs',
+      dataIndex: 'receiptNumber',
+      key: 'receiptNumber',
       align: 'center',
     },
     {
-      title: '材料厚度',
-      dataIndex: 'materialThickness',
-      key: 'materialThickness',
+      title: '出库单号',
+      dataIndex: 'outOrderNumber',
+      key: 'outOrderNumber',
       align: 'center',
     },
-    {
-      title: '订单需求数量',
-      dataIndex: 'totalParts',
-      key: 'totalParts',
-      align: 'center',
-    },
-    {
-      title: '发货数量',
-      dataIndex: 'sendParts',
-      key: 'sendParts',
-      align: 'center',
-    },
-    {
-      title: '已完成数量',
-      dataIndex: 'finishNumber',
-      key: 'finishNumber',
-      align: 'center',
-    },
-    {
-      title: '剩余数量',
-      dataIndex: 'remainRuns',
-      key: 'remainRuns',
-      align: 'center',
-    },
-
   ];
 
   return (
     <PageContent>
       <ul className={styles['card-ul']}>
         <li>
-          <span className={styles['li-title']}>{item.name || ''}</span>
+          <span className={styles['li-title']}>{item.owNumber || ''}</span>
         </li>
         <List>
           {cardColumns.map((column, index) => {

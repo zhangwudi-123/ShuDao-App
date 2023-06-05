@@ -143,7 +143,8 @@
 }
 
 .toastError {
-  width: calc(100% - 32px) !important;
+  // width: calc(100% - 32px) !important;
+  width: 100%;
   background: transparent !important;
   border-radius: 8px 8px 8px 8px;
   position: 'center';
@@ -173,7 +174,8 @@
 }
 
 .toastSuccess {
-  width: calc(100% - 32px) !important;
+  // width: calc(100% - 32px) !important;
+  width: 100%;
   background: transparent !important;
   border-radius: 8px 8px 8px 8px;
   position: 'center';
@@ -204,7 +206,8 @@
 }
 
 .toastWarn {
-  width: calc(100% - 32px) !important;
+  // width: calc(100% - 32px) !important;
+  width: 100%;
   background: transparent !important;
   left: 16px !important;
   border-radius: 8px 8px 8px 8px;
@@ -436,6 +439,7 @@
     color: #fff;
     text-align: center;
     margin-top: 10px;
+
     span {
       font-size: 20px;
     }

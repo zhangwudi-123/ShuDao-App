@@ -12,8 +12,8 @@ import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
 import SemiFinishedWarehousingApi from '~/api/SemiFinishedWarehousing';
-import { attributeOne,attributeTwo,dockingPoints,sortPositions } from '~/enum/enum';
-
+import { attributeOne, attributeTwo, dockingPoints, sortPositions } from '~/enum/enum';
+import CallTraySheet from './callTraySheet';
 
 const getFormattedMsg = i18n.getFormattedMsg;
 
@@ -31,9 +31,11 @@ const SemiFinishedWarehousing = ({ f7router }) => {
   const [ptrPreloader, setPtrPreloader] = useState(false);
 
   const [callSheetOpen, setCallSheetOpen] = useState(false);
-  const [sortPosition, setSortPosition] = useState('');
-  const [dockingPoint, setDockingPoint] = useState('');
+  const [sortPosition, setSortPosition] = useState(sortPositions[0].value);
+  const [dockingPoint, setDockingPoint] = useState(dockingPoints[0].value);
 
+  const [pickTrayOpen, setPickTrayOpen] = useState(false);
+  const [trayNumber,setTrayNumber]= useState();
 
   useEffect(() => {
     const load = async () => {
@@ -52,23 +54,31 @@ const SemiFinishedWarehousing = ({ f7router }) => {
     await SemiFinishedWarehousingApi
       .getByQuery(searchData)
       .then(res => {
-        res.content.map(item=>{
+        res.content.map(item => {
           const text = item.attributeOne
-          let array = []
-          const arr = text.split(',');
-          arr.map(i => {
-            array = [...array, attributeOne[i - 1].name]
-          })
-          item.attributeOneName = text != null ?array.toString():''
-      
+          if (text != null) {
+            let array = []
+            const arr = text.split(',');
+            arr.map(i => {
+              array = [...array, attributeOne[i - 1].name]
+            })
+            item.attributeOneName = text != null ? array.toString() : ''
+          }
+
           const text2 = item.attributeTwo
-          item.attributeTwoName = text2 != null ?attributeTwo[text2 - 1].name:''
-      
+          if (text2 != null) {
+            item.attributeTwoName = text2 != null ? attributeTwo[text2 - 1].name : ''
+          }
+
           const text3 = item.dockingPoint
-          item.dockingPointName = text3 != null ?dockingPoints[text3 - 1].name:''
-      
+          if (text3 != null) {
+            item.dockingPointName = text3 != null ? dockingPoints[text3 - 1].name : ''
+          }
+
           const text4 = item.sortPosition
-          item.dockingPointName = text4 != null ?sortPositions[text4 - 1].name:''
+          if (text4 != null) {
+            item.dockingPointName = text4 != null ? sortPositions[text4 - 1].name : ''
+          }
         })
         setList(res.content);
         setTotal(res.totalElements);
@@ -221,23 +231,47 @@ const SemiFinishedWarehousing = ({ f7router }) => {
   //     });
   // }
 
-  const handleCallTray = ()=>{
+  const handleCallTray = () => {
     setCallSheetOpen(true)
+    setPickTrayOpen(false)
   }
 
-  const bindingSheetClosed = ()=>{
+  const callSheetClosed = () => {
     setCallSheetOpen(false)
     setSortPosition('')
     setDockingPoint('')
   }
 
-  const callTraySave =()=>{
-
+  const callTraySave = () => {
+    console.log('sortPosition', sortPosition);
+    console.log('dockingPoint', dockingPoint);
+    const data = {
+      destination: sortPosition,
+      middle: dockingPoint,
+      taskType: 8, //半成品托盘出库
+      transferType: 1 //半成品托盘
+    }
+    EmptyPalletDeliveryApi.autoTransferOut(data)
+      .then(res => {
+        onToast('出库成功', styles.toastSuccess);
+        onHandleRefresh()
+      })
+      .catch(err => {
+        onToast(err.message, styles.toastError);
+      })
+    callSheetClosed()
   }
 
-  const handlePickTray = ()=>{
-    
+  const handlePickTray = () => {
+    setPickTrayOpen(true)
+    f7router.navigate('/semi-finished-warehousing-pick', {
+      props:{
+        setCallSheetOpen,
+        setTrayNumber
+      }
+    });
   }
+
   return (
     <Page pageContent={false}>
       <Navbar>
@@ -329,10 +363,10 @@ const SemiFinishedWarehousing = ({ f7router }) => {
       <Sheet
         className={styles['add-sheet']}
         opened={callSheetOpen}
-        onSheetClosed={bindingSheetClosed}
+        onSheetClosed={callSheetClosed}
         backdrop
       >
-        <BlockTitle>空托呼叫</BlockTitle>
+        {/* <BlockTitle>空托呼叫</BlockTitle>
         <List strongIos dividersIos insetIos style={{ padding: '0 16px' }}>
           <ListInput
             label="分拣位置"
@@ -373,7 +407,16 @@ const SemiFinishedWarehousing = ({ f7router }) => {
             <Button className={styles['save-btn']} fill round onClick={callTraySave}>
               保存
             </Button>
-        </List>
+        </List> */}
+        <CallTraySheet
+          sortPosition={sortPosition}
+          setSortPosition={setSortPosition}
+          dockingPoint={dockingPoint}
+          setDockingPoint={setDockingPoint}
+          callTraySave={callTraySave}
+          pickTrayOpen={pickTrayOpen}
+          trayNumber={trayNumber}
+        />
       </Sheet>
     </Page>
   );

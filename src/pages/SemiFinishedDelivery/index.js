@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle, ListInput, List, Icon, PageContent, Button, Input, Form } from '@hvisions/f-ui';
-import { Sheet, f7, } from 'framework7-react';
+import {  Toolbar,  Link,  Tabs,  Tab,  Page,  Navbar,  NavLeft,  NavTitle,  NavRight,  Searchbar,  BlockTitle,  ListInput,  List,  Icon,  PageContent,  Button,  Input,  Form} from '@hvisions/f-ui';
+import { Sheet, f7 } from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
-import { i18n, } from '@hvisions/toolkit';
+import { i18n } from '@hvisions/toolkit';
 import { onToast, createDialog } from '~/util/home';
 import useDebounce from '~/Hook/useDebounce';
 import RawMaterialWarehousingApi from '~/api/RawMaterialWarehousing';
@@ -11,6 +11,9 @@ import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
 import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
+import SemiFinishedDeliveryApi from '~/api/SemiFinishedDelivery';
+import { attributeOne, attributeTwo, dockingPoints, sortPositions } from '~/enum/enum';
+import bendingMachineApi from '~/api/bendingMachine';
 
 const getFormattedMsg = i18n.getFormattedMsg;
 
@@ -27,12 +30,12 @@ const SemiFinishedDelivery = ({ f7router }) => {
   const [allowInfinite, setAllowInfinite] = useState(true);
   const [ptrPreloader, setPtrPreloader] = useState(false);
 
-  const [createSheetOpen, setCreateSheetOpen] = useState(false);
-  const [createSheetValue, setCreateSheetValue] = useState({
-    tyayNumber: '', rawMaterial: '',
-  });
-  const [tyayNumber, setTyayNumber] = useState('');
-  const [rawMaterial, setRawMaterial] = useState('');
+  const [outSheetOpen, setOutSheetOpen] = useState(false);
+  const [outSheetData, setOutSheetData] = useState({});
+
+  const [readyMaterials,setReadyMaterials] = useState('');
+  const [readyMaterialList, setReadyMaterialList] = useState([]);
+  const [dockingPoint, setDockingPoint] = useState('');
 
 
   useEffect(() => {
@@ -40,98 +43,67 @@ const SemiFinishedDelivery = ({ f7router }) => {
       await loadData(debounceSelectValue);
     };
     load();
-  }, [tabKey, debounceSelectValue]);
-
-  useEffect(() => {
-
-  }, [createSheetValue]);
+  }, [debounceSelectValue]);
 
   const loadData = async keyWord => {
     setLoading(true);
-    // const searchData = {
-    //   receiptNumber: keyWord,
-    //   pageSize: countRef.current,
-    //   state: tabKey,
-    // };
-    // await RawMaterialWarehousingApi
-    //   .getByQuery(searchData)
-    //   .then(res => {
-    //     setList(res.content);
-    //     setTotal(res.totalElements);
-    //   })
-    //   .catch(err => {
-    //     onToast(err.message, styles.toastError);
-    //   });
-    const data = [
-      {
-        id: 0,
-        name: 'D0001',
-        totalParts: 100,
-        sendParts: 100,
-        finishNumber: 50,
-        remainRuns: 50,
-        orderPriority: 1,
-        cuttingMachine: '切割机1',
-        materialCode: 'PR001',
-        materialName: '物料1',
-        materialSizeX: 50,
-        materialSizeY: 100,
-        materialSpecs: "50*100",
-        materialThickness: 3,
-        detail: [
+    const searchData = {
+      receiptNumber: keyWord,
+      pageSize: countRef.current
+    };
+    await SemiFinishedDeliveryApi.getByQuery(searchData)
+      .then(res => {
+        // setList(res.content);
+        // setTotal(res.totalElements);
+        const data = [
           {
-            id: 0,
-            trayNumber: 'D0001',
-            count: 100,
-            uesd: 50,
-            surplus: 50,
-            station: 1,
-          }, {
-            id: 1,
-            trayNumber: 'D0002',
-            count: 100,
-            uesd: 0,
-            surplus: 100,
-            station: 2,
-          }
-        ]
-      },
-      {
-        id: 1,
-        name: 'D0002',
-        totalParts: 100,
-        sendParts: 100,
-        finishNumber: 0,
-        remainRuns: 100,
-        orderPriority: 2,
-        cuttingMachine: '切割机2',
-        materialCode: 'PR001',
-        materialName: '物料1',
-        materialSizeX: 60,
-        materialSizeY: 110,
-        materialSpecs: "60*110",
-        materialThickness: 5,
-        detail: [
+            attributeOne: '1,2',
+            attributeTwo: '4',
+            createTime: '2023-06-01 10:46:21',
+            id: 16,
+            intime: 'g',
+            locationNumber: '1-g',
+            orderCount: 10,
+            orderNumber: '1,2',
+            owNumber: 'CQ202306050010',
+            receiptNumber: null,
+            state: 2,
+            trayNumber: '1#TP-A-0044'
+          },
           {
-            id: 0,
-            trayNumber: 'D0001',
-            count: 100,
-            uesd: 50,
-            surplus: 50,
-            station: 1,
-          }, {
-            id: 1,
-            trayNumber: 'D0002',
-            count: 100,
-            uesd: 0,
-            surplus: 100,
-            station: 2,
+            attributeOne: '2,3',
+            attributeTwo: '1',
+            createTime: '2023-06-02 10:46:21',
+            id: 18,
+            intime: '20g',
+            locationNumber: '20-g',
+            orderCount: 5,
+            orderNumber: '1,2',
+            owNumber: 'CQ202306050011',
+            receiptNumber: null,
+            state: 1,
+            trayNumber: '1#TP-A-0045'
           }
-        ]
-      },
-    ]
-    setList(data);
-    setTotal(1);
+        ];
+        data.map(i => {
+          if (i.attributeOne != []) {
+            let array = [];
+            const arr = i.attributeOne.split(',');
+            arr.map(j => {
+              array = [...array, attributeOne[j - 1].name];
+            });
+            i.attributeOneName = array.toString();
+          }
+          if (i.attributeTwo != null) {
+            i.attributeTwoName = attributeTwo[i.attributeTwo - 1].name;
+          }
+          console.log('data', data);
+          setList(data);
+        });
+      })
+      .catch(err => {
+        onToast(err.message, styles.toastError);
+      });
     setLoading(false);
   };
 
@@ -174,7 +146,9 @@ const SemiFinishedDelivery = ({ f7router }) => {
           <CardInfo
             key={value.id}
             item={value}
-
+            setOutSheetOpen={setOutSheetOpen}
+            setOutSheetData={setOutSheetData}
+            getReadyMaterialList={getReadyMaterialList}
           />
         ))
       ) : (
@@ -184,97 +158,43 @@ const SemiFinishedDelivery = ({ f7router }) => {
       <Skeleton />
     );
 
+    const outSheetClosed = () => {
+      setOutSheetOpen(false);
+      setOutSheetData({});
+      setReadyMaterials('');
+      setReadyMaterialList([])
+      setDockingPoint('');
+    };
 
-  const handleAutomatic = () => {
-    createDialog(
-      '托盘自动下架',
-      '确认开始托盘自动下架流程？',
-      function () {
-        try {
-          Automatic()
-          // onToast('托盘自动下架成功', styles.toastSuccess);
-        } catch (error) {
-          console.log('error', error);
-          onToast('托盘自动下架失败', styles.toastError);
-        }
-      }
-    );
-  }
+    //查询页面数据
+    const getReadyMaterialList = async (page, pageSize, searchValue) => {
+      bendingMachineApi
+        .getByQuery({ ...searchValue, page: 0, pageSize:1000 })
+        .then(res => {
+          const newArr = []
+          res.content.forEach(item => {
+            if (!newArr.includes(item.readyMaterials)) {
+              newArr.push(item.readyMaterials)
+            }
+          })
+          setReadyMaterials(newArr[0])
+          setReadyMaterialList(newArr);
+          setDockingPoint(dockingPoints[0].value)
+        })
+    };
 
-  const Automatic = async () => {
-    const data = {
-      destination: '原材料组托点',
-      middle: 'J001',
-      taskType: 6, //原料托盘出库
-      transferType: 0 //原料托盘
-    }
-    await EmptyPalletDeliveryApi.autoTransferOut(data)
+  const outSave = async () => {
+    await SemiFinishedDeliveryApi
+    .outStore(readyMaterials,outSheetData.id,dockingPoint)
       .then(res => {
-        onToast('托盘自动下架成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      })
-    //托盘出库   托盘自动出库
-  }
-
-  const handleManual = () => {
-    // f7router.navigate('/raw-material-warehousing-manual', { });
-  }
-
-  const handleBinding = () => {
-    setCreateSheetOpen(true)
-  }
-
-  const handleSave = async () => {
-    console.log('createSheetValue', createSheetValue);
-    const params = createSheetValue;
-    await RawMaterialWarehousingApi
-      .bindRawMaterial(params)
-      .then(res => {
-        onToast('托盘物料绑定成功', styles.toastSuccess);
+        onToast('出库成功', styles.toastSuccess);
         loadData(selectValue);
       })
       .catch(err => {
         onToast(err.message, styles.toastError);
       });
-    addSheetClosed()
-  }
-
-  const addSheetClosed = () => {
-    setCreateSheetOpen(false);
-    setCreateSheetValue({})
-    setTyayNumber('')
-    setRawMaterial('')
-  }
-
-  const handleWeighing = async (record) => {
-    setTabKey(1)
-    const weighingId = record.id
-    await RawMaterialWarehousingApi
-      .getWeigh(weighingId)
-      .then(res => {
-        onToast('称重成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
-  }
-
-  const handleWarehousing = async (record) => {
-    const InstorId = record.id
-    await RawMaterialWarehousingApi
-      .inStore(InstorId)
-      .then(res => {
-        onToast('入库成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
-  }
+      outSheetClosed();
+  };
 
   return (
     <Page pageContent={false}>
@@ -284,7 +204,7 @@ const SemiFinishedDelivery = ({ f7router }) => {
             <img alt="" style={{ height: 24 }} src={backIcon} />
           </a>
         </NavLeft>
-        <NavTitle>原材料出库单</NavTitle>
+        <NavTitle>半成品托盘拣选</NavTitle>
         <NavRight className={styles['nav-right']}>
           <Link
             searchbarEnable=".searchbar-demo"
@@ -295,7 +215,7 @@ const SemiFinishedDelivery = ({ f7router }) => {
         </NavRight>
         <Searchbar
           className="searchbar-demo"
-          placeholder="请输入出库单号"
+          placeholder="请输入单号"
           expandable
           searchContainer=".search-list"
           searchIn=".item-title"
@@ -306,17 +226,6 @@ const SemiFinishedDelivery = ({ f7router }) => {
           style={{ fontSize: 13 }}
         ></Searchbar>
       </Navbar>
-      <Toolbar tabbar top noHairline className="ne-top-tab">
-        <Link tabLink="#tab-1" onClick={() => setTabKey(0)} tabLinkActive={tabKey == 0}>
-          新建
-        </Link>
-        <Link tabLink="#tab-2" onClick={() => setTabKey(1)} tabLinkActive={tabKey == 1}>
-          运行中
-        </Link>
-        <Link tabLink="#tab-3" onClick={() => setTabKey(2)} tabLinkActive={tabKey == 2}>
-          已完成
-        </Link>
-      </Toolbar>
       <PageContent
         infinite
         infiniteDistance={50}
@@ -330,47 +239,58 @@ const SemiFinishedDelivery = ({ f7router }) => {
         }}
       >
         <div style={{ padding: '0 16px' }} className={styles.tabContainer}>
-          <Tabs animated>
-            <Tab
-              id="tab-1"
-              className={`${styles.content} page-content`}
-              style={{ paddingTop: '0' }}
-              tabActive
-            >
-              {renderCardList()}
-            </Tab>
-            <Tab
-              id="tab-2"
-              className={`${styles.content} page-content`}
-              style={{ paddingTop: '0' }}
-            >
-              {renderCardList()}
-            </Tab>
-            <Tab
-              id="tab-3"
-              className={`${styles.content} page-content`}
-              style={{ paddingTop: '0' }}
-            >
-              {renderCardList()}
-            </Tab>
-          </Tabs>
+          <div className={`${styles.content} page-content`} style={{ paddingTop: '0' }}>
+            {renderCardList()}
+          </div>
         </div>
       </PageContent>
-      <div className={styles['detail-bottom']}>
-        <Button className={styles['bottom-btn-confirm']} onClick={() => handleAutomatic()} >
-          自动出库
-        </Button>
-        <Button className={styles['bottom-btn-confirm']} onClick={() => handleManual()} >
-          手动出库
-        </Button>
-        <Button className={styles['bottom-btn-confirm']} onClick={() => handleBinding()}>
-          空托回库
-        </Button>
-        <Button className={styles['bottom-btn-confirm']} onClick={() => handleBinding()}>
-          余料回库
-        </Button>
-      </div>
-
+      <Sheet
+        className={styles['add-sheet']}
+        opened={outSheetOpen}
+        onSheetClosed={outSheetClosed}
+        backdrop
+      >
+        <BlockTitle>出库</BlockTitle>
+        <List strongIos dividersIos insetIos style={{ padding: '0 16px' }}>
+          <ListInput
+            label="备料区"
+            type="select"
+            placeholder="请输入备料区"
+            required
+            onChange={(e)=>{
+              setReadyMaterials(e.target.value)
+            }}
+            value={readyMaterials}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+            {readyMaterialList.map((value, index) => (
+                <option value={value} key={value}>
+                  {value}
+                </option>
+              ))}
+          </ListInput>
+          <ListInput
+            label="接驳口"
+            type="select"
+            placeholder="请输入接驳口"
+            required
+            onChange={(e)=>{
+              setDockingPoint(e.target.value)
+            }}
+            value={dockingPoint}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+            {dockingPoints.map((value, index) => (
+              <option value={value.value} key={value.id}>
+                {value.name}
+              </option>
+            ))}
+          </ListInput>
+            <Button className={styles['save-btn']} fill round onClick={outSave}>
+              保存
+            </Button>
+        </List>
+      </Sheet>
     </Page>
   );
 };
