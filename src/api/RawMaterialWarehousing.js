@@ -78,6 +78,16 @@ class RawMaterialWarehousing extends Service {
       throw new Error(error);
     }
   }
+
+  // 获取物料信息
+  async getMaterialByNameOrCode(data) {
+    return await this.post(`/materials-master-data/material/getMaterialByNameOrCode`, {
+      ...data,
+      direction: false,
+      sort: true,
+      sortCol: 'id'
+    });
+  }
 }
 
 export default new RawMaterialWarehousing();

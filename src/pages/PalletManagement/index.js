@@ -1,18 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle, ListInput, List, Icon, PageContent, Button, Input, Form } from '@hvisions/f-ui';
+import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle, ListInput, List, Icon, PageContent, Button,} from '@hvisions/f-ui';
 import { Sheet, f7, } from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
-import { i18n, } from '@hvisions/toolkit';
 import { onToast, createDialog } from '~/util/home';
 import useDebounce from '~/Hook/useDebounce';
-import RawMaterialWarehousingApi from '~/api/RawMaterialWarehousing';
-
 import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
-
-
 import TransferBoxServices from '~/api/TransferBox';
 import { emptyInMid } from '~/enum/enum';
 import EmptyPalletsWarehousingApi from '~/api/EmptyPalletsWarehousing';
@@ -21,7 +16,6 @@ import waresLocationApi from '~/api/waresLocation';
 
 const PalletManagement = ({ f7router }) => {
   const [tabKey, setTabKey] = useState(0);
-
   const countRef = useRef(10);
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
@@ -31,14 +25,12 @@ const PalletManagement = ({ f7router }) => {
   const [showPreloader, setShowPreloader] = useState(false);
   const [allowInfinite, setAllowInfinite] = useState(true);
   const [ptrPreloader, setPtrPreloader] = useState(false);
-
   const [putSheetOpen, setPutSheetOpen] = useState(false);
   const [putSheetType, setPutSheetType] = useState('');
   const [sheetData, setSheetData] = useState({});
   const [origin, setOrigin] = useState();
   const [middle, setMiddle] = useState('J001');
   const [destination, setDestination] = useState();
-
   const [bindingSheetOpen, setBindingSheetOpen] = useState(false);
   const [locationList, setLocationList] = useState([])
   const [location, setLocation] = useState('');

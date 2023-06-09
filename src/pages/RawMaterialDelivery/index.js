@@ -4,13 +4,14 @@ import { Sheet, f7, } from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
 import { i18n, } from '@hvisions/toolkit';
-import { onToast, createDialog } from '~/util/home';
+import { goBack, onToast, createDialog } from '~/util/home';
 import useDebounce from '~/Hook/useDebounce';
-import RawMaterialWarehousingApi from '~/api/RawMaterialWarehousing';
+import RawMaterialDeliveryApi from '~/api/RawMaterialDelivery';
 import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
 import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
+import Manual from './Manual/index';
 
 const getFormattedMsg = i18n.getFormattedMsg;
 
@@ -27,6 +28,17 @@ const RawMaterialDelivery = ({ f7router }) => {
   const [allowInfinite, setAllowInfinite] = useState(true);
   const [ptrPreloader, setPtrPreloader] = useState(false);
 
+
+
+  const [manualSheetOpen, setManualSheetOpen] = useState(false);
+  const [trayNumber, setTrayNumber] = useState('');
+  const [materialId, setMaterialId] = useState('');
+  const [batchNumber, setBatchNumber] = useState('');
+  const [feedingName, setFeedingName] = useState('');
+  const [middle, setMiddle] = useState('');
+  const [toLocation, setToLocation] = useState('');
+  const [num, setNum] = useState('');
+
   const [createSheetOpen, setCreateSheetOpen] = useState(false);
   const [createSheetValue, setCreateSheetValue] = useState({
     tyayNumber: '', rawMaterial: '',
@@ -42,10 +54,6 @@ const RawMaterialDelivery = ({ f7router }) => {
     load();
   }, [tabKey, debounceSelectValue]);
 
-  useEffect(() => {
-
-  }, [createSheetValue]);
-
   const loadData = async keyWord => {
     setLoading(true);
     // const searchData = {
@@ -53,11 +61,13 @@ const RawMaterialDelivery = ({ f7router }) => {
     //   pageSize: countRef.current,
     //   state: tabKey,
     // };
-    // await RawMaterialWarehousingApi
+    // await RawMaterialDeliveryApi
     //   .getByQuery(searchData)
     //   .then(res => {
+          //     if(res.length != 0){
     //     setList(res.content);
     //     setTotal(res.totalElements);
+        //     }
     //   })
     //   .catch(err => {
     //     onToast(err.message, styles.toastError);
@@ -65,52 +75,69 @@ const RawMaterialDelivery = ({ f7router }) => {
     const data = [
       {
         id: 0,
-        name: 'D0001',
-        totalParts: 100,
-        sendParts: 100,
-        finishNumber: 50,
-        remainRuns: 50,
-        orderPriority: 1,
         cuttingMachine: '切割机1',
-        materialCode: 'PR001',
-        materialName: '物料1',
-        materialSizeX: 50,
-        materialSizeY: 100,
-        materialSpecs: "50*100",
-        materialThickness: 3,
-        detail: [
+        materialCode: '0402-0337',
+        materialName: 'ONBC-25',
+        materialSizeX: '600',
+        materialSizeY: '6000',
+        materialSpecs: '600*6000',
+        materialThickness: '25',
+        name: 'D0001',
+        planState: 0,
+        remainRuns: 20,
+        sendParts: 100,
+        totalParts: 100,
+        lineEdgeLibraryDTOS:[
           {
-            id: 0,
-            trayNumber: 'D0001',
-            count: 100,
-            uesd: 50,
-            surplus: 50,
-            station: 1,
-          }, {
+            cuttingMachine: '切割机1',
+            fromLocation: '111',
             id: 1,
-            trayNumber: 'D0002',
-            count: 100,
-            uesd: 0,
-            surplus: 100,
-            station: 2,
-          }
+            materialCode: '0402-0337',
+            materialName: 'ONBC-25',
+            materialSizeX: '600',
+            materialSizeY: '6000',
+            materialSpecs: '600*6000',
+            materialThickness: '25',
+            planName: '切割111111',
+            quantity: 1000,
+            remainderNum: 100,
+            taskCode: 'ce1111111',
+            toLocation: '222',
+            trayLocation: '1-5',
+            trayNumber: 'TP001',
+            useNum: 80,
+          },
+          {
+            cuttingMachine: '切割机1',
+            fromLocation: '333',
+            id: 2,
+            materialCode: '0402-0337',
+            materialName: 'ONBC-25',
+            materialSizeX: '600',
+            materialSizeY: '6000',
+            materialSpecs: '600*6000',
+            materialThickness: '25',
+            planName: '切割22222',
+            quantity: 1000,
+            remainderNum: 0,
+            taskCode: 'ce222222',
+            toLocation: '444',
+            trayLocation: '1-4',
+            trayNumber: 'TP002',
+            useNum: 20,
+          },
         ]
       },
       {
         id: 1,
         name: 'D0002',
-        totalParts: 100,
-        sendParts: 100,
+        orderCountr: 100,
         finishNumber: 0,
-        remainRuns: 100,
+        surplusNumber: 100,
         orderPriority: 2,
         cuttingMachine: '切割机2',
         materialCode: 'PR001',
         materialName: '物料1',
-        materialSizeX: 60,
-        materialSizeY: 110,
-        materialSpecs: "60*110",
-        materialThickness: 5,
         detail: [
           {
             id: 0,
@@ -172,6 +199,7 @@ const RawMaterialDelivery = ({ f7router }) => {
       !isEmpty(list) ? (
         list.map(value => (
           <CardInfo
+          f7router={f7router}
             key={value.id}
             item={value}
 
@@ -184,15 +212,14 @@ const RawMaterialDelivery = ({ f7router }) => {
       <Skeleton />
     );
 
-
   const handleAutomatic = () => {
     createDialog(
       '托盘自动下架',
       '确认开始托盘自动下架流程？',
       function () {
         try {
-          Automatic()
-          // onToast('托盘自动下架成功', styles.toastSuccess);
+          // Automatic()
+          onToast('托盘自动下架成功', styles.toastSuccess);
         } catch (error) {
           console.log('error', error);
           onToast('托盘自动下架失败', styles.toastError);
@@ -210,7 +237,7 @@ const RawMaterialDelivery = ({ f7router }) => {
     }
     await EmptyPalletDeliveryApi.autoTransferOut(data)
       .then(res => {
-        onToast('托盘自动下架成功', styles.toastSuccess);
+        onToast('接口   ', styles.toastError);
         loadData(selectValue);
       })
       .catch(err => {
@@ -220,67 +247,23 @@ const RawMaterialDelivery = ({ f7router }) => {
   }
 
   const handleManual = () => {
-    // f7router.navigate('/raw-material-warehousing-manual', { });
+    // setManualSheetOpen(true)
+    f7router.navigate('/raw-material-delivery-manual', {});
   }
+
+const manualSheetClosed = ()=>{
+  setManualSheetOpen(false)
+}
 
   const handleBinding = () => {
     setCreateSheetOpen(true)
-  }
-
-  const handleSave = async () => {
-    console.log('createSheetValue', createSheetValue);
-    const params = createSheetValue;
-    await RawMaterialWarehousingApi
-      .bindRawMaterial(params)
-      .then(res => {
-        onToast('托盘物料绑定成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
-    addSheetClosed()
-  }
-
-  const addSheetClosed = () => {
-    setCreateSheetOpen(false);
-    setCreateSheetValue({})
-    setTyayNumber('')
-    setRawMaterial('')
-  }
-
-  const handleWeighing = async (record) => {
-    setTabKey(1)
-    const weighingId = record.id
-    await RawMaterialWarehousingApi
-      .getWeigh(weighingId)
-      .then(res => {
-        onToast('称重成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
-  }
-
-  const handleWarehousing = async (record) => {
-    const InstorId = record.id
-    await RawMaterialWarehousingApi
-      .inStore(InstorId)
-      .then(res => {
-        onToast('入库成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
   }
 
   return (
     <Page pageContent={false}>
       <Navbar>
         <NavLeft>
-          <a onClick={() => f7router.back()} className="ne-navleft">
+          <a onClick={() => goBack()} className="ne-navleft">
             <img alt="" style={{ height: 24 }} src={backIcon} />
           </a>
         </NavLeft>
@@ -370,7 +353,31 @@ const RawMaterialDelivery = ({ f7router }) => {
           余料回库
         </Button>
       </div>
-
+      {/* <Sheet
+        className={styles['add-sheet']}
+        opened={manualSheetOpen}
+        onSheetClosed={manualSheetClosed}
+        backdrop
+      >
+        <Manual 
+        f7router={f7router}
+        trayNumber={trayNumber}
+        setTrayNumber={setTrayNumber}
+        materialId={materialId}
+        setMaterialId={setMaterialId}
+        batchNumber={batchNumber}
+        setBatchNumber={setBatchNumber}
+        feedingName={feedingName}
+        setFeedingName={setFeedingName}
+        middle={middle}
+        setMiddle={setMiddle}
+        toLocation={toLocation}
+        setToLocation={setToLocation}
+        num={num}
+        setNum={setNum}
+        setManualSheetOpen={setManualSheetOpen}
+        />
+      </Sheet> */}
     </Page>
   );
 };

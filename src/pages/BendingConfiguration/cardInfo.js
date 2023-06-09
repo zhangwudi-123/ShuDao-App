@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card, Button } from '@hvisions/f-ui';
 import styles from './cardInfo.scss';
-import { Sheet } from 'framework7-react';
-import CardSheet from './CardSheet/index';
 import { onToast, createDialog } from '~/util/home';
 import bendingMachineApi from '~/api/bendingMachine';
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle,ListInput,List, Icon,PageContent, Button,Input, Form} from '@hvisions/f-ui';
+import { Link, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle,ListInput,List, Icon,PageContent, Button} from '@hvisions/f-ui';
 import {   Sheet,  f7,} from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
@@ -14,8 +14,6 @@ import { Skeleton, Empty } from '~/components';
 
 import PrepareAreaServices from '~/api/PrepareArea';
 import { PrepareAreaState } from '~/enum/enum';
-  
-const getFormattedMsg = i18n.getFormattedMsg;
 
 const MaterialPreparation = ({ f7router }) => {
   const countRef = useRef(10);
@@ -152,23 +150,6 @@ const MaterialPreparation = ({ f7router }) => {
       });
   }
 
-
-  const handleAutomatic = ()=>{
-    createDialog(
-      '托盘自动下架',
-      '确认开始托盘自动下架流程？',
-      function() {
-        try {
-          Automatic()
-          // onToast('托盘自动下架成功', styles.toastSuccess);
-        } catch (error) {
-          console.log('error',error);
-          onToast('托盘自动下架失败', styles.toastError);
-        }
-      }
-    );
-  }
-
   const Automatic = async () => {
     const data ={
       destination:'原材料组托点',
@@ -185,33 +166,6 @@ const MaterialPreparation = ({ f7router }) => {
       onToast(err.message, styles.toastError);
     })
     //托盘出库   托盘自动出库
-  }
-
-  const handleSave = async () => {
-    const params = {};
-    await RawMaterialWarehousingApi
-      .bindRawMaterial(params)
-      .then(res => {
-        onToast('托盘物料绑定成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
-
-  }
-
-  const handleWarehousing = async (record) => {
-    const InstorId = record.id
-    await RawMaterialWarehousingApi
-      .inStore(InstorId)
-      .then(res => {
-        onToast('入库成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
   }
 
   return (

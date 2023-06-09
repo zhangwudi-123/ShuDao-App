@@ -1,111 +1,177 @@
-import React, { useEffect,  useRef, useState } from 'react';
-import { Page, Navbar, NavLeft, NavTitle, PageContent, } from '@hvisions/f-ui';
+import React, { useEffect, useRef, useState } from 'react';
+import { BlockTitle, ListInput, List, Icon, Button, ListItem, Page, Navbar, NavLeft, NavTitle, PageContent, } from '@hvisions/f-ui';
 import styles from './style.scss';
-import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
-import { onToast } from '~/util/home';
+import RawMaterialWarehousingApi from '~/api/RawMaterialWarehousing';
+import RawMaterialDeliveryApi from '~/api/RawMaterialDelivery';
+import { onToast, createDialog } from '~/util/home';
 import { isEmpty } from 'lodash';
-import CardInfo from './cardInfo';
-import { Skeleton, Empty } from '~/components';
-import TransferBoxServices from '~/api/TransferBox';
+import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
 
-const Manual = ({ f7router}) => {
-  const countRef = useRef(10);
-  const [loading, setLoading] = useState(false);
-  const [list, setList] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [showPreloader, setShowPreloader] = useState(false);
-  const [allowInfinite, setAllowInfinite] = useState(true);
-  const [ptrPreloader, setPtrPreloader] = useState(false);
+const Manual = ({
+  f7router,
+  material,
+}) => {
+
+  const [materialList, setMaterialList] = useState([])
+  const [materialInfo, setMaterialInfo] = useState(material)
+
+  const [trayNumber, setTrayNumber] = useState('');
+  const [materialId, setMaterialId] = useState('');
+  const [batchNumber, setBatchNumber] = useState('');
+  const [feedingName, setFeedingName] = useState('');
+  const [middle, setMiddle] = useState('');
+  const [toLocation, setToLocation] = useState('');
+  const [num, setNum] = useState('');
 
   useEffect(() => {
-      loadData();
-  }, []);
-
-  const loadData = async keyWord => {
-    setLoading(true);
-    const searchData = {
-      pageSize: countRef.current,
-      type: 0 ,
-    };
-    await TransferBoxServices.getPage(searchData)
-    .then(res => {
-        setList(res.content);
-        setTotal(res.totalElements);
-    })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
-      setLoading(false);
-  };
-
-  const loadMore = async () => {
-    if (!allowInfinite) return;
-    setShowPreloader(true);
-    if (countRef.current >= total) {
-      setShowPreloader(false);
-      return;
+    if (material != undefined) {
+      setMaterialId(material.id)
     }
-    setAllowInfinite(false);
-    countRef.current = countRef.current + 10;
-    await loadData();
-    await setAllowInfinite(true);
-  };
+  }, [material]);
 
-  const onHandleRefresh = async done => {
-    await setPtrPreloader(true);
-    await loadData();
-    await setPtrPreloader(false);
-    await done();
-  };
+  const handleSave = async () => {
+    const params = {
+      trayNumber: trayNumber,
+      materialId: materialId,
+      batchNumber: batchNumber,
+      feedingName: feedingName,
+      middle: middle,
+      toLocation: toLocation,
+      num: num,
+    }
+    params.materialCode = material.materialCode
+    params.materialName = material.materialName
+    console.log(params, 'params');
+    await RawMaterialDeliveryApi.handout(params)
+      .then(res => {
+        onToast('出库单生成成功', styles.toastSuccess);
+      })
+      .catch(err => {
+        onToast('出库单生成失败', styles.toastError);
+      })
+      f7router.navigate('/raw-material-delivery')
+  }
 
-  const renderCardList = () =>
-  !loading ? (
-    !isEmpty(list) ? (
-      list.map(value => (
-        <CardInfo
-          key={value.id}
-          item={value}
-          loadData={loadData}
-          f7router={f7router}
-        />
-      ))
-    ) : (
-      <Empty />
-    )
-  ) : (
-    <Skeleton />
-  );
+  const handleSelectMaterial = () => {
+    f7router.navigate('/manual-material', {});
+  };
 
   return (
     <Page pageContent={false}>
       <Navbar>
         <NavLeft>
-          <a onClick={() => f7router.back()} className="ne-navleft">
+          <a
+            onClick={() => f7router.navigate('/raw-material-delivery', { transition: 'ne-backward' })}
+            className={styles['nav-left']}
+          >
             <img alt="" style={{ height: 24 }} src={backIcon} />
           </a>
         </NavLeft>
-        <NavTitle>手动托盘下架</NavTitle>
+        <NavTitle>手动出库</NavTitle>
       </Navbar>
-      <PageContent
-        infinite
-        infiniteDistance={50}
-        infinitePreloader={showPreloader}
-        onInfinite={loadMore}
-        ptrPreloader={ptrPreloader}
-        ptr
-        onPtrRefresh={onHandleRefresh}
-        onPtrPullStart={() => {
-          setPtrPreloader(true);
-        }}
-      >
-        <div style={{ padding: '0 16px' }} className={styles.tabContainer}>
-          <div
-            className={`${styles.content} page-content`}
-            style={{ paddingTop: '0' }}
+      <PageContent >
+        <List strongIos dividersIos insetIos style={{ padding: '0 16px' }}>
+          <ListInput
+            label="托盘号"
+            type="text"
+            placeholder="请输入托盘号"
+            required
+            validate
+            onChange={(e) => {
+              setTrayNumber(e.target.value)
+            }}
+            value={trayNumber}
           >
-            {renderCardList()}
-          </div>
-        </div>
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListInput>
+          <ListItem
+            link="#"
+            header="物料"
+            title={
+              !isEmpty(materialInfo) ? (
+                <div style={{ height: '44px', lineHeight: '44px' }}>
+                  {materialInfo.materialName} / {materialInfo.materialCode}
+                </div>
+              ) : (
+                <div style={{ height: '44px', lineHeight: '44px', color: '#00000073' }}>
+                  请选择物料
+                </div>
+              )
+            }
+            after=""
+            onClick={() => handleSelectMaterial()}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListItem>
+          <ListInput
+            label="物料批号"
+            type="text"
+            placeholder="请输入物料批号"
+            required
+            validate
+            onChange={(e) => {
+              setBatchNumber(e.target.value)
+            }}
+            value={batchNumber}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListInput>
+          <ListInput
+            label="上料口"
+            type="text"
+            placeholder="请输入上料口"
+            required
+            validate
+            onChange={(e) => {
+              setFeedingName(e.target.value)
+            }}
+            value={feedingName}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListInput>
+          <ListInput
+            label="中间位置"
+            type="text"
+            placeholder="请输入中间位置"
+            required
+            validate
+            onChange={(e) => {
+              setMiddle(e.target.value)
+            }}
+            value={middle}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListInput>
+          <ListInput
+            label="目标位置"
+            type="text"
+            placeholder="请输入目标位置"
+            required
+            validate
+            onChange={(e) => {
+              setToLocation(e.target.value)
+            }}
+            value={toLocation}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListInput>
+          <ListInput
+            label="物料数量"
+            type="text"
+            placeholder="请输入物料数量"
+            required
+            validate
+            onChange={(e) => {
+              setNum(e.target.value)
+            }}
+            value={num}
+          >
+            <Icon icon="demo-list-icon" slot="media" />
+          </ListInput>
+          <Button className={styles['save-btn']} fill round onClick={() => handleSave()}>
+            保存
+          </Button>
+        </List>
       </PageContent>
     </Page>
   );

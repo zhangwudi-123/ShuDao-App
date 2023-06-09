@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Card, Button } from '@hvisions/f-ui';
 import styles from './cardInfo.scss';
 import { Sheet } from 'framework7-react';
-import CardSheet from './CardSheet/index';
+// import CardSheet from './CardDetail/index';
 
-const CardInfo = ({ item, handleWeighing,handleWarehousing }) => {
+const CardInfo = ({ f7router,item  }) => {
   const [style, setStyle] = useState();
   const [state, setState] = useState();
   const [sheetValue, setSheetValue] = useState({});
@@ -57,8 +57,12 @@ const CardInfo = ({ item, handleWeighing,handleWarehousing }) => {
             className={styles['card-button']}
             fill
             onClick={() => {
-              setSheetValue(item);
-              setSheetOpened(true);
+              // setSheetValue(item);
+              // setSheetOpened(true);
+              f7router.navigate('/raw-material-delivery-info', {
+                props: { detailData: item.lineEdgeLibraryDTOS}
+              }
+              );
             }}
           >
             <li>
@@ -75,7 +79,7 @@ const CardInfo = ({ item, handleWeighing,handleWarehousing }) => {
           </Button>
         </ul>
       </Card>
-      <Sheet
+      {/* <Sheet
         style={{ height: '500px' }}
         swipeToClose
         push
@@ -87,7 +91,7 @@ const CardInfo = ({ item, handleWeighing,handleWarehousing }) => {
       >
         <div className="swipe-handler"></div>
         <CardSheet item={sheetValue} />
-      </Sheet>
+      </Sheet> */}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Page, Navbar, NavLeft, NavTitle, BlockTitle,ListInput,List, Icon,PageContent, Button,} from '@hvisions/f-ui';
-import {   Sheet,  f7,} from 'framework7-react';
+import { Page, Navbar, NavLeft, NavTitle, BlockTitle, ListInput, List, Icon, PageContent, Button, } from '@hvisions/f-ui';
+import { Sheet, f7, } from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
 import { onToast, createDialog } from '~/util/home';
@@ -36,10 +36,10 @@ const DockingPort = ({ f7router }) => {
     load();
   }, [debounceSelectValue]);
 
-  
+
   useEffect(() => {
- 
-  }, [trayNumber,joinState]);
+
+  }, [trayNumber, joinState]);
 
   const loadData = async keyWord => {
     setLoading(true);
@@ -87,32 +87,32 @@ const DockingPort = ({ f7router }) => {
   };
 
   const renderCardList = () =>
-  !loading ? (
-    !isEmpty(list) ? (
-      list.map(value => (
-        <CardInfo
-          key={value.id}
-          item={value}
-          setJoinCode={setJoinCode}
-          loadData={loadData}
-          setJoinState={setJoinState}
-          setBindingSheetOpen={setBindingSheetOpen}
-          setUpdateSheetOpen={setUpdateSheetOpen}       
-        />
-      ))
+    !loading ? (
+      !isEmpty(list) ? (
+        list.map(value => (
+          <CardInfo
+            key={value.id}
+            item={value}
+            setJoinCode={setJoinCode}
+            loadData={loadData}
+            setJoinState={setJoinState}
+            setBindingSheetOpen={setBindingSheetOpen}
+            setUpdateSheetOpen={setUpdateSheetOpen}
+          />
+        ))
+      ) : (
+        <Empty />
+      )
     ) : (
-      <Empty />
-    )
-  ) : (
-    <Skeleton />
-  );
+      <Skeleton />
+    );
 
-  const bindingSheetClosed =()=>{
+  const bindingSheetClosed = () => {
     setTrayNumber('');
     setBindingSheetOpen(false);
   }
 
-  const BindingSave = async()=>{
+  const BindingSave = async () => {
     await joinAreaServices.addTransfer(joinCode, trayNumber)
       .then(res => {
         onToast('托盘绑定成功', styles.toastSuccess);
@@ -123,11 +123,11 @@ const DockingPort = ({ f7router }) => {
       });
   }
 
-  const updateSheetClosed =()=>{
+  const updateSheetClosed = () => {
     setUpdateSheetOpen(false);
   }
 
-  const updateStateSave =async()=>{
+  const updateStateSave = async () => {
     await joinAreaServices.updateState(joinCode, joinState)
       .then(res => {
         onToast('状态更新成功', styles.toastSuccess);
@@ -152,7 +152,7 @@ const DockingPort = ({ f7router }) => {
         infinite
         infiniteDistance={50}
         infinitePreloader={showPreloader}
-        // onInfinite={loadMore}
+        onInfinite={loadMore}
         ptrPreloader={ptrPreloader}
         ptr
         onPtrRefresh={onHandleRefresh}
@@ -184,16 +184,16 @@ const DockingPort = ({ f7router }) => {
             required
             validate
             clearButton
-            onChange={(e)=>{
+            onChange={(e) => {
               setTrayNumber(e.target.value)
             }}
             value={trayNumber}
           >
             <Icon icon="demo-list-icon" slot="media" />
           </ListInput>
-            <Button className={styles['save-btn']} fill round onClick={BindingSave}>
-              保存
-            </Button>
+          <Button className={styles['save-btn']} fill round onClick={BindingSave}>
+            保存
+          </Button>
         </List>
       </Sheet>
       <Sheet
@@ -212,22 +212,22 @@ const DockingPort = ({ f7router }) => {
             // clearButton
             type="select"
             defaultValue={joinState}
-            onChange={(e)=>{
-              console.log('接驳口状态',e.target.value);
+            onChange={(e) => {
+              console.log('接驳口状态', e.target.value);
               setJoinState(e.target.value)
             }}
             value={joinState}
           >
             <Icon icon="demo-list-icon" slot="media" />
             {dockingPointState.map((value, index) => (
-                <option  value={value.id} key={value.id}>
-                  {value.name}
-                </option>
-              ))}
+              <option value={value.id} key={value.id}>
+                {value.name}
+              </option>
+            ))}
           </ListInput>
-            <Button className={styles['save-btn']} fill round onClick={updateStateSave}>
-              保存
-            </Button>
+          <Button className={styles['save-btn']} fill round onClick={updateStateSave}>
+            保存
+          </Button>
         </List>
       </Sheet>
     </Page>

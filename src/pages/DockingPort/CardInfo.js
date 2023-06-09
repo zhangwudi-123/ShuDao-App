@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Button ,Checkbox,Sheet ,BlockTitle ,List ,ListInput ,Icon} from '@hvisions/f-ui';
-
+import { Card, Button } from '@hvisions/f-ui';
 import styles from './CardInfo.scss';
-import { getAuthData } from '@hvisions/toolkit/lib/session';
-import PrepareAreaServices from '~/api/PrepareArea';
 import { onToast, createDialog } from '~/util/home';
-
 import joinAreaServices from '~/api/joinArea';
-import TransferBoxServices from '~/api/TransferBox';
 import EmptyPalletsWarehousingApi from '~/api/EmptyPalletsWarehousing';
 import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery'
 
-const CardInfo = ({ 
-  f7router, 
-  item, 
+const CardInfo = ({
+  f7router,
+  item,
   setJoinCode,
   loadData,
   setJoinState,
   setBindingSheetOpen,
   setUpdateSheetOpen,
-  }) => {
+}) => {
 
   const [style, setStyle] = useState();
   const [state, setState] = useState();
-  
+
 
 
   useEffect(() => {
@@ -56,7 +51,7 @@ const CardInfo = ({
     color: '#42BB9E'
   };
 
-  const HandleShelf = async()=>{
+  const HandleShelf = async () => {
     await EmptyPalletsWarehousingApi.callTransferIn(item.joinCode)
       .then(res => {
         onToast('托盘上架成功', styles.toastSuccess);
@@ -66,7 +61,7 @@ const CardInfo = ({
       });
   }
 
-  const HandleTakedown = async()=>{
+  const HandleTakedown = async () => {
     await EmptyPalletDeliveryApi.callTransferOut(item.joinCode)
       .then(res => {
         onToast('托盘下架成功', styles.toastSuccess);
@@ -76,27 +71,27 @@ const CardInfo = ({
       });
   }
 
-   const handleUnbind = ()=>{
-  createDialog(
-    '托盘解绑',
-    `确认解除接驳口${item.joinCode}与托盘${item.transferCode}的绑定关系`,
-    function() {
-      try {
-        joinAreaServices.deleteTransfer(item.joinCode,item.transferCode)
-        .then(res=>{
-          onToast('托盘解绑成功', styles.toastSuccess);
-          loadData();
-        })
-        .catch(err=>{
-          onToast(err.message, styles.toastError);
-        })
-      } catch (error) {
-        console.log('error',error);
-        onToast('托盘解绑失败', styles.toastError);
+  const handleUnbind = () => {
+    createDialog(
+      '托盘解绑',
+      `确认解除接驳口${item.joinCode}与托盘${item.transferCode}的绑定关系`,
+      function () {
+        try {
+          joinAreaServices.deleteTransfer(item.joinCode, item.transferCode)
+            .then(res => {
+              onToast('托盘解绑成功', styles.toastSuccess);
+              loadData();
+            })
+            .catch(err => {
+              onToast(err.message, styles.toastError);
+            })
+        } catch (error) {
+          console.log('error', error);
+          onToast('托盘解绑失败', styles.toastError);
+        }
       }
-    }
-  );
-}
+    );
+  }
 
   return (
     <div className={styles['card-box']}>

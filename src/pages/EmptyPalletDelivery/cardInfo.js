@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card, Button } from '@hvisions/f-ui';
 import styles from './cardInfo.scss';
 import { onToast, createDialog } from '~/util/home';

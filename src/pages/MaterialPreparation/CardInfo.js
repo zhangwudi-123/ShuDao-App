@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Button ,Checkbox,Sheet ,BlockTitle ,List ,ListInput ,Icon} from '@hvisions/f-ui';
-
+import { Card, Button, Checkbox } from '@hvisions/f-ui';
 import styles from './CardInfo.scss';
-import { getAuthData } from '@hvisions/toolkit/lib/session';
 import PrepareAreaServices from '~/api/PrepareArea';
 import { onToast, createDialog } from '~/util/home';
 
-const CardInfo = ({ 
-  f7router, 
-  item, 
+const CardInfo = ({
+  f7router,
+  item,
   setBindingSheetOpen,
-  trayNumber,
-  setTrayNumber,
   setUpdateSheetOpen,
   setAreaState,
   setAreaCode,
   selectValue,
   loadData,
-  }) => {
+}) => {
 
   const [style, setStyle] = useState();
   const [state, setState] = useState();
-  
-
 
   useEffect(() => {
     console.log(item);
@@ -39,7 +33,6 @@ const CardInfo = ({
       setState('运输中');
     }
   }, []);
-
 
   const newStyle = {
     background: '#ffdad4',
@@ -100,15 +93,15 @@ const CardInfo = ({
         </ul>
         <div className={styles['card-div']}>
           <ul className={styles['div-ul']}>
-            <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={()=>{setBindingSheetOpen(true);setAreaCode(item.areaCode)}}>
+            <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => { setBindingSheetOpen(true); setAreaCode(item.areaCode) }}>
               绑定托盘
             </Button>
-            <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={()=>{ console.log('item.areaState',item.areaState); setUpdateSheetOpen(true);setAreaState(item.areaState) ;setAreaCode(item.areaCode) }}>
+            <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => { console.log('item.areaState', item.areaState); setUpdateSheetOpen(true); setAreaState(item.areaState); setAreaCode(item.areaCode) }}>
               更新状态
             </Button>
-            <Checkbox name="checkbox-1" style={{ margin: "5px" }} defaultChecked={item.automaticState} onChange={(e) => CheckboxChange(e, item)}/>自动下架托盘
+            <Checkbox name="checkbox-1" style={{ margin: "5px" }} defaultChecked={item.automaticState} onChange={(e) => CheckboxChange(e, item)} />自动下架托盘
           </ul>
-      </div>
+        </div>
       </Card>
     </div>
   );

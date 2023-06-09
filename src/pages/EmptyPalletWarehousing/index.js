@@ -1,23 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle,ListInput,List, Icon,PageContent, Button,Input, Form} from '@hvisions/f-ui';
-import {   Sheet,  f7,} from 'framework7-react';
+import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, PageContent} from '@hvisions/f-ui';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
-import { i18n,  } from '@hvisions/toolkit';
 import { onToast, createDialog } from '~/util/home';
 import useDebounce from '~/Hook/useDebounce';
-import RawMaterialWarehousingApi from '~/api/RawMaterialWarehousing';
 import EmptyPalletsWarehousingApi from '~/api/EmptyPalletsWarehousing';
-import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
 import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
 
-const getFormattedMsg = i18n.getFormattedMsg;
-
 const EmptyPalletsWarehousing = ({ f7router }) => {
   const [tabKey, setTabKey] = useState(0);
-  
   const countRef = useRef(10);
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
@@ -27,14 +20,6 @@ const EmptyPalletsWarehousing = ({ f7router }) => {
   const [showPreloader, setShowPreloader] = useState(false);
   const [allowInfinite, setAllowInfinite] = useState(true);
   const [ptrPreloader, setPtrPreloader] = useState(false);
-
-  const [createSheetOpen, setCreateSheetOpen] = useState(false);
-  const [createSheetValue, setCreateSheetValue] = useState({
-    tyayNumber:'',rawMaterial:'',
-  });
-  const [tyayNumber, setTyayNumber] = useState('');
-  const [rawMaterial, setRawMaterial] = useState('');
-
 
   useEffect(() => {
     const load = async () => {

@@ -1,25 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {  Toolbar,  Link,  Tabs,  Tab,  Page,  Navbar,  NavLeft,  NavTitle,  NavRight,  Searchbar,  BlockTitle,  ListInput,  List,  Icon,  PageContent,  Button,  Input,  Form} from '@hvisions/f-ui';
+import {   Link,   Page,  Navbar,  NavLeft,  NavTitle,  NavRight,  Searchbar,  BlockTitle,  ListInput,  List,  Icon,  PageContent,  Button, } from '@hvisions/f-ui';
 import { Sheet, f7 } from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
-import { i18n } from '@hvisions/toolkit';
 import { onToast, createDialog } from '~/util/home';
 import useDebounce from '~/Hook/useDebounce';
-import RawMaterialWarehousingApi from '~/api/RawMaterialWarehousing';
-import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
 import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
-import SemiFinishedDeliveryApi from '~/api/SemiFinishedDelivery';
-import { attributeOne, attributeTwo, dockingPoints, sortPositions } from '~/enum/enum';
+import { attributeOne } from '~/enum/enum';
 import bendingMachineApi from '~/api/bendingMachine';
 
-const getFormattedMsg = i18n.getFormattedMsg;
-
 const BendingConfiguration = ({ f7router }) => {
-  const [tabKey, setTabKey] = useState(0);
-
   const countRef = useRef(10);
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
@@ -29,13 +21,6 @@ const BendingConfiguration = ({ f7router }) => {
   const [showPreloader, setShowPreloader] = useState(false);
   const [allowInfinite, setAllowInfinite] = useState(true);
   const [ptrPreloader, setPtrPreloader] = useState(false);
-
-  const [outSheetOpen, setOutSheetOpen] = useState(false);
-  const [outSheetData, setOutSheetData] = useState({});
-
-  const [readyMaterials,setReadyMaterials] = useState('');
-  const [readyMaterialList, setReadyMaterialList] = useState([]);
-  const [dockingPoint, setDockingPoint] = useState('');
 
   const [bindingSheetOpen, setBindingSheetOpen] = useState(false);
   const [bendingNumber, setBendingNumber] = useState('');
