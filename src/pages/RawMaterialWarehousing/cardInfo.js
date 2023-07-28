@@ -4,7 +4,7 @@ import styles from './cardInfo.scss';
 import { Sheet } from 'framework7-react';
 import CardSheet from './CardSheet/index';
 
-const CardInfo = ({ item, handleWeighing,handleWarehousing }) => {
+const CardInfo = ({ item, handleWeighing, handleWarehousing, handInStore }) => {
   const [style, setStyle] = useState();
   const [state, setState] = useState();
   const [sheetValue, setSheetValue] = useState({});
@@ -40,28 +40,40 @@ const CardInfo = ({ item, handleWeighing,handleWarehousing }) => {
 
   const columns = [
     {
-      title: '关联单号',
-      dataIndex: 'associatedNumber',
-      key: 'associatedNumber',
+      title: '托盘号',
+      dataIndex: 'trayNumber',
+      key: 'trayNumber',
       align: 'center'
     },
     {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
+      title: '实际物料名称',
+      dataIndex: 'realityMaterialName',
+      key: 'realityMaterialName',
       align: 'center'
     },
     {
-      title: '创建人',
-      dataIndex: 'creator',
-      key: 'creator',
+      title: '规格',
+      dataIndex: 'specifications',
+      key: 'specifications',
+      align: 'center'
+    },
+    {
+      title: '实际重量(kg)',
+      dataIndex: 'actualWeight',
+      key: 'actualWeight',
+      align: 'center'
+    },
+    {
+      title: '实际数量(张)',
+      dataIndex: 'actualNumber',
+      key: 'actualNumber',
       align: 'center'
     }
   ];
 
   return (
     <div className={styles['card-box']}>
-      <Card>
+      <Card className={styles['card']}>
         <ul className={styles['card-ul']}>
           <Button
             className={styles['card-button']}
@@ -86,27 +98,49 @@ const CardInfo = ({ item, handleWeighing,handleWarehousing }) => {
               );
             })}
           </Button>
-          {item.state == 0 &&<li className={styles['li-button']}>
-            <Button
+        </ul>
+        {item.state != 2 && <div className={styles['card-div']}>
+          {item.state == 0 && <ul className={styles['div-ul']}>
+            {/* <Button
+              fill
+              round
+              className={styles['weighing-button']}
+              onClick={() => handInStore(item)}
+            >
+              <span style={{ padding: "10px" }}>小车进入</span>
+            </Button> */}
+            <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handInStore(item)}>
+              小车进入
+            </Button>
+          </ul>}
+          {item.state == 1 && <ul className={styles['div-ul']}>
+            {/* <Button
               fill
               round
               className={styles['weighing-button']}
               onClick={() => handleWeighing(item)}
+              style={{ margin: "5px" }}
             >
-              原材料称重
+              <span style={{ padding: "10px" }}>原材料称重</span>
             </Button>
-          </li>}
-          {item.state == 1 &&<li className={styles['li-button']}>
             <Button
               fill
               round
               className={styles['warehousing-button']}
               onClick={() => handleWarehousing(item)}
+              style={{ margin: "5px" }}
             >
+              <span style={{ padding: "10px" }}>入库</span>
+            </Button> */}
+            <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleWeighing(item)}>
+              原材料称重
+            </Button>
+            <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleWarehousing(item)}>
               入库
             </Button>
-          </li>}
-        </ul>
+          </ul>}
+        </div>
+        }
       </Card>
       <Sheet
         style={{ height: '500px' }}

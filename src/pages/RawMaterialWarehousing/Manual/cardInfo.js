@@ -27,17 +27,22 @@ const CardInfo = ({ item, loadData, f7router }) => {
   };
 
   const Manual = async () => {
+    if (item.location != '在库') {
+      onToast('该托盘不在库内，请重新选择', styles.toastWarn);
+      return
+    }
     //托盘出库   托盘下架  新增
     const data = {
       trayNumber: item.code,
-      inType: 6, //原料托盘出库
       state: 0,
-      destination: '原材料组托点',
-      middle: 'J001'
+      toLocation: 'J001',
+      middle: 'J001',
+      taskType: 6,
+      inType: 6, //原料托盘出库
     };
-    await EmptyPalletDeliveryApi.saveOrUpdate(data)
+    await EmptyPalletDeliveryApi.addAnddownShelves(data)
       .then(res => {
-        onToast('托盘自动下架成功', styles.toastSuccess);
+        onToast('托盘下架成功', styles.toastSuccess);
         f7router.back();
         loadData();
       })
@@ -54,8 +59,8 @@ const CardInfo = ({ item, loadData, f7router }) => {
           <span className={styles['li-next-title']}>{item.code || ''}</span>
         </li>
         <li>
-          <span className={styles['li-next-title']}>任务状态</span>
-          <span className={styles['li-next-title']}>{item.taskStatus || ''}</span>
+          <span className={styles['li-next-title']}>托盘位置</span>
+          <span className={styles['li-next-title']}>{item.location || ''}</span>
         </li>
         <li>
           <span className={styles['li-next-title']}>托盘状态</span>
@@ -69,7 +74,7 @@ const CardInfo = ({ item, loadData, f7router }) => {
       </ul>
       <div className={styles['card-div']}>
         <Button fill round className={styles['bottom-btn-confirm']} onClick={handleSaveManual}>
-          下架
+        <span style={{ padding: "10px" }}>下架</span>
         </Button>
       </div>
     </Card>

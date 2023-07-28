@@ -52,19 +52,19 @@ class RawMaterialWarehousing extends Service {
     }
   }
 
-  // 手动上架(receiptNumber入库单号,trayNumber托盘号)
-  async handInStore(receiptNumber, trayNumber) {
-    try {
-      return await this.put(`${appName}/RawMaterialInWarehouse/handInStore?receiptNumber=${receiptNumber}&trayNumber=${trayNumber}`);
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
+  // // 手动上架(receiptNumber入库单号,trayNumber托盘号)
+  // async handInStore(receiptNumber, trayNumber) {
+  //   try {
+  //     return await this.put(`${appName}/RawMaterialInWarehouse/handInStore?receiptNumber=${receiptNumber}&trayNumber=${trayNumber}`);
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // }
 
   // 入库
   async inStore(data) {
     try {
-      return await this.get(`${appName}/RawMaterialInWarehouse/inStore/${data}`);
+      return await this.post(`${appName}/RawMaterialInWarehouse/inStore/${data}`);
     } catch (error) {
       throw new Error(error);
     }
@@ -87,6 +87,15 @@ class RawMaterialWarehousing extends Service {
       sort: true,
       sortCol: 'id'
     });
+  }
+
+  // 小车进入
+  async handInStore(id) {
+    try {
+      return await this.put(`${appName}/RawMaterialInWarehouse/handInStore?id=${id}`);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
 

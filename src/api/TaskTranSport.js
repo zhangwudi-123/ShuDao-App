@@ -71,6 +71,15 @@ class TaskTransport extends Service {
     }
   }
 
+  // 完成任务
+  async finishRBG(taskCode) {
+    try {
+      return await this.put(`${appName}/tasktransport/finishRBG?taskCode=${taskCode}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   // 暂停任务
   async suspendTask(id) {
     try {
@@ -80,6 +89,86 @@ class TaskTransport extends Service {
     }
   }
 
+  async startTask(id) {
+    try {
+      return await this.put(`${appName}/tasktransport/startTask?id=${id}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  //J002扫码
+  async j002Scan(taskCode) {
+    try {
+      return await this.put(`${appName}/tasktransport/j002Scan?taskCode=${taskCode}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  //J003扫码
+  async j003Scan() {
+    try {
+      return await this.put(`${appName}/tasktransport/j003Scan`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  //J002强制通过
+  async manualJ002(taskCode) {
+    try {
+      return await this.put(`${appName}/tasktransport/manualJ002?taskCode=${taskCode}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  //J003强制通过
+  async manualJ003() {
+    try {
+      return await this.put(`${appName}/tasktransport/manualJ003`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  // 完成任务
+  async finishLnl(taskCode) {
+    try {
+      return await this.put(`${appName}/tasktransport/finishLnl?taskCode=${taskCode}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+
+  // 手动执行ST2
+  async manualSt2(taskCode) {
+    try {
+      return await this.put(`${appName}/task-management/manualSt2?taskCode=${taskCode}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  // ST3/4手动执行
+  async manualStart(id) {
+    try {
+      return await this.put(`${appName}/task-management/manualStart?id=${id}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  // RBG手动执行
+  async manualRbg(id) {
+    try {
+      return await this.put(`${appName}/task-management/manualRbg?id=${id}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 export default new TaskTransport();

@@ -129,6 +129,13 @@ class PutInStorage extends Service {
     };
   }
 
+  async inShelf(owId) {
+    try {
+      return await this.put(`${appName}/inWarehouseOrder/inShelf/${owId}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 export default new PutInStorage();

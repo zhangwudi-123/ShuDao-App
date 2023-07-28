@@ -50,42 +50,42 @@ const CardInfo = ({
     },
   ];
 
-  const handleUpShelves =(record)=>{
+  const handleUpShelves = (record) => {
     createDialog(
       '确认上架？',
       ``,
-      function() {
+      function () {
         try {
           EmptyPalletsWarehousingApi.upShelves(item.id)
-          .then(res=>{
-            onToast('上架开始成功', styles.toastSuccess);
-            loadData(selectValue);
-          })
-          .catch(err=>{
-            onToast(err.message, styles.toastError);
-          })
+            .then(res => {
+              onToast('上架开始成功', styles.toastSuccess);
+              loadData(selectValue);
+            })
+            .catch(err => {
+              onToast(err.message, styles.toastError);
+            })
         } catch (error) {
-          console.log('error',error);
+          console.log('error', error);
           onToast('上架开始失败', styles.toastError);
         }
       }
     );
   }
-  
-  const handleFinishOrder =(record)=>{
+
+  const handleFinishOrder = (record) => {
     createDialog(
       '确认完成任务？',
       ``,
-      function() {
+      function () {
         try {
           EmptyPalletsWarehousingApi.finishById(item.id)
-          .then(res=>{
-            onToast('任务完成成功', styles.toastSuccess);
-            loadData(selectValue);
-          })
-          .catch(err=>{
-            onToast(err.message, styles.toastError);
-          })
+            .then(res => {
+              onToast('任务完成成功', styles.toastSuccess);
+              loadData(selectValue);
+            })
+            .catch(err => {
+              onToast(err.message, styles.toastError);
+            })
         } catch (error) {
           onToast('任务完成失败', styles.toastError);
         }
@@ -109,13 +109,13 @@ const CardInfo = ({
             );
           })}
         </ul>
-        {tabKey != 2 &&<div className={styles['card-div']}>
+        {tabKey != 2 && <div className={styles['card-div']}>
           <ul className={styles['div-ul']}>
             {tabKey == 0 && <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleUpShelves()}>
-              上架
+              <span style={{ padding: "10px" }}>上架</span>
             </Button>}
             {tabKey == 1 && <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleFinishOrder()}>
-              完成
+              <span style={{ padding: "10px" }}>完成</span>
             </Button>}
           </ul>
         </div>}

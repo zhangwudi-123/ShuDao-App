@@ -28,6 +28,24 @@ const CardInfo = ({
       align: 'center'
     },
     {
+      title: '优先级',
+      dataIndex: 'priority',
+      key: 'priority',
+      align: 'center'
+    },
+    {
+      title: tabKey == 4 ? '任务完成时间' : '任务启动时间',
+      dataIndex: 'updateTime',
+      key: 'updateTime',
+      align: 'center'
+    },
+    {
+      title: '业务号',
+      dataIndex: 'orderCode',
+      key: 'orderCode',
+      align: 'center'
+    },
+    {
       title: '起始位置',
       dataIndex: 'fromLocation',
       key: 'fromLocation',
@@ -45,12 +63,7 @@ const CardInfo = ({
       key: 'toLocation',
       align: 'center'
     },
-    {
-      title: '优先级',
-      dataIndex: 'priority',
-      key: 'priority',
-      align: 'center'
-    },
+
     {
       title: 'agv任务状态',
       dataIndex: 'agvStateName',
@@ -58,7 +71,7 @@ const CardInfo = ({
       align: 'center'
     },
     {
-      title: '提升机任务状态',
+      title: 'RBG状态',
       dataIndex: 'transportStateName',
       key: 'transportStateName',
       align: 'center'
@@ -73,6 +86,23 @@ const CardInfo = ({
         await TaskOverviewApi.suspendTask(record.id)
           .then(res => {
             onToast('任务暂停成功', styles.toastSuccess);
+            loadData(selectValue);
+          })
+          .catch(err => {
+            onToast(err.message, styles.toastError);
+          })
+      }
+    );
+  }
+
+  const handleDelete = async (record) => {
+    createDialog(
+      '确认删除当前任务？',
+      `任务单号${record.taskCode}`,
+      async function () {
+        await TaskOverviewApi.deleteById(record.id)
+          .then(res => {
+            onToast('任务删除成功', styles.toastSuccess);
             loadData(selectValue);
           })
           .catch(err => {
@@ -151,19 +181,22 @@ const CardInfo = ({
         </ul>
         {tabKey != 4 && <div className={styles['card-div']}>
           <ul className={styles['div-ul']}>
-            {tabKey == 1 && <Button key="adjust" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => { setAdjustSheetOpen(true); setAdjustSheetData(item) }}>
+            {tabKey == 1 && <Button key="adjust" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => { setAdjustSheetOpen(true); setAdjustSheetData(item) }}>
               调整优先级
             </Button>}
-            {tabKey == 1 && <Button key="pause" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px",background: '#d83333' }} onClick={() => handlePause(item)}>
+            {tabKey == 1 && <Button key="delete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105, background: '#d83333' }} onClick={() => handlePause(item)}>
               暂停
             </Button>}
-            {(tabKey == 2 || tabKey == 5) && <Button key="complete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleComplete(item)}>
+            {(tabKey == 1 || tabKey == 2) && <Button key="pause" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105, background: '#d83333' }} onClick={() => handleDelete(item)}>
+              删除
+            </Button>}
+            {(tabKey == 2 || tabKey == 5) && <Button key="complete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleComplete(item)}>
               完成
             </Button>}
-            {tabKey == 3 && <Button key="continue" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleContinue(item)}>
+            {tabKey == 3 && <Button key="continue" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleContinue(item)}>
               继续
             </Button>}
-            {tabKey == 5 && <Button key="rollback" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" ,background: '#d83333'}} onClick={() => handleRollback(item)}>
+            {tabKey == 5 && <Button key="rollback" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105, background: '#d83333' }} onClick={() => handleRollback(item)}>
               回退
             </Button>}
           </ul>

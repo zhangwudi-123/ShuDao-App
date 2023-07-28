@@ -4,19 +4,12 @@ import { PageContent, List, ListItem } from 'framework7-react';
 
 const CardSheet = ({ item }) => {
   const cardColumns = [
-    // {
-    //   title: '收料单号',
-    //   dataIndex: 'receiptNumber',
-    //   key: 'receiptNumber',
-    //   align: 'center',
-    // },
     {
       title: '行号',
       dataIndex: 'lineNumber',
       key: 'lineNumber',
       align: 'center'
     },
-
     {
       title: '关联单号',
       dataIndex: 'associatedNumber',
@@ -30,28 +23,10 @@ const CardSheet = ({ item }) => {
       align: 'center'
     },
     {
-      title: '创建人',
-      dataIndex: 'creator',
-      key: 'creator',
-      align: 'center'
-    },
-    {
-      title: '单据数量',
-      dataIndex: 'number',
-      key: 'number',
-      align: 'center'
-    },
-    {
-      title: '单据物料编码',
-      dataIndex: 'materialCode',
-      key: 'materialCode',
-      align: 'center'
-    },
-    {
-      title: '单据物料名称',
-      dataIndex: 'materialName',
-      key: 'materialName',
-      align: 'center'
+      title: '采购订单号',
+      dataIndex: 'associatedNumber',
+      key: 'associatedNumber',
+      align: 'center',
     },
     {
       title: '托盘号',
@@ -66,13 +41,13 @@ const CardSheet = ({ item }) => {
       align: 'center'
     },
     {
-      title: '实际重量',
+      title: '实际重量(kg)',
       dataIndex: 'actualWeight',
       key: 'actualWeight',
       align: 'center'
     },
     {
-      title: '实际数量',
+      title: '实际数量(张)',
       dataIndex: 'actualNumber',
       key: 'actualNumber',
       align: 'center'

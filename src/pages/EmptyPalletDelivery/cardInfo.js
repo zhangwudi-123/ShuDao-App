@@ -62,7 +62,7 @@ const CardInfo = ({
       ``,
       function() {
         try {
-          EmptyPalletDeliveryApi.upShelves(item.id)
+          EmptyPalletDeliveryApi.downShelves(item.id)
           .then(res=>{
             onToast('下架开始成功', styles.toastSuccess);
             loadData(selectValue);
@@ -71,7 +71,6 @@ const CardInfo = ({
             onToast(err.message, styles.toastError);
           })
         } catch (error) {
-          console.log('error',error);
           onToast('下架开始失败', styles.toastError);
         }
       }
@@ -118,10 +117,10 @@ const CardInfo = ({
         {tabKey != 2 &&<div className={styles['card-div']}>
           <ul className={styles['div-ul']}>
             {tabKey == 0 && <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleDownShelves()}>
-              下架
+            <span style={{ padding: "10px" }}>下架</span>
             </Button>}
             {tabKey == 1 && <Button fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleFinishOrder()}>
-              完成
+            <span style={{ padding: "10px" }}>完成</span>
             </Button>}
           </ul>
         </div>}

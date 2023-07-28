@@ -2,6 +2,15 @@ import { Service } from '@hvisions/toolkit';
 
 const appName = '/warehouse-service';
 class EmptyPalletsWarehousing extends Service {
+  //新增并上架
+  async addAndupShelves(data) {
+    try {
+      return await this.post(`${appName}/PalletInWarehouseController/addAndupShelves`, data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   //自动空托盘入库
   async autoTransferIn(data) {
     try {
@@ -12,9 +21,16 @@ class EmptyPalletsWarehousing extends Service {
   }
 
   //呼叫器托盘回库
-  async callTransferIn(location) {
+  // async callTransferIn(location) {
+  //   try {
+  //     return await this.put(`${appName}/PalletInWarehouseController/callTransferIn?location=${location}`);
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // }
+  async callTransferIn(data) {
     try {
-      return await this.put(`${appName}/PalletInWarehouseController/callTransferIn?location=${location}`);
+      return await this.post(`${appName}/PalletInWarehouseController/callTransferIn`, data);
     } catch (error) {
       throw new Error(error);
     }
@@ -74,6 +90,15 @@ class EmptyPalletsWarehousing extends Service {
   async saveOrUpdate(data) {
     try {
       return await this.post(`${appName}/PalletInWarehouseController/saveOrupdate`, data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  //手动空托入库
+  async trayManual(data) {
+    try {
+      return await this.post(`${appName}/PalletInWarehouseController/trayManual`, data);
     } catch (error) {
       throw new Error(error);
     }

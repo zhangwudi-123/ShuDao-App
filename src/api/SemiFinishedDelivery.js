@@ -36,12 +36,20 @@ class SemiFinishedDelivery extends Service {
   // 出库
   async outStore(dockingPoint, ids, readyMaterials) {
     try {
-      return await this.put(`${appName}/SemiMaterialOutWarehouseController/outStore?dockingPoint=${dockingPoint}&ids=${ids}&readyMaterials=${readyMaterials}`);
+      return await this.put(`${appName}/SemiMaterialOutWarehouseController/outStore?dockingPoint=${dockingPoint}&readyMaterials=${readyMaterials}`, ids);
     } catch (error) {
       throw new Error(error);
     }
   }
 
+  //出库
+  async returnStore(id, middle, toLocation) {
+    try {
+      return await this.put(`${appName}/SemiMaterialOutWarehouseController/returnStore?id=${id}&middle=${middle}&toLocation=${toLocation}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 export default new SemiFinishedDelivery();

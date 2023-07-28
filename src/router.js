@@ -43,6 +43,66 @@
 // import YWPackRecord from '~/pages/PackRecord';
 // import YWPackRecordDetail from './pages/PackRecord/Detail';
 
+//空托盘入库
+import EmptyPalletsWarehousing from './pages/EmptyPalletWarehousing/index';
+
+//空托盘出库
+import EmptyPalletDelivery from './pages/EmptyPalletDelivery/index';
+
+//原材料入库收料单
+import RawMaterialWarehousing from '~/pages/RawMaterialWarehousing/index';
+import RawMaterialWarehousingManual from '~/pages/RawMaterialWarehousing/Manual';
+import RawMaterialWarehousingBinding from '~/pages/RawMaterialWarehousing/Binding';
+
+//切割机1收料
+import SemiFinishedWarehousing1 from './pages/SemiFinishedWarehousing1/index';
+import SemiWarehousingBinding1 from './pages/SemiFinishedWarehousing1/Binding/index';
+import Master1 from './pages/SemiFinishedWarehousing1/Binding/orderInformation/master/index';
+import MasterAdd1 from './pages/SemiFinishedWarehousing1/Binding/orderInformation/masterAdd/index';
+import Suborder1 from './pages/SemiFinishedWarehousing1/Binding/orderInformation/suborder/index';
+import SuborderAdd1 from './pages/SemiFinishedWarehousing1/Binding/orderInformation/suborderAdd/index';
+import SemiFinishedWarehousingDetail1 from './pages/SemiFinishedWarehousing1/Detail/index';
+import PickTray1 from './pages/SemiFinishedWarehousing1/PickTray/index';
+
+//切割机2收料
+import SemiFinishedWarehousing2 from './pages/SemiFinishedWarehousing2/index';
+import SemiWarehousingBinding2 from './pages/SemiFinishedWarehousing2/Binding/index';
+import Master2 from './pages/SemiFinishedWarehousing2/Binding/orderInformation/master/index';
+import MasterAdd2 from './pages/SemiFinishedWarehousing2/Binding/orderInformation/masterAdd/index';
+import Suborder2 from './pages/SemiFinishedWarehousing2/Binding/orderInformation/suborder/index';
+import SuborderAdd2 from './pages/SemiFinishedWarehousing2/Binding/orderInformation/suborderAdd/index';
+import SemiFinishedWarehousingDetail2 from './pages/SemiFinishedWarehousing2/Detail/index';
+import PickTray2 from './pages/SemiFinishedWarehousing2/PickTray/index';
+
+//折弯机工位
+import BendingMachine from './pages/BendingMachines/BendingMachine/index';
+import PickTray from './pages/BendingMachines/BendingMachine/PickTray/index';
+import PullOff from './pages/BendingMachines/BendingMachine/PullOff/index';
+import SurplusForm from './pages/BendingMachines/BendingMachine/Surplus/index';
+import OrderInformations from './pages/BendingMachines/BendingMachine/Surplus/orderInformation/index';
+
+//折弯机工位1
+import BendingMachine1 from './pages/BendingMachines/BendingMachine1/index';
+import BendingMachine2 from './pages/BendingMachines/BendingMachine2/index';
+import BendingMachine3 from './pages/BendingMachines/BendingMachine3/index';
+import BendingMachine4 from './pages/BendingMachines/BendingMachine4/index';
+import BendingMachine5 from './pages/BendingMachines/BendingMachine5/index';
+
+//转运系统
+import TransportSystem from './pages/TransportSystem/index';
+
+//任务总览
+import TaskOverview from './pages/TaskOverview/index';
+
+//RBG任务
+import ReservoirPLC from './pages/ReservoirPLC/index';
+
+
+
+
+
+
+
 
 //备料位托盘管理
 import MaterialPreparation from './pages/MaterialPreparation/index';
@@ -53,15 +113,9 @@ import DockingPort from './pages/DockingPort/index';
 //托盘管理
 import PalletManagement from './pages/PalletManagement/index';
 
-//空托盘入库
-import EmptyPalletsWarehousing from './pages/EmptyPalletWarehousing/index';
 
-//空托盘出库
-import EmptyPalletDelivery from './pages/EmptyPalletDelivery/index';
 
-//原材料入库收料单
-import RawMaterialWarehousing from '~/pages/RawMaterialWarehousing/index';
-import RawMaterialWarehousingManual from '~/pages/RawMaterialWarehousing/Manual';
+
 
 //原材料出库订单管理
 import RawMaterialDelivery from '~/pages/RawMaterialDelivery/index';
@@ -82,17 +136,13 @@ import BendingConfiguration from './pages/BendingConfiguration/index';
 //通用
 import TaskTransport from './pages/TaskTransport/index';
 
-//转运系统
-import TransportSystem from './pages/TransportSystem/index';
 
-//库区PLC
-import ReservoirPLC from './pages/ReservoirPLC/index';
+
 
 //上下料
 import UpAndDownOn from './pages/UpAndDownOn/index';
 
-//任务总览
-import TaskOverview from './pages/TaskOverview/index';
+
 
 //AGV
 import AgvManagement from './pages/AgvManagement/index';
@@ -101,19 +151,6 @@ import AgvManagement from './pages/AgvManagement/index';
 import SurplusInStorage from './pages/SurplusInStorage/index';
 
 export default [
-
-  {
-    path: '/material-preparation',
-    component: MaterialPreparation
-  },
-  {
-    path: '/docking-port',
-    component: DockingPort
-  },
-  {
-    path: '/pallet-management',
-    component: PalletManagement
-  },
   {
     path: '/empty-pallets-warehousing',
     component: EmptyPalletsWarehousing
@@ -130,6 +167,153 @@ export default [
     path: '/raw-material-warehousing-manual',
     component: RawMaterialWarehousingManual
   },
+  {
+    path: '/raw-material-warehousing-binding',
+    component: RawMaterialWarehousingBinding
+  },  
+
+  {
+    path: '/semi-finished-warehousing1',
+    component: SemiFinishedWarehousing1
+  },
+  {
+    path: '/semi-warehousing-binding1',
+    component: SemiWarehousingBinding1
+  },
+  {
+    path: '/semi-warehousing-binding-master1',
+    component: Master1
+  },
+  {
+    path: '/semi-warehousing-binding-master-add1',
+    component: MasterAdd1
+  },
+  {
+    path: '/semi-warehousing-binding-suborder1',
+    component: Suborder1
+  },
+  {
+    path: '/semi-warehousing-binding-suborder-add1',
+    component: SuborderAdd1
+  },
+  {
+    path: '/semi-warehousing-detail1',
+    component: SemiFinishedWarehousingDetail1
+  },
+  {
+    path: '/semi-warehousing-pickTray1',
+    component: PickTray1
+  },
+
+  {
+    path: '/semi-finished-warehousing2',
+    component: SemiFinishedWarehousing2
+  },
+  {
+    path: '/semi-warehousing-binding2',
+    component: SemiWarehousingBinding2
+  },
+  {
+    path: '/semi-warehousing-binding-master2',
+    component: Master2
+  },
+  {
+    path: '/semi-warehousing-binding-master-add2',
+    component: MasterAdd2
+  },
+  {
+    path: '/semi-warehousing-binding-suborder2',
+    component: Suborder2
+  },
+  {
+    path: '/semi-warehousing-binding-suborder-add2',
+    component: SuborderAdd2
+  },
+  {
+    path: '/semi-warehousing-detail2',
+    component: SemiFinishedWarehousingDetail2
+  },
+  {
+    path: '/semi-warehousing-pickTray2',
+    component: PickTray2
+  },
+
+  {
+    path: '/bending-machine',
+    component: BendingMachine
+  },
+  {
+    path: '/bending-machine-pickTray',
+    component: PickTray
+  },
+  {
+    path: '/bending-machine-pullOff',
+    component: PullOff
+  },
+  {
+    path: '/bending-machine-surplusForm',
+    component: SurplusForm
+  },
+  {
+    path: '/bending-machine-addInfos',
+    component: OrderInformations
+  },
+  {
+    path: '/bending-machine1',
+    component: BendingMachine1
+  },
+  {
+    path: '/bending-machine2',
+    component: BendingMachine2
+  },
+  {
+    path: '/bending-machine3',
+    component: BendingMachine3
+  },
+  {
+    path: '/bending-machine4',
+    component: BendingMachine4
+  },
+  {
+    path: '/bending-machine5',
+    component: BendingMachine5
+  },
+
+  {
+    path: '/transport-system',
+    component: TransportSystem
+  },
+  {
+    path: '/taskOverview',
+    component: TaskOverview
+  },
+  {
+    path: '/reservoirPLC',
+    component: ReservoirPLC
+  },
+
+
+  
+
+
+
+
+  
+
+  {
+    path: '/material-preparation',
+    component: MaterialPreparation
+  },
+  {
+    path: '/docking-port',
+    component: DockingPort
+  },
+  {
+    path: '/pallet-management',
+    component: PalletManagement
+  },
+
+
   {
     path: '/raw-material-delivery',
     component: RawMaterialDelivery

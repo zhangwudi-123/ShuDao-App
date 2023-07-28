@@ -11,6 +11,7 @@ import EmptyPalletDeliveryApi from '~/api/EmptyPalletDelivery';
 import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
+import joinAreaServices from '~/api/joinArea';
 
 const getFormattedMsg = i18n.getFormattedMsg;
 
@@ -114,11 +115,11 @@ const RawMaterialWarehousing = ({ f7router }) => {
   }
 
   const Automatic = async () => {
-    const data ={
-      destination:'原材料组托点',
-      middle:'J001',
-      taskType:6, //原料托盘出库
-      transferType:0 //原料托盘
+    const data = {
+      destination: 'J001',
+      middle: 'J001',
+      taskType: 6, //原料托盘出库
+      transferType: 0 //原料托盘
     }
     await EmptyPalletDeliveryApi.autoTransferOut(data)
     .then(res=>{
@@ -135,8 +136,25 @@ const RawMaterialWarehousing = ({ f7router }) => {
     f7router.navigate('/raw-material-warehousing-manual', { });
   }
 
-  const handleBinding = ()=>{
-    setCreateSheetOpen(true)
+  const handleBinding = async ()=>{
+    // setCreateSheetOpen(true)
+    let trayNumber =''
+    await joinAreaServices.findJoin()
+    .then(res => {
+      console.log('res',res);
+      res.map(i => {
+        if (i.joinCode == 'J001' && i.transferCode != null) {
+          trayNumber = i.transferCode
+        }
+      })
+    })
+
+    f7router.navigate('/raw-material-warehousing-binding', {
+      // transition: 'ne-backward',
+      props: {
+        trayNumber,
+      }
+    });
   }
 
   const renderCardList = () =>
@@ -148,6 +166,7 @@ const RawMaterialWarehousing = ({ f7router }) => {
           item={value}
           handleWeighing={handleWeighing}
           handleWarehousing={handleWarehousing}
+          handInStore={handInStore}
         />
       ))
     ) : (
@@ -180,7 +199,7 @@ const RawMaterialWarehousing = ({ f7router }) => {
   }
 
   const handleWeighing = async(record)=>{
-    setTabKey(1)
+    // setTabKey(1)
     const weighingId = record.id
     await RawMaterialWarehousingApi
     .getWeigh(weighingId)
@@ -195,15 +214,51 @@ const RawMaterialWarehousing = ({ f7router }) => {
 
   const handleWarehousing = async (record) => {
     const InstorId = record.id
-    await RawMaterialWarehousingApi
-      .inStore(InstorId)
-      .then(res => {
-        onToast('入库成功', styles.toastSuccess);
-        loadData(selectValue);
-      })
-      .catch(err => {
-        onToast(err.message, styles.toastError);
-      });
+    // await RawMaterialWarehousingApi
+    //   .inStore(InstorId)
+    //   .then(res => {
+    //     onToast('入库成功', styles.toastSuccess);
+    //     loadData(selectValue);
+    //   })
+    //   .catch(err => {
+    //     onToast(err.message, styles.toastError);
+    //   });
+    createDialog(
+      '确认开始入库流程？',
+      ``,
+      async function () {
+        await RawMaterialWarehousingApi
+          .inStore(InstorId)
+          .then(res => {
+            onToast('入库成功', styles.toastSuccess);
+            loadData(selectValue);
+          })
+          .catch(err => {
+            onToast(err.message, styles.toastError);
+          });
+      }
+    );
+  }
+
+  const  handInStore =(record)=>{
+    createDialog(
+      '确认开始小车进入流程？',
+      ``,
+      async function() {
+        // try {
+          RawMaterialWarehousingApi.handInStore(record.id)
+          .then(res=>{
+            onToast('流程已开始', styles.toastSuccess);
+            loadData(selectValue);
+          })
+          .catch(err=>{
+            onToast(err.message, styles.toastError);
+          })
+        // } catch (error) {
+        //   onToast('流程开始失败', styles.toastError);
+        // }
+      }
+    );
   }
 
   return (
@@ -296,62 +351,7 @@ const RawMaterialWarehousing = ({ f7router }) => {
         {tabKey == 0 && <Button className={styles['bottom-btn-confirm']}  onClick={() => handleBinding()}>
           {getFormattedMsg('RawMaterialWarehousing.button.binding')}
         </Button>}
-        {/* {tabKey == 0 && <Button className={styles['bottom-btn-confirm']}  onClick={() => handleWeighing()} >
-          {getFormattedMsg('RawMaterialWarehousing.button.weighing')}
-        </Button>} */}
-        {/* {tabKey == 1 && <Button className={styles['bottom-btn-one']}  onClick={() => handleWarehousing()} >
-          {getFormattedMsg('RawMaterialWarehousing.button.warehousing')}
-        </Button>} */}
       </div>
-      <Sheet
-        className={styles['add-sheet']}
-        opened={createSheetOpen}
-        onSheetClosed={addSheetClosed}
-        backdrop
-      >
-        <BlockTitle>托盘物料绑定</BlockTitle>
-        <List strongIos dividersIos insetIos style={{ padding: '0 16px' }}>
-          <ListInput
-          key={'addSheet'}
-            label="托盘号"
-            type="text"
-            placeholder="请输入托盘号"
-            required
-            validate
-            clearButton
-            onChange={(e)=>{
-              const v = createSheetValue
-              v.tyayNumber = e.target.value
-              setCreateSheetValue(v)
-              setTyayNumber(e.target.value)
-            }}
-            value={tyayNumber}
-          >
-            <Icon icon="demo-list-icon" slot="media" />
-          </ListInput>
-          <ListInput
-            label="原料"
-            type="text"
-            placeholder="请输入原料"
-            required
-            validate
-            clearButton
-            onChange={(e)=>{
-              const v = createSheetValue
-              v.rawMaterial = e.target.value
-              setCreateSheetValue(v)
-              setRawMaterial(e.target.value)
-            }}
-            value={rawMaterial}
-          >
-            <Icon icon="demo-list-icon" slot="media" />
-          </ListInput>
-
-            <Button className={styles['save-btn']} fill round onClick={handleSave}>
-              保存
-            </Button>
-        </List>
-      </Sheet>
     </Page>
   );
 };

@@ -1,0 +1,30 @@
+// .add-sheet {
+//   width: 100%;
+//   // height: var(--ne-bottom-container-height);
+//   height: auto;
+//   background: rgba(255, 255, 255, 0.9);
+//   // position: fixed;
+//   bottom: 0;
+//   // z-index: 100;
+//   padding: 6px 16px;
+//   box-sizing: border-box;
+//   display: flex;
+//   justify-content: space-between;
+
+  .save-btn {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    border-radius: 22px 22px 22px 22px;
+    background: linear-gradient(174deg, #3a86d1 0%, #2164c9 100%);
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    margin-top: 10px;
+
+    span {
+      font-size: 20px;
+    }
+  }
+// }

@@ -22,6 +22,12 @@ const CardInfo = ({
       align: 'center'
     },
     {
+      title: tabKey == 4 ? '任务完成时间' : '任务启动时间',
+      dataIndex: 'updateTime',
+      key: 'updateTime',
+      align: 'center'
+    },
+    {
       title: '托盘号',
       dataIndex: 'transferCode',
       key: 'transferCode',
@@ -33,12 +39,12 @@ const CardInfo = ({
       key: 'fromLocation',
       align: 'center'
     },
-    {
-      title: '中间位置',
-      dataIndex: 'middle',
-      key: 'middle',
-      align: 'center'
-    },
+    // {
+    //   title: '中间位置',
+    //   dataIndex: 'middle',
+    //   key: 'middle',
+    //   align: 'center'
+    // },
     {
       title: '目标位置',
       dataIndex: 'toLocation',
@@ -53,6 +59,74 @@ const CardInfo = ({
     },
   ];
 
+  const handleStart = (record) => {
+    createDialog(
+      '确认任务开始？',
+      `任务单号${record.taskCode}`,
+      async function () {
+        await TaskTranSportApi.manualSt2(record.taskCode)
+          .then(res => {
+            onToast('任务开始成功', styles.toastSuccess);
+            loadData(selectValue);
+          })
+          .catch(err => {
+            onToast(err.message, styles.toastError);
+          })
+      }
+    );
+  }
+
+  const handleJ002Scan = (record) => {
+    createDialog(
+      '确认J002扫码？',
+      ``,
+      async function () {
+        await TaskTranSportApi.j002Scan(record.taskCode)
+          .then(res => {
+            onToast('J002扫码成功', styles.toastSuccess);
+            loadData(selectValue);
+          })
+          .catch(err => {
+            onToast(err.message, styles.toastError);
+          })
+      }
+    );
+  }
+
+  const handleManualJ002 = (record) => {
+    createDialog(
+      '确认J002通过？',
+      ``,
+      async function () {
+        await TaskTranSportApi.manualJ002(record.taskCode)
+          .then(res => {
+            onToast('J002强制通过成功', styles.toastSuccess);
+            loadData(selectValue);
+          })
+          .catch(err => {
+            onToast(err.message, styles.toastError);
+          })
+      }
+    );
+  }
+
+  const handleDelete = (record) => {
+    createDialog(
+      '确认删除当前任务？',
+      `任务单号${record.taskCode}`,
+      async function () {
+        await TaskTranSportApi.deleteById(record.id)
+          .then(res => {
+            onToast('任务删除成功', styles.toastSuccess);
+            loadData(selectValue);
+          })
+          .catch(err => {
+            onToast(err.message, styles.toastError);
+          })
+      }
+    );
+  }
+
   const handlePause = async (record) => {
     createDialog(
       '确认暂停当前任务？',
@@ -61,6 +135,23 @@ const CardInfo = ({
         await TaskTranSportApi.suspendTask(record.id)
           .then(res => {
             onToast('任务暂停成功', styles.toastSuccess);
+            loadData(selectValue);
+          })
+          .catch(err => {
+            onToast(err.message, styles.toastError);
+          })
+      }
+    );
+  }
+
+  const handleAgain = (record) => {
+    createDialog(
+      '确认再次执行任务？',
+      `任务单号${record.taskCode}`,
+      async function () {
+        await TaskTranSportApi.manualSt2(record.taskCode)
+          .then(res => {
+            onToast('任务再次执行成功', styles.toastSuccess);
             loadData(selectValue);
           })
           .catch(err => {
@@ -139,12 +230,42 @@ const CardInfo = ({
         </ul>
         {tabKey != 4 && <div className={styles['card-div']}>
           <ul className={styles['div-ul']}>
-            {tabKey == 1 && <Button key="adjust" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => { setAdjustSheetOpen(true); setAdjustSheetData(item) }}>
+            {tabKey == 6 &&
+              <>
+                <Button key="start1" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleStart(item)} >手动开始</Button>
+                <Button key="start2" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleJ002Scan(item)} >J002扫码</Button>
+                <Button key="start3" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleManualJ002(item)} >J002强制通过</Button>
+              </>
+            }
+            {tabKey == 1 &&
+              <>
+                <Button key="adjust" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => { setAdjustSheetOpen(true); setAdjustSheetData(item) }}>调整优先级</Button>
+                <Button key="delete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105, background: '#d83333' }} onClick={() => handleDelete(item)} >删除</Button>
+                <Button key="pause" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105, background: '#d83333' }} onClick={() => handlePause(item)}>暂停</Button>
+              </>
+            }
+            {tabKey == 2 &&
+              <>
+                <Button key="again" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleAgain(item)} >再次执行</Button>
+                <Button key="complete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleComplete(item)}>完成</Button>
+              </>
+            }
+            {tabKey == 3 &&
+              <Button key="continue" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleContinue(item)}>继续</Button>
+            }
+            {tabKey == 5 &&
+              <>
+                <Button key="rollback" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105, background: '#d83333' }} onClick={() => handleRollback(item)}>回退</Button>
+                <Button key="complete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 105 }} onClick={() => handleComplete(item)}>完成</Button>
+              </>
+            }
+
+            {/* {tabKey == 1 && <Button key="adjust" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => { setAdjustSheetOpen(true); setAdjustSheetData(item) }}>
               调整优先级
             </Button>}
             {tabKey == 1 && <Button key="pause" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px",background: '#d83333' }} onClick={() => handlePause(item)}>
               暂停
-            </Button>}
+            </Button>} 
             {(tabKey == 2 || tabKey == 5) && <Button key="complete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleComplete(item)}>
               完成
             </Button>}
@@ -153,7 +274,7 @@ const CardInfo = ({
             </Button>}
             {tabKey == 5 && <Button key="rollback" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" ,background: '#d83333'}} onClick={() => handleRollback(item)}>
               回退
-            </Button>}
+            </Button>} */}
           </ul>
         </div>}
       </Card>

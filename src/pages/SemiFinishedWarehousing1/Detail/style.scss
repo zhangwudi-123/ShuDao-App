@@ -1,0 +1,10 @@
+.tabContainer {
+    :global {
+  
+      .page-content,
+      .tab {
+        padding-top: 16px !important;
+        padding-bottom: var(--ne-content-padding-bottom);
+      }
+    }
+  }

@@ -139,19 +139,19 @@ const CardInfo = ({
         </ul>
         {tabKey != 4 && <div className={styles['card-div']}>
           <ul className={styles['div-ul']}>
-            {tabKey == 1 && <Button key="adjust" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => { setAdjustSheetOpen(true); setAdjustSheetData(item) }}>
+            {tabKey == 1 && <Button key="adjust" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 95 }} onClick={() => { setAdjustSheetOpen(true); setAdjustSheetData(item) }}>
               调整优先级
             </Button>}
-            {tabKey == 1 && <Button key="pause" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px",background: '#d83333' }} onClick={() => handlePause(item)}>
+            {tabKey == 1 && <Button key="pause" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 95, background: '#d83333' }} onClick={() => handlePause(item)}>
               暂停
             </Button>}
-            {(tabKey == 2 || tabKey == 5) && <Button key="complete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleComplete(item)}>
+            {(tabKey == 2 || tabKey == 5) && <Button key="complete" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 95 }} onClick={() => handleComplete(item)}>
               完成
             </Button>}
-            {tabKey == 3 && <Button key="continue" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" }} onClick={() => handleContinue(item)}>
+            {tabKey == 3 && <Button key="continue" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 95 }} onClick={() => handleContinue(item)}>
               继续
             </Button>}
-            {tabKey == 5 && <Button key="rollback" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px" ,background: '#d83333'}} onClick={() => handleRollback(item)}>
+            {tabKey == 5 && <Button key="rollback" fill round className={styles['bottom-btn-confirm']} style={{ margin: "5px", width: 95, background: '#d83333' }} onClick={() => handleRollback(item)}>
               回退
             </Button>}
           </ul>

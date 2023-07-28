@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle,ListInput,List, Icon,PageContent, Button,Input, Form} from '@hvisions/f-ui';
+import { Toolbar, Link, Tabs, Tab, Page, Navbar, NavLeft, NavTitle, NavRight, Searchbar, BlockTitle,ListInput,List, Icon,PageContent, Button, Fab, ListItem, AccordionContent,} from '@hvisions/f-ui';
 import {   Sheet,  f7,} from 'framework7-react';
 import styles from './style.scss';
 import backIcon from '~/pages/WarehousinManage/img/backIcon.png';
@@ -12,7 +12,7 @@ import { isEmpty } from 'lodash';
 import CardInfo from './cardInfo';
 import { Skeleton, Empty } from '~/components';
 import TaskTranSportApi from '~/api/TaskTranSport';
-import { taskType } from '~/enum/enum';
+import { taskType,TransportTaskType } from '~/enum/enum';
 
 const getFormattedMsg = i18n.getFormattedMsg;
 
@@ -23,7 +23,8 @@ const TaskTransport = ({ f7router }) => {
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
   const [total, setTotal] = useState(0);
-  const [selectValue, setSelectValue] = useState('');
+  // const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState({});
   const debounceSelectValue = useDebounce(selectValue, 500);
   const [showPreloader, setShowPreloader] = useState(false);
   const [allowInfinite, setAllowInfinite] = useState(true);
@@ -40,10 +41,11 @@ const TaskTransport = ({ f7router }) => {
     load();
   }, [tabKey, debounceSelectValue]);
 
-  const loadData = async keyWord => {
+  const loadData = async data => {
     setLoading(true);
     const searchData = {
-      taskCode: keyWord,
+      // taskCode: keyWord,
+      ...data,
       pageSize: countRef.current,
       taskState: tabKey,
       taskKind: 1
@@ -54,7 +56,7 @@ const TaskTransport = ({ f7router }) => {
         const data = res.content
         data.map(i=>{
           if(i.taskType != null){
-            i.taskTypeName = taskType[i.taskType - 1].name
+            i.taskTypeName = TransportTaskType[i.taskType - 1].name
           }
         })
         setList(data);
@@ -137,6 +139,41 @@ const handleSaveAdjust = async()=>{
     })
 }
 
+const style = {
+  // height: '30px',
+  // fontSize: '25px',
+  fontWeight: 500
+}
+
+const [taskCode, setTaskCode] = useState('');
+const [type, setType] = useState('');
+const [typeName, setTypeName] = useState('');
+
+const onSearchValueChange = (value, typeName, keyValue) => {
+  if (keyValue == 'taskCode') {
+    setTaskCode(value)
+    return
+  }
+  if (keyValue == 'type') {
+    if(value == '无'){
+      setType('')
+      setTypeName('')
+      return
+    }
+    setType(value)
+    setTypeName(TransportTaskType[value-1].value)
+    return
+  }
+}
+
+const onSearch = () => {
+  const data = {}
+  taskCode != '' ? data.taskCode = taskCode : 1
+  type != '' ? data.taskType = type : 1
+  console.log(data, "data");
+  setSelectValue(data)
+}
+
   return (
     <Page pageContent={false}>
       <Navbar>
@@ -145,8 +182,8 @@ const handleSaveAdjust = async()=>{
             <img alt="" style={{ height: 24 }} src={backIcon} />
           </a>
         </NavLeft>
-        <NavTitle>库区PLC</NavTitle>
-        <NavRight className={styles['nav-right']}>
+        <NavTitle>RBG任务</NavTitle>
+        {/* <NavRight className={styles['nav-right']}>
           <Link
             searchbarEnable=".searchbar-demo"
             iconIos="f7:search"
@@ -165,7 +202,7 @@ const handleSaveAdjust = async()=>{
           onClickDisable={handleClickDisable}
           disableButtonText="取消"
           style={{ fontSize: 13 }}
-        ></Searchbar>
+        ></Searchbar> */}
       </Navbar>
       <Toolbar tabbar top noHairline className="ne-top-tab">
         <Link tabLink="#tab-1" onClick={() => setTabKey(1)} tabLinkActive ={tabKey == 1 }>
@@ -180,9 +217,9 @@ const handleSaveAdjust = async()=>{
         <Link tabLink="#tab-4" onClick={() => setTabKey(4)} tabLinkActive ={tabKey == 4 }>
           完成
         </Link>
-        <Link tabLink="#tab-5" onClick={() => setTabKey(5)} tabLinkActive ={tabKey == 5 }>
+        {/* <Link tabLink="#tab-5" onClick={() => setTabKey(5)} tabLinkActive ={tabKey == 5 }>
           异常
-        </Link>
+        </Link> */}
       </Toolbar>
       <PageContent
         infinite
@@ -227,13 +264,13 @@ const handleSaveAdjust = async()=>{
             >
               {renderCardList()}
             </Tab>
-            <Tab
+            {/* <Tab
               id="tab-5"
               className={`${styles.content} page-content`}
               style={{ paddingTop: '0' }}
             >
               {renderCardList()}
-            </Tab>
+            </Tab> */}
           </Tabs>
         </div>
       </PageContent>
@@ -281,6 +318,48 @@ const handleSaveAdjust = async()=>{
             </Button>
         </List>
       </Sheet>
+      <Fab position="right-top" morphTo=".demo-fab-sheet.fab-morph-target" style={{ marginTop: 65, width: 45, height: 45 }}>
+        <Icon ios="f7:search" md="material:Search" />
+      </Fab>
+      <div
+        className="list  demo-fab-sheet fab-morph-target"
+        slot="fixed"
+        style={{ margin: '98px 16px 0 16px' }}
+      >
+        <List accordionList accordionOpposite >
+          <ListItem accordionItem title='任务编码' after={<div style={style}>{taskCode || '请输入任务编码'}</div>} >
+            <AccordionContent>
+              <List virtualList>
+                <ListInput type="text" placeholder="请输入任务编码" onChange={e => onSearchValueChange(e.target.value, '', 'taskCode')} />
+              </List>
+            </AccordionContent>
+          </ListItem>
+          <ListItem accordionItem title='任务类型' after={<div style={style}>{typeName || '请选择任务类型'}</div>} >
+            <AccordionContent>
+              <ListInput
+                    type="select"
+                    placeholder="请选择任务类型"
+                    required
+                    validate
+                    onChange={e =>{onSearchValueChange(e.target.value, '', 'type')}}
+                >
+                    <Icon icon="demo-list-icon" slot="media" />
+                    <option value="none" selected disabled hidden>--请选择任务类型--</option>
+                    {TransportTaskType.map((value) => (
+                        <option value={value.id} key={value.id}>
+                            {value.value}
+                        </option>
+                    ))}
+                    <option value="无" key={0}>--无--</option>
+                </ListInput>
+            </AccordionContent>
+          </ListItem>
+          <div style={{display:'flex',marginTop:5,justifyContent:'center'}}>
+            <Button className="fab-close" large style={{width:'45%',margin:'auto'}} fill   onClick={onSearch}>查询</Button>
+            <Button className="fab-close" large style={{width:'45%',margin:'auto'}} outline >取消</Button>
+          </div>
+        </List>
+      </div>
     </Page>
   );
 };

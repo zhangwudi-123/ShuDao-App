@@ -117,6 +117,7 @@
 
 .toastError {
   // width: calc(100% - 32px) !important;
+  width: calc(100%) !important;
   background: transparent !important;
   border-radius: 8px 8px 8px 8px;
   position: 'center';
@@ -147,6 +148,7 @@
 
 .toastSuccess {
   // width: calc(100% - 32px) !important;
+  width: calc(100%) !important;
   background: transparent !important;
   border-radius: 8px 8px 8px 8px;
   position: 'center';
@@ -178,9 +180,12 @@
 
 .toastWarn {
   // width: calc(100% - 32px) !important;
+  width: calc(100%) !important;
   background: transparent !important;
-  left: 16px !important;
+  // left: 16px !important;
   border-radius: 8px 8px 8px 8px;
+  position: 'center';
+  top: 44px !important;
   text-align: center;
 
   :global {

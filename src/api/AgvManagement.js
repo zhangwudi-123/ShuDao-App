@@ -79,6 +79,22 @@ class AgvManagement extends Service {
     }
   }
 
+  async agvStatus(data) {
+    try {
+      return await this.post(`${appName}/task-management/agvStatus`,data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async agvRequestIn(taskCode) {
+    try {
+      return await this.put(`${appName}/task-management/agvRequestIn?taskCode=${taskCode}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
 }
 
 export default new AgvManagement();
