@@ -1142,29 +1142,7 @@ const Market = ({ high, wide }) => {
     //     </div>
     //   </FullScreen>
     // </Page>
-    <Page pageContent={false}>
-      <Navbar>
-        {/* <NavLeft>
-          <a onClick={() => f7router.navigate('/')} className="ne-navleft">
-            <img alt="" style={{ height: 24 }} src={backIcon} />
-          </a>
-        </NavLeft> */}
-        <NavTitle>温度显示</NavTitle>
-        {/* <NavRight>
-          {!visable && (
-            <Button
-              icon="fullscreen"
-              onClick={() => {
-                handleFullScreen.enter();
-                setVisable(true);
-              }}
-              className={stylemodule.button}
-            >
-              <img alt="" style={{ height: 24 }} src={In} />
-            </Button>
-          )}
-        </NavRight> */}
-      </Navbar>
+    <Page pageContent={true}>
       {/* <div
         style={{
           position: 'absolute',
@@ -1198,7 +1176,7 @@ const Market = ({ high, wide }) => {
       >
         <img alt="" style={{ height: '100%' }} src={Left} />
       </div> */}
-      <PageContent
+      {/* <PageContent
         infinite
         infiniteDistance={50}
         infinitePreloader={showPreloader}
@@ -1209,96 +1187,100 @@ const Market = ({ high, wide }) => {
         onPtrPullStart={() => {
           setPtrPreloader(true);
         }}
-      >
-        <div style={{ padding: '0 16px' }} className={styles.tabContainer}>
-          <div className={`${styles.content} page-content`} style={{ paddingTop: '0' }}>
-            <Card title="1#炉壁温度" className={stylemodule.card}>
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.firstwall}°C
-            </Card>
-            <Card
-              title="气柜高度"
-              className={stylemodule.card}
-              // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.qiguigd}m
-            </Card>
-            <Card
-              title="2#炉壁温度"
-              className={stylemodule.card}
-              // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.twowall}°C
-            </Card>
-            <Card
-              title="1#2#配比"
-              className={stylemodule.card}
-              //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.consumptionOne}
-            </Card>
-            <Card
-              title="3#4#配比"
-              className={stylemodule.card}
-              //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.consumptionTwo}
-            </Card>
-            <Card
-              title="3#炉壁温度"
-              className={stylemodule.card}
-              // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.threewall}°C
-            </Card>
-            <Card
-              title="4#炉壁温度"
-              className={stylemodule.card}
-              //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.fourwall}°C
-            </Card>
-            <Card
-              title="1#炉底温度"
-              className={stylemodule.card}
-              //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.firstbottom}°C
-            </Card>
-            <Card
-              title="2#炉底温度"
-              className={stylemodule.card}
-              //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.twobottom}°C
-            </Card>
-            <Card
-              title="3#炉底温度"
-              className={stylemodule.card}
-              //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.threebottom}°C
-            </Card>
-            <Card
-              title="4#炉底温度"
-              className={stylemodule.card}
-              //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {' '}
-              {Object.keys(middledata).length > 0 && middledata.fourbottom}°C
-            </Card>
-          </div>
+        // style={{ marginTop: -high * 0.1 }}
+      > */}
+      <div style={{ padding: '0 16px' }} className={styles.tabContainer}>
+        <div
+          className={`${styles.content} page-content`}
+          style={{ paddingTop: '0', position: 'absolute', top: '0', left: '0', right: '0' }}
+        >
+          <Card title="1#炉壁温度" className={stylemodule.card}>
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.firstwall}°C
+          </Card>
+          <Card
+            title="气柜高度"
+            className={stylemodule.card}
+            // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.qiguigd}m
+          </Card>
+          <Card
+            title="2#炉壁温度"
+            className={stylemodule.card}
+            // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.twowall}°C
+          </Card>
+          <Card
+            title="1#2#配比"
+            className={stylemodule.card}
+            //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.consumptionOne}
+          </Card>
+          <Card
+            title="3#4#配比"
+            className={stylemodule.card}
+            //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.consumptionTwo}
+          </Card>
+          <Card
+            title="3#炉壁温度"
+            className={stylemodule.card}
+            // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.threewall}°C
+          </Card>
+          <Card
+            title="4#炉壁温度"
+            className={stylemodule.card}
+            //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.fourwall}°C
+          </Card>
+          <Card
+            title="1#炉底温度"
+            className={stylemodule.card}
+            //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.firstbottom}°C
+          </Card>
+          <Card
+            title="2#炉底温度"
+            className={stylemodule.card}
+            //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.twobottom}°C
+          </Card>
+          <Card
+            title="3#炉底温度"
+            className={stylemodule.card}
+            //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.threebottom}°C
+          </Card>
+          <Card
+            title="4#炉底温度"
+            className={stylemodule.card}
+            //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {' '}
+            {Object.keys(middledata).length > 0 && middledata.fourbottom}°C
+          </Card>
         </div>
-      </PageContent>
+      </div>
+      {/* </PageContent> */}
     </Page>
   );
 };

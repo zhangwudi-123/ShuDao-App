@@ -799,7 +799,7 @@ import { useSwipeable } from 'react-swipeable';
 // import PrepareAreaServices from '~/api/PrepareArea';
 // import { PrepareAreaState } from '~/enum/enum';
 
-const Market = ({ f7router }) => {
+const Market = ({ high, wide }) => {
   const [pricename, setPricename] = useState(null);
   const [leftThird, setLeftThird] = useState(null);
   const [leftThird2, setLeftThird2] = useState(null);
@@ -1301,28 +1301,6 @@ const Market = ({ f7router }) => {
     //   </div>
     // </Page>
     <Page pageContent={false}>
-      <Navbar>
-        {/* <NavLeft>
-            <a onClick={() => f7router.navigate('/')} className="ne-navleft">
-              <img alt="" style={{ height: 24 }} src={backIcon} />
-            </a>
-          </NavLeft> */}
-        <NavTitle> 库存管理</NavTitle>
-        {/* <NavRight>
-            {!visable && (
-              <Button
-                icon="fullscreen"
-                onClick={() => {
-                  handleFullScreen.enter();
-                  setVisable(true);
-                }}
-                className={stylemodule.button}
-              >
-                <img alt="" style={{ height: 24 }} src={In} />
-              </Button>
-            )}
-          </NavRight> */}
-      </Navbar>
       {/* <div
           style={{
             position: 'absolute',
@@ -1356,7 +1334,7 @@ const Market = ({ f7router }) => {
         >
           <img alt="" style={{ height: '100%' }} src={Left} />
         </div> */}
-      <PageContent
+      {/* <PageContent
         infinite
         infiniteDistance={50}
         infinitePreloader={showPreloader}
@@ -1367,87 +1345,91 @@ const Market = ({ f7router }) => {
         onPtrPullStart={() => {
           setPtrPreloader(true);
         }}
-      >
-        <div style={{ padding: '0 16px' }} className={styles.tabContainer}>
-          <div className={`${styles.content} page-content`} style={{ paddingTop: '0' }}>
-            <Card
-              title="罐区库存"
-              className={stylemodule.card}
-              // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {tankArea.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginTop: '0.5rem'
-                    }}
-                    className={stylemodule.overdivlist}
-                  >
-                    <span style={{ color: 'black', fontSize: '1rem' }}>{item.materialName}</span>
-                    <span style={{ color: 'black', fontSize: '1rem', marginLeft: '3rem' }}>
-                      {item.number + 't'}
-                    </span>
-                  </div>
-                );
-              })}
-            </Card>
-            <Card title="原料库存" className={stylemodule.card}>
-              {raw.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginTop: '1.5rem'
-                    }}
-                    className={stylemodule.overdivlist}
-                  >
-                    <span style={{ color: 'black', fontSize: '1rem' }}>{item.materialName}</span>
-                    <span style={{ color: 'black', fontSize: '1rem', marginLeft: '3rem' }}>
-                      {item.number + 't'}
-                    </span>
-                  </div>
-                );
-              })}
-            </Card>
+        style={{ marginTop: `-${high * 0.1}px `, height: high * 1.3 }}
+      > */}
+      <div style={{ padding: '0 16px' }} className={styles.tabContainer}>
+        <div
+          className={`${styles.content} page-content`}
+          style={{ paddingTop: '0', position: 'absolute', top: '0', left: '0', right: '0' }}
+        >
+          <Card
+            title="罐区库存"
+            className={stylemodule.card}
+            // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {tankArea.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '0.5rem'
+                  }}
+                  className={stylemodule.overdivlist}
+                >
+                  <span style={{ color: 'black', fontSize: '1rem' }}>{item.materialName}</span>
+                  <span style={{ color: 'black', fontSize: '1rem', marginLeft: '3rem' }}>
+                    {item.number + 't'}
+                  </span>
+                </div>
+              );
+            })}
+          </Card>
+          <Card title="原料库存" className={stylemodule.card}>
+            {raw.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '1.5rem'
+                  }}
+                  className={stylemodule.overdivlist}
+                >
+                  <span style={{ color: 'black', fontSize: '1rem' }}>{item.materialName}</span>
+                  <span style={{ color: 'black', fontSize: '1rem', marginLeft: '3rem' }}>
+                    {item.number + 't'}
+                  </span>
+                </div>
+              );
+            })}
+          </Card>
 
-            <Card
-              title="产品库存"
-              className={stylemodule.card}
-              // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            >
-              {warehouse.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginTop: '1.5rem'
-                    }}
-                    className={stylemodule.overdivlist}
-                  >
-                    <span style={{ color: 'black', fontSize: '1rem' }}>{item.materialName}</span>
-                    {/* <span style={{ color: '#FFFFFF', fontSize: '3rem' }}>{item.number}</span> */}
-                    <span style={{ color: 'black', fontSize: '1rem', marginLeft: '3rem' }}>
-                      {item.number != null ? (Number(item.number) / 1000).toFixed(2) + 't' : null}
-                    </span>
-                  </div>
-                );
-              })}
-            </Card>
-            <Card
-              title="电池包库"
-              className={stylemodule.card}
-              //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
-            ></Card>
-          </div>
+          <Card
+            title="产品库存"
+            className={stylemodule.card}
+            // content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          >
+            {warehouse.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '1.5rem'
+                  }}
+                  className={stylemodule.overdivlist}
+                >
+                  <span style={{ color: 'black', fontSize: '1rem' }}>{item.materialName}</span>
+                  {/* <span style={{ color: '#FFFFFF', fontSize: '3rem' }}>{item.number}</span> */}
+                  <span style={{ color: 'black', fontSize: '1rem', marginLeft: '3rem' }}>
+                    {item.number != null ? (Number(item.number) / 1000).toFixed(2) + 't' : null}
+                  </span>
+                </div>
+              );
+            })}
+          </Card>
+          <Card
+            title="电池包库"
+            className={stylemodule.card}
+            //content="Card with header and footer. Card headers are used to display card titles and footers for additional information or just for custom actions."
+          ></Card>
         </div>
-      </PageContent>
+      </div>
+      {/* </PageContent> */}
     </Page>
   );
 };

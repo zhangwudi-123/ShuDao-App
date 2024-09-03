@@ -8,6 +8,9 @@ const OperatingIncome = ({ high, wide, swiperKey }) => {
 
   return (
     <div className={stylemodule.backdiv}>
+      {/* <div style={{ width: wide, height: high * 0.1 }}>
+        <a href="https://pan.baidu.com/s/1OTgeVx3USy1AulWMxGS-vQ?pwd=qj1i">下载</a>
+      </div> */}
       <div
         className={stylemodule.leftbackdivfirstovertext}
         style={{
