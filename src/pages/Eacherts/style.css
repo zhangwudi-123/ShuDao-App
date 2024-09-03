@@ -1,0 +1,5 @@
+/* 在您的 CSS 文件中 */
+.echarts-legend-container {
+    overflow-y: auto; /* 使图例内容可垂直滚动 */
+  }
+  

@@ -97,13 +97,6 @@ import TaskOverview from './pages/TaskOverview/index';
 //RBG任务
 import ReservoirPLC from './pages/ReservoirPLC/index';
 
-
-
-
-
-
-
-
 //备料位托盘管理
 import MaterialPreparation from './pages/MaterialPreparation/index';
 
@@ -113,14 +106,10 @@ import DockingPort from './pages/DockingPort/index';
 //托盘管理
 import PalletManagement from './pages/PalletManagement/index';
 
-
-
-
-
 //原材料出库订单管理
 import RawMaterialDelivery from '~/pages/RawMaterialDelivery/index';
 import RawMaterialDeliveryManual from '~/pages/RawMaterialDelivery/Manual';
-import ManualMaterial from '~/pages/RawMaterialDelivery/Material'
+import ManualMaterial from '~/pages/RawMaterialDelivery/Material';
 import RawMaterialDeliveryDetail from '~/pages/RawMaterialDelivery/CardDetail';
 
 //半成品入库收料单
@@ -128,7 +117,7 @@ import SemiFinishedWarehousing from './pages/SemiFinishedWarehousing/index';
 import SemiFinishedWarehousingPick from './pages/SemiFinishedWarehousing/PickTray';
 
 //半成品出库托盘拣选
-import SemiFinishedDelivery from './pages/SemiFinishedDelivery/index'; 
+import SemiFinishedDelivery from './pages/SemiFinishedDelivery/index';
 
 //折弯机配置
 import BendingConfiguration from './pages/BendingConfiguration/index';
@@ -136,21 +125,85 @@ import BendingConfiguration from './pages/BendingConfiguration/index';
 //通用
 import TaskTransport from './pages/TaskTransport/index';
 
-
-
-
 //上下料
 import UpAndDownOn from './pages/UpAndDownOn/index';
-
-
 
 //AGV
 import AgvManagement from './pages/AgvManagement/index';
 
 //余料入库
 import SurplusInStorage from './pages/SurplusInStorage/index';
+//营业收入
+import OperatingIncome from './pages/OperatingIncome/index';
+import OperatingIncome2 from './pages/OperatingIncome2/index';
+import OperatingIncome3 from './pages/OperatingIncome3/index';
+//利润总额
+import GrossProfit from './pages/GrossProfit2/index';
+
+//总体营收
+import OverallOperatingIndicators from './pages/OverallOperatingIndicators2/index';
+//市场价格
+import Market from './pages/Market2/index';
+//单位成本
+import UnitCost from './pages/UnitCost2/index';
+//存货
+import Stocks from './pages/Stocks2/index';
+import AlarmRport from './pages/AlarmRport/index';
+import Approval from './pages/Approval/index';
 
 export default [
+  {
+    path: '/operatingIncome',
+    component: OperatingIncome
+    // children: {
+    //   path: '/repayment-history',
+    //   component: RepaymentHistory
+    // }
+  },
+  {
+    path: '/operatingIncome2',
+    component: OperatingIncome2
+    // children: {
+    //   path: '/repayment-history',
+    //   component: RepaymentHistory
+    // }
+  },
+  {
+    path: '/operatingIncome3',
+    component: OperatingIncome3
+    // children: {
+    //   path: '/repayment-history',
+    //   component: RepaymentHistory
+    // }
+  },
+  {
+    path: '/grossprofit',
+    component: GrossProfit
+  },
+  {
+    path: '/overall-OperatingIndicators',
+    component: OverallOperatingIndicators
+  },
+  {
+    path: '/market',
+    component: Market
+  },
+  {
+    path: '/unitcost',
+    component: UnitCost
+  },
+  {
+    path: '/stocks',
+    component: Stocks
+  },
+  {
+    path: '/alarm-report', //报警
+    component: AlarmRport
+  },
+  {
+    path: '/alarm-roval', //审批
+    component: Approval
+  },
   {
     path: '/empty-pallets-warehousing',
     component: EmptyPalletsWarehousing
@@ -170,7 +223,7 @@ export default [
   {
     path: '/raw-material-warehousing-binding',
     component: RawMaterialWarehousingBinding
-  },  
+  },
 
   {
     path: '/semi-finished-warehousing1',
@@ -291,15 +344,6 @@ export default [
     path: '/reservoirPLC',
     component: ReservoirPLC
   },
-
-
-  
-
-
-
-
-  
-
   {
     path: '/material-preparation',
     component: MaterialPreparation
@@ -312,7 +356,6 @@ export default [
     path: '/pallet-management',
     component: PalletManagement
   },
-
 
   {
     path: '/raw-material-delivery',
@@ -330,7 +373,7 @@ export default [
     path: '/raw-material-delivery-info',
     component: RawMaterialDeliveryDetail
   },
-  
+
   {
     path: '/semi-finished-warehousing',
     component: SemiFinishedWarehousing
@@ -374,8 +417,7 @@ export default [
   {
     path: '/surplus_putInStorage',
     component: SurplusInStorage
-  },
-
+  }
 
   // {
   //   path: '/scan',

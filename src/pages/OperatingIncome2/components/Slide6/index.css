@@ -1,0 +1,12 @@
+.textButton {
+    background: #6CA8FE;
+    border-radius: 2px;
+    opacity: 0.3;
+}
+
+.textButton2 {
+    background: linear-gradient(360deg, #90BDFF 0%, rgba(53, 134, 255, 0) 100%);
+    border-radius: 2px;
+    border: 1px solid;
+    border-image: linear-gradient(180deg, rgba(144, 189, 255, 1), rgba(144, 189, 255, 0)) 1 1;
+}

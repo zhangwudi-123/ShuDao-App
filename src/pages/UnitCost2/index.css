@@ -1,0 +1,14 @@
+.textButton{
+    background: #6CA8FE;
+    background-color: rgb(108,168,254,0.3);
+    border-radius: 2px;
+
+    color: 'hsl(210, 100%, 100%)'
+   }
+   .textButton2{
+    background: linear-gradient(360deg, #90BDFF 0%, rgba(53,134,255,0) 100%);
+    border-radius: 2px;
+    border: 1px solid;
+    border-image: linear-gradient(180deg, rgba(144, 189, 255, 1), rgba(144, 189, 255, 0)) 1 1;
+   }
+   

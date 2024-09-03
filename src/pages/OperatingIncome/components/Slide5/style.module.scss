@@ -1,0 +1,818 @@
+// 定义基础字体大小变量
+$base-font-size: 16px;
+
+// 根据基础字体大小设置根元素的字体大小
+html {
+  font-size: $base-font-size;
+}
+
+.leftbackdivsecondselecttext {
+  // margin-left: 70%;
+  display: flex;
+  // flex-direction: column-reverse;
+  // margin-top: 10rem;
+  // margin-left: -100rem;
+  // background-color: #15F193;
+  justify-content: space-between;
+  margin-right: 2rem;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  // font-size: 3rem;
+  color: #FFFFFF;
+  line-height: .1094rem;
+  text-align: right;
+  font-style: normal;
+}
+
+.leftbackdivsecondselectdiv {
+  border: none;
+  // height: 6rem;
+  // width: 8rem;
+  // margin-top: 2rem;
+  //   border: none;outline: none;background: none;box-shadow: none;appearance: none;
+  // -moz-appearance: none;-webkit-appearance:none;
+  background: #6CA8FE;
+  // border-radius: 2px;
+  opacity: 0.3;
+}
+
+
+
+.leftdiv {
+  // background-image: url('../../../../asserts/Minescreenimag/电炉耗电统计.png');
+  background-size: 100% 100%;
+  position: absolute;
+  // top: 50px;
+  // position: absolute;
+  // margin-top: .5208rem;
+  // margin-left: .5208rem;
+  background-color: 'red';
+  top: 80px;
+  left: 100px;
+  // width: 20px;
+  // height: 20px;
+  // left: 80px;
+  // top: 60px;
+  width: 300px;
+  height: 300px;
+}
+
+.backdiv {
+  // width: 1920px;
+  // height: 1080px;
+  // position: absolute;
+  // overflow: hidden;
+  // margin: 0px;
+  // padding: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: url('../../../../asserts/image/编组\ 27.png') center center no-repeat;
+  // background-color: red;
+  background-size: 100% 100%;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center; /* 新增 align-items 属性 */
+  // background-color: blue;
+}
+
+.fullScreenContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0;
+  // background: url('../../../../asserts/Minescreenimag/矿山大屏项目底板.png') center center no-repeat;
+  background-size: 100% 100%;
+
+}
+
+.title {
+  height: 20rem;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  background: url('../../../../asserts/image/编组\ 19.png') center center no-repeat;
+  // background-color: gray;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  // align-items: center;
+  // justify-content: center;
+
+  // background-color: black;
+}
+
+.cottent {
+  height: 83%;
+  width: 100%;
+  margin-top: 12rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.leftbackdiv {
+  // background-color: red;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  // background-color: aqua;
+  flex-direction: column;
+}
+
+.leftbackdivfirst {
+  width: 100%;
+  height: 63%;
+  background: linear-gradient(270deg, rgba(17, 42, 96, 0.15) 0%, rgba(17, 42, 96, 0.2) 100%);
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.leftbackdivfirstin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.leftbackdivfirsttitle {
+  width: 100%;
+  height: 10%;
+  background: url('../../../../asserts/image/编组 6.png') center center no-repeat;
+  background-size: 100% 100%;
+  // background-color: green;
+}
+
+.leftbackdivsecond {
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(270deg, rgba(17, 42, 96, 0.15) 0%, rgba(17, 42, 96, 0.2) 100%);
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.leftbackdivsecondtitle {
+  width: 100%;
+  height: 8rem;
+  background: url('../../../../asserts/image/编组 6备份@2x.png') center center no-repeat;
+  background-size: 100% 100%;
+  // background-color: green;
+}
+
+// .leftbackdivfirstover{
+//   width: 100%;
+//   height: 8%;
+//   margin-top: 1rem;
+//   // background-color: green;
+//   display: flex;
+//   justify-content: space-between;
+// }
+.leftbackdivfirstovertext {
+  // margin-top: 2rem;
+  background: url('../../../../asserts/image/编组\ 13.png') center center no-repeat;
+  background-size: 100% 100%;
+  color: #FFFFFF;
+  // font-size: 3rem;
+  font-family: Alimama ShuHeiTi;
+  padding-left: 1rem;
+  // margin-left: 5rem;
+  // margin-top: 10rem;
+  // height: 30%;
+  // // background-color: #15F193;
+  // width: 30%;
+}
+
+.leftbackdivfirstecharts {
+  margin-top: 2rem;
+  width: 100%;
+  height: 100%;
+  // background-color: #4AD2FF;
+
+  // background-color: red;
+  //  position: relative;
+
+
+}
+
+.leftbackdivfirstechartsflex {
+  // background-color: red;
+  // width: 100%;
+  // height: 100%;
+  // display: flex;
+  // flex-direction: row;
+}
+
+.leftbackdivfirstechartstitle {
+  background: url('../../../../asserts/image/编组\ 33.png') center center no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  width: 42rem;
+  height: 10rem;
+  left: 73rem;
+  top: -2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.leftbackdivfirstechartstitleall {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 3rem;
+  color: #FFFFFF;
+  line-height: 22px;
+  text-align: left;
+  font-style: normal;
+}
+
+.leftbackdivfirstechartstitleallsum {
+  font-family: DIN, DIN;
+  font-weight: bold;
+  font-size: 3rem;
+  color: #4AD2FF;
+  line-height: 27px;
+  text-align: right;
+  font-style: normal;
+  text-transform: none;
+}
+
+.middlebackdivfirstechartstitleallsum {
+  font-family: DIN, DIN;
+  font-weight: bold;
+  font-size: 3rem;
+  color: #FFE4B5;
+  line-height: 27px;
+  text-align: right;
+  font-style: normal;
+  text-transform: none;
+}
+
+.leftbackdivsecondselecttext2 {
+  display: flex;
+  // background-color: #15F193;
+  width: 30rem;
+  justify-content: space-between;
+  margin-right: 2rem;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 3rem;
+  color: #FFFFFF;
+  line-height: .1094rem;
+  text-align: right;
+  font-style: normal;
+}
+
+.leftbackdivfirstechartsphoto {
+  position: absolute;
+  background-color: red;
+  width: 15rem;
+  height: 15rem;
+  left: 30rem;
+  top: 15rem
+}
+
+// .leftbackdivfirstechartsdiv{
+//   width: 50%;
+//   height: 100%;
+// }
+//   .leftbackdivsecond{
+//     width: 100%;
+//     height: 33.3%;
+//     background: linear-gradient(270deg, rgba(17,42,96,0.15) 0%, rgba(17,42,96,0.2) 100%);
+//     backdrop-filter: blur(2px);
+//     // background-color: red;
+//     // background: url('../../../../asserts//Minescreening2/编组\ 44.png') center center no-repeat;
+//     // background-size: 100% 100%;
+//   }
+//   .leftbackdivsecondtitle{
+//     width: 100%;
+//     height: 15%;
+//     background: url('../../../../asserts//Minescreening2/能源耗量.png') center center no-repeat;
+//     background-size: 100% 100%;
+//     // background-color: green;
+//   }
+//   .leftbackdivthird{
+//     width: 100%;
+//     height: 33.3%;
+//     background: linear-gradient(270deg, rgba(17,42,96,0.15) 0%, rgba(17,42,96,0.2) 100%);
+//     backdrop-filter: blur(2px);
+//     // background-color: black;
+//     // background: url('../../../../asserts//Minescreening2/编组\ 43.png') center center no-repeat;
+//     // background-size: 100% 100%;
+//   }
+//   .leftbackdivthirdtitle{
+//     width: 100%;
+//     height: 15%;
+//     background: url('../../../../asserts//Minescreening2/金属平衡.png') center center no-repeat;
+//     background-size: 100% 100%;
+//     // background-color: green;
+//   }
+//   .leftbackdivfirsteacherts{
+//     width: 100%;
+//     height: 77%;
+//     // background-color: red;
+//   }
+.middlebackdiv {
+  // position:relative;
+  // background-color: black;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  // background-color: green;
+}
+
+.middlebackdivfirst {
+  width: 100%;
+  height: 63%;
+  background: linear-gradient(270deg, rgba(17, 42, 96, 0.15) 0%, rgba(17, 42, 96, 0.2) 100%);
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.middlebackdivfirstin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.middlebackdivfirsttitle {
+  width: 100%;
+  height: 8rem;
+  background: url('../../../../asserts/image/编组 6(2).png') center center no-repeat;
+  background-size: 100% 100%;
+  // background-color: green;
+}
+
+.middlebackdivsecond {
+  width: 100%;
+  height: 37%;
+  background: linear-gradient(270deg, rgba(17, 42, 96, 0.15) 0%, rgba(17, 42, 96, 0.2) 100%);
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.middlebackdivsecondtitle {
+  width: 100%;
+  height: 8rem;
+  background: url('../../../../asserts/image/编组 6备份(2).png') center center no-repeat;
+  background-size: 100% 100%;
+  // background-color: green;
+}
+
+// .leftbackdivfirstover{
+//   width: 100%;
+//   height: 8%;
+//   margin-top: 1rem;
+//   // background-color: green;
+//   display: flex;
+//   justify-content: space-between;
+// }
+.middlebackdivfirstovertext {
+  margin-top: 2rem;
+  background: url('../../../../asserts/image/编组\ 13.png') center center no-repeat;
+  background-size: 100% 100%;
+  color: #FFFFFF;
+  font-size: 3rem;
+  font-family: Alimama ShuHeiTi;
+  padding-left: 2rem;
+  margin-left: 5rem;
+  width: 23%;
+}
+
+.middlebackdivfirstecharts {
+  margin-top: 2rem;
+  width: 100%;
+  // background-color: #15F193;
+  height: 80%;
+
+
+  // background-color: red;
+  position: relative;
+
+
+}
+
+.middlebackdivfirstechartsflex {
+  // background-color: red;
+  // width: 100%;
+  // height: 100%;
+  // display: flex;
+  // flex-direction: row;
+}
+
+.middlebackdivfirstechartstitle {
+  background: url('../../../../asserts/image/编组\ 33.png') center center no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  width: 42rem;
+  height: 10rem;
+  left: 60rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.middlebackdivfirstechartstitleall {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #FFFFFF;
+  line-height: 22px;
+  text-align: left;
+  font-style: normal;
+}
+
+.rightbackdivfirstechartstitleallsum {
+  font-family: DIN, DIN;
+  font-weight: bold;
+  font-size: 3rem;
+  color: #15F193;
+  line-height: 27px;
+  text-align: right;
+  font-style: normal;
+  text-transform: none;
+}
+
+.middlebackdivsecondselecttext {
+  margin-right: 2rem;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 3rem;
+  color: #FFFFFF;
+  line-height: .1094rem;
+  text-align: right;
+  font-style: normal;
+}
+
+.middlebackdivsecondselectdiv {
+  border: none;
+  margin-top: 2rem;
+  //   border: none;outline: none;background: none;box-shadow: none;appearance: none;
+  // -moz-appearance: none;-webkit-appearance:none;
+  background: #6CA8FE;
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+.rightbackdiv {
+  // background-color: green;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 32%;
+  // background-color: black;
+}
+
+.rightbackdivfirst {
+  width: 100%;
+  height: 63%;
+  background: linear-gradient(270deg, rgba(17, 42, 96, 0.15) 0%, rgba(17, 42, 96, 0.2) 100%);
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.rightbackdivfirstin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.rightbackdivfirsttitle {
+  width: 100%;
+  height: 8rem;
+  background: url('../../../../asserts/image/利润\ 6.png') center center no-repeat;
+  background-size: 100% 100%;
+  // background-color: green;
+}
+
+.rightbackdivsecond {
+  width: 100%;
+  height: 37%;
+  background: linear-gradient(270deg, rgba(17, 42, 96, 0.15) 0%, rgba(17, 42, 96, 0.2) 100%);
+  // background-color: green;
+  // background-size: 100% 100%;
+}
+
+.rightbackdivsecondtitle {
+  width: 100%;
+  height: 8rem;
+  background: url('../../../../asserts/image/编组\ 6备份.png') center center no-repeat;
+  background-size: 100% 100%;
+  // background-color: green;
+}
+
+// .leftbackdivfirstover{
+//   width: 100%;
+//   height: 8%;
+//   margin-top: 1rem;
+//   // background-color: green;
+//   display: flex;
+//   justify-content: space-between;
+// }
+.rightbackdivfirstovertext {
+  margin-top: 2rem;
+  background: url('../../../../asserts/image/编组\ 13.png') center center no-repeat;
+  background-size: 100% 100%;
+  color: #FFFFFF;
+  font-size: 3rem;
+  font-family: Alimama ShuHeiTi;
+  padding-left: 2rem;
+  margin-left: 5rem;
+  width: 23%;
+}
+
+.rightbackdivfirstecharts {
+  // margin-top: 20rem;
+  width: 110%;
+  height: 100%;
+  // background-color: #15F193;
+
+  // background-color: red;
+  position: relative;
+
+
+}
+
+.rightbackdivfirstechartsflex {
+  // background-color: red;
+  // width: 100%;
+  // height: 100%;
+  // display: flex;
+  // flex-direction: row;
+}
+
+.rightbackdivfirstechartstitle {
+  background: url('../../../../asserts/image/编组\ 33.png') center center no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  width: 42rem;
+  height: 10rem;
+  // top: -2rem;
+  left: 80rem;
+  top: 53rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.rightbackdivfirstechartstitleall {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 12px;
+  color: #FFFFFF;
+  line-height: 22px;
+  text-align: left;
+  font-style: normal;
+}
+
+.rightbackdivfirstechartstitleallsum {
+  font-family: DIN, DIN;
+  font-weight: bold;
+  font-size: 12px;
+  color: #FFFFFF;
+  line-height: 22px;
+  text-align: right;
+  font-style: normal;
+  text-transform: none;
+}
+
+.rightbackdivsecondselecttext {
+  margin-right: 2rem;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 3rem;
+  color: #FFFFFF;
+  line-height: .1094rem;
+  text-align: right;
+  font-style: normal;
+}
+
+.rightbackdivsecondselectdiv {
+  border: none;
+  margin-top: 2rem;
+  //   border: none;outline: none;background: none;box-shadow: none;appearance: none;
+  // -moz-appearance: none;-webkit-appearance:none;
+  background: #6CA8FE;
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+.rightbackdivthirdtitle {
+  width: 100%;
+  height: 8rem;
+  background: url('../../../../asserts/image/编组\ 6备份.png') center center no-repeat;
+  background-size: 100% 100%;
+}
+
+.middlebackdivfirstechartstitle {
+  background: url('../../../../asserts/image/编组\ 33.png') center center no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  width: 42rem;
+  height: 10rem;
+  left: 68rem;
+  // top: -2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+//   .rightbackdivfirst{
+//     width: 100%;
+//     height: 33.3%;
+//     background: linear-gradient(270deg, rgba(17,42,96,0.15) 0%, rgba(17,42,96,0.2) 100%);
+// backdrop-filter: blur(2px);
+//     // background-color: green;
+//     // background: url('../../../../asserts//Minescreening2/编组\ 45.png') center center no-repeat;
+//     // background-size: 100% 100%;
+//   }
+//   .rightbackdivfirsttitle{
+//     width: 100%;
+//     height: 15%;
+//     background: url('../../../../asserts//Minescreening2/执行成本.png') center center no-repeat;
+//     background-size: 100% 100%;
+//     // background-color: green;
+//   }
+//   .rightbackdivsecond{
+//     width: 100%;
+//     height: 33.3%;
+//     background: linear-gradient(270deg, rgba(17,42,96,0.15) 0%, rgba(17,42,96,0.2) 100%);
+//     backdrop-filter: blur(2px);
+//     // background-color: red;
+//     // background: url('../../../../asserts//Minescreening2/编组\ 44.png') center center no-repeat;
+//     // background-size: 100% 100%;
+//   }
+//   .rightbackdivsecondtitle{
+//     width: 100%;
+//     height: 15%;
+//     background: url('../../../../asserts//Minescreening2/成品产量.png') center center no-repeat;
+//     background-size: 100% 100%;
+//     // background-color: green;
+//   }
+//   .rightbackdivthird{
+//     width: 100%;
+//     height: 33.3%;
+//     background: linear-gradient(270deg, rgba(17,42,96,0.15) 0%, rgba(17,42,96,0.2) 100%);
+//     backdrop-filter: blur(2px);
+//     // background-color: black;
+//     // background: url('../../../../asserts//Minescreening2/编组\ 43.png') center center no-repeat;
+//     // background-size: 100% 100%;
+//   }
+//   .rightbackdivthirdtitle{
+//     width: 100%;
+//     height: 15%;
+//     background: url('../../../../asserts//Minescreening2/成品销量.png') center center no-repeat;
+//     background-size: 100% 100%;
+//     // background-color: green;
+//   }
+//   .overdiv{
+//     width: 85%;
+//     height: 100%;
+//     margin-left: 10rem;
+//     margin: 0;
+//     background: rgba(17,42,96,0.5);
+//     border: 1px solid #90BDFF;
+//     backdrop-filter: blur(10px);
+//     // border:solid black 1px;
+//   }
+//   .overdiv2{
+//     width: 85%;
+//     height: 100%;
+//     // margin-top: -10rem;
+//     margin-left: 10rem;
+//     margin: 0;
+//     background: rgba(17,42,96,0.5);
+//     border: 1px solid #90BDFF;
+//     backdrop-filter: blur(10px);
+//     // border:solid black 1px;
+//   }
+//   .middlebackdivallfirst{
+//     position: absolute;
+//     left: 52rem;
+//     top: 28rem; 
+//     display: flex;
+//     width: 40rem;
+//     height: 25rem;
+//   }
+//   .overdivtitle{
+//     background: url('../../../../asserts//Minescreening2/编组 4(1).png') center center no-repeat;
+//     background-size: 100% 100%;
+//     color: #FFFFFF;
+//     height: 25%;
+//   font-size: 3rem;
+//   }
+//   .overdivtitle2{
+//     background: url('../../../../asserts//Minescreening2/编组 13.png') center center no-repeat;
+//     position: absolute;
+//     top: 2rem;
+//     left: 1rem;
+//     background-size: 100% 100%;
+//     // margin-top: 2rem;
+//     margin-left: 1rem;
+//     // height: 60%;
+//     font-size: 2rem;
+//   }
+//   .overdivlist{
+//     background: rgba(255,255,255,0.1);
+//     margin-left: 1rem;
+//     margin-right: 1rem;
+//     padding-left: 1rem;
+//     padding-right: 1rem;
+//   }
+//   .middlebackdivallsecond{
+//     position: absolute;
+//     left: 30rem;
+//     top: 32rem;
+//     display: flex;
+//     width: 40rem;
+//     height: 25rem;
+//   }
+//   .middlebackdivallthird{
+//     position: absolute;
+//     left: 100rem !important;
+//     top: 38rem !important;
+//     display: flex;
+//     width: 40rem;
+//     height: 25rem;
+//   }
+//   .middlebackdivallfour{
+//     position: absolute;
+//     left: 40rem;
+//     top: 55rem;
+//     display: flex;
+//     width: 40rem;
+//     height: 25rem;
+//   }
+//   .middlebackdivallfive{
+//     position: absolute;
+//     left: 180rem;
+//     top: 63rem;
+//     display: flex;
+//     width: 40rem;
+//     height: 25rem;
+//   }
+//   .middlebackdivallsix{
+//     position: absolute;
+//     top: 75rem;
+//     left: 73rem;
+//     display: flex;
+//     width: 40rem;
+//     height: 25rem;
+//   }
+//   .middlebackdivtoplist{
+//     margin: 0 auto;
+//     // background-color: red;
+//     margin-top: 5rem;
+//     width: 52%;
+//     height: 9%;
+//     display: flex;
+//     justify-content: space-between;
+//   }
+//   .middletoplistfirst{
+//     background: url('../../../../asserts//Minescreening2/编组 37.png') center center no-repeat;
+//     margin: 0;
+//   }
+//   .middletoplistsecond{
+//     background: url('../../../../asserts//Minescreening2/编组 36.png') center center no-repeat;
+//     margin: 0;
+//   }
+//   .middletoplistthird{
+//     background: url('../../../../asserts//Minescreening2/编组 35.png') center center no-repeat;
+//     margin: 0;
+//   }
+//   .middletoplistfirstback{
+//     background: url('../../../../asserts//Minescreening2/编组 29.png') center center no-repeat;
+
+//   }
+.button {
+  color: black !important;
+}
+
+.button2 {
+  position: absolute;
+  color: white !important;
+  top: 80%;
+  left: 70%;
+  z-index: 50;
+  width: 30rem;
+  height: 5rem;
+}

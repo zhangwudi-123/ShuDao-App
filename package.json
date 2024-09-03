@@ -20,9 +20,12 @@
     "b64-to-blob": "^1.2.19",
     "classnames": "^2.2.6",
     "cross-env": "6.0.3",
+    "dotenv-cli": "^4.0.0",
+    "echarts": "5.5.0",
+    "echarts-for-react": "3.0",
     "lodash": "4.17.15",
     "moment": "2.24.0",
-    "node-sass": "4.12.0",
+    "node-sass": "4.14.1",
     "react": "^16.10.2",
     "react-circular-progressbar": "^2.0.3",
     "react-dom": "^16.10.2",
@@ -33,8 +36,7 @@
     "redux-thunk": "2.3.0",
     "release-it": "^13.3.2",
     "reselect": "4.0.0",
-    "shortid": "^2.2.15",
-    "dotenv-cli": "^4.0.0"
+    "shortid": "^2.2.15"
   },
   "scripts": {
     "start": "needle-service start",
@@ -68,8 +70,12 @@
     "@hvisions/app-core": "2.0.63-alpha.4",
     "@hvisions/f-ui": "1.0.8-alpha.3",
     "@hvisions/toolkit": "0.3.34",
-    "antd-mobile": "^5.30.0",
+    "antd-mobile": "^5.36.0",
+    "react-full-screen": "^1.1.1",
+    "react-resize-detector": "7.1.2",
+    "react-swipeable": "^7.0.1",
     "react-window": "^1.8.5",
-    "react-window-infinite-loader": "^1.0.5"
+    "react-window-infinite-loader": "^1.0.5",
+    "swiper": "^11.1.3"
   }
 }

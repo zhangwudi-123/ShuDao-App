@@ -1,0 +1,32 @@
+/* 在您的 CSS 文件中 */
+.echarts-legend-container {
+    overflow-y: auto; /* 使图例内容可垂直滚动 */
+  }
+  .textButton {
+    height: 70%;
+    /* background-color: #1B3059 !important; */
+    background-color: #586A92 !important;
+    opacity: 0.5;
+    
+    color: white !important;
+    border: 1px solid white;
+    .ant-btn{
+        background-color: '#1B3059' !important;
+      }
+  }
+
+  .textButton2 {
+    height: 70%;
+    /* background-color: #1B3059 !important; */
+    background-color: #153B73 !important;
+    opacity: 0.5;
+    font-weight: bold;
+    color: white !important;
+    border: 1px solid white;
+    .ant-btn{
+        background-color: '#1B3059' !important;
+      }
+  }
+.imagelight{
+    opacity: 0;
+}

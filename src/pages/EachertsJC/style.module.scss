@@ -1,0 +1,151 @@
+.leftfirst{
+   position: absolute;
+  z-index: 20;
+}
+.leftfirstphoto{
+   position: relative;
+   // background-color: red;
+   width: 0rem;
+   height: 50rem;
+}
+.leftfirstphotodiv{
+   position: absolute;
+   left: 29.2rem;
+   top: 9rem;
+width: 42rem;
+height: 42rem;
+// background-color: red
+background: url('../../asserts/image/编组\ 32.png') center center no-repeat;
+background-size: 100% 100%;
+ 
+}
+.rightfirst{
+   position: absolute;
+   z-index: 20;
+}
+.rightfirstphoto{
+   position: relative;
+   // background-color: red;
+   width: 60rem;
+   height: 30rem;
+}
+.rightfirstphoto2{
+   position: relative;
+   // background-color: red;
+   width: 60rem;
+   height: 30rem;
+}
+.rightfirstphotodiv{
+   position: absolute;
+   left: 24rem;
+   top: 1rem;
+width: 52rem;
+height: 52rem;
+// background-color: red
+background: url('../../asserts/image/编组\ 32.png') center center no-repeat;
+background-size: 100% 100%;
+ 
+}
+.rightfirstphotodiv2{
+   position: absolute;
+   left: 24rem;
+   top: 4rem;
+   width: 52rem;
+   height: 52rem;
+// background-color: red
+background: url('../../asserts/image/编组\ 32.png') center center no-repeat;
+background-size: 100% 100%;
+ 
+}
+.middlefirst{
+   z-index: 50;
+}
+.rightthird{
+   position: absolute;
+   //   overflow-y: auto; /* 使图例内容可垂直滚动 */
+   // background-color: red;
+   z-index: 20;
+}
+
+.rightthirdphoto{
+   position: relative;
+   // background-color: red;
+   width: 120rem;
+   height: 50rem;
+}
+.rightthirdphotodiv{
+   position: absolute;
+   left: 17rem;
+   top: 4.5rem;
+width: 42rem;
+height: 42rem;
+// background-color: red;
+background: url('../../asserts/image/编组\ 32.png') center center no-repeat;
+background-size: 100% 100%;
+ 
+}
+.rightthirdphotodivsum{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+  width:12rem;
+  height:10rem;
+   margin-left: -6rem;
+   margin-top: -5rem;
+}
+.rightthirdphotodivsum2{
+   display: flex;
+   flex-direction: column;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+  width:12rem;
+  height:10rem;
+   margin-left: -6rem;
+   margin-top: -3rem;
+}
+.rightthirdphotodivsumfirst{
+   font-family: DIN, DIN;
+   font-weight: bold;
+   font-size: 2rem;
+   color: #FFFFFF;
+   line-height: 27px;
+   text-align: center;
+   font-style: normal;
+   text-transform: none;
+}
+.rightthirdphotodivsumfirst3{
+   font-family: DIN, DIN;
+   font-weight: bold;
+   font-size: 2.5rem;
+   color: #00FF7F;
+   line-height: 27px;
+   text-align: center;
+   font-style: normal;
+   text-transform: none;
+}
+.rightthirdphotodivsumfirst2{
+   font-family: DIN, DIN;
+   font-weight: bold;
+   font-size: 2.5rem;
+   color:#FF0000;
+   line-height: 27px;
+   text-align: center;
+   font-style: normal;
+   text-transform: none;
+}
+.rightthirdphotodivsumsecond{
+   font-family: PingFangSC, PingFang SC;
+   font-weight: 400;
+   font-size: 2.5rem;
+   color: #FFFFFF;
+   line-height: 18px;
+   text-align: center;
+   font-style: normal;
+}
+.leftthird{
+   z-index: 30;
+}
