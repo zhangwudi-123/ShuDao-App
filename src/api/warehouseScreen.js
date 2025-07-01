@@ -48,5 +48,13 @@ class warehouseScreenService extends Service {
       throw new Error(error);
     }
   }
+  async download() {
+    try {
+      return await this.get(`http://47.108.91.44:9000/file-management/file/downloadFileResult/35`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
+
 export default new warehouseScreenService();
